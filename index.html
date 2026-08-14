@@ -27,6 +27,11 @@
 }
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap');
 *{box-sizing:border-box}
+/* hilangkan kotak sorot biru bawaan browser saat disentuh —
+   fokus keyboard tetap ada lewat :focus-visible di bawah */
+html{-webkit-tap-highlight-color:transparent}
+a,button,[role=button],summary,label,input,select,textarea{-webkit-tap-highlight-color:transparent}
+a:focus:not(:focus-visible),button:focus:not(:focus-visible){outline:none}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{
@@ -47,8 +52,8 @@ p{margin:0 0 1.15em;color:var(--ivory);text-wrap:pretty}
 .eyebrow{font-family:var(--mono);font-size:.71rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:inline-block;margin-bottom:1.15em;line-height:1.5}
 .eyebrow::before{content:"◆ ";color:var(--gold-deep)}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-section{padding:72px 0;position:relative;scroll-margin-top:92px}
-@media(min-width:820px){section{padding:112px 0;scroll-margin-top:96px}}
+section{padding:72px 0;position:relative;scroll-margin-top:calc(var(--header-h,89px) + 4px)}
+@media(min-width:820px){section{padding:112px 0}}
 #top{scroll-margin-top:0}
 
 .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:8px;font-weight:600;font-size:.95rem;border:1px solid transparent;transition:transform .2s ease,box-shadow .2s ease,background .2s ease;cursor:pointer;will-change:transform}
@@ -593,6 +598,18 @@ footer ul a:hover{color:var(--gold-pale)}
 
 <script>
 (function(){
+  /* ---------- 0. TINGGI HEADER — dipakai anchor agar judul section
+     tidak tertutup / tidak kebocoran section sebelumnya ---------- */
+  var hdr=document.querySelector('header');
+  function setHeaderH(){
+    if(!hdr)return;
+    document.documentElement.style.setProperty('--header-h',hdr.offsetHeight+'px');
+  }
+  setHeaderH();
+  window.addEventListener('resize',setHeaderH);
+  window.addEventListener('load',setHeaderH);
+  if('ResizeObserver' in window&&hdr){new ResizeObserver(setHeaderH).observe(hdr);}
+
   /* ---------- 1. NAV ---------- */
   var btn=document.getElementById('navToggle'),menu=document.getElementById('navMenu');
   if(btn&&menu){
