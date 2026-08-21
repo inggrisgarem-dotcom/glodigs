@@ -184,17 +184,25 @@ nav#navMenu a{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.05);font-
 .agency-grid{display:flex;flex-wrap:wrap;gap:9px}
 .agency-grid span{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;color:var(--gold-pale);border:1px solid var(--line-2);padding:7px 12px;border-radius:6px}
 
-/* CASE STUDY — ringkas + expand (details/summary bawaan browser) */
-details.case{position:relative}
-details.case summary{list-style:none;cursor:pointer}
-details.case summary::-webkit-details-marker{display:none}
-details.case summary::marker{content:""}
-.case-toggle-ic{position:absolute;top:30px;right:clamp(22px,4vw,38px);font-family:var(--mono);font-size:1.3rem;color:var(--gold);transition:transform .25s ease;line-height:1}
-details.case[open] .case-toggle-ic{transform:rotate(45deg)}
-.case-body{border-top:1px solid var(--line-2)}
-.case-extra{display:none}
-.case-extra.is-open{display:block}
-.case-toggle-wrap{text-align:center;margin-top:28px}
+/* CASE STUDY — swipe strip ringkas + modal detail */
+.case-scroll{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:42px;padding-bottom:10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.case-scroll::-webkit-scrollbar{display:none}
+.case-mini{flex:0 0 82%;scroll-snap-align:start;text-align:left;background:none;border:1px solid var(--line-2);border-radius:16px;padding:26px clamp(20px,4vw,30px);cursor:pointer;font:inherit;color:inherit;position:relative;transition:border-color .25s ease,transform .25s ease}
+.case-mini:hover{border-color:var(--line);transform:translateY(-3px)}
+@media(min-width:640px){.case-mini{flex-basis:320px}}
+.case-mini h3{font-size:1.1rem;margin:.5em 0 .4em}
+.case-mini p{color:var(--muted);font-size:.9rem;margin-bottom:16px;line-height:1.55}
+.case-mini-cta{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:6px}
+.case-hint{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:16px}
+
+.case-modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center}
+.case-modal.is-open{display:flex}
+@media(min-width:760px){.case-modal{align-items:center}}
+.case-modal-backdrop{position:absolute;inset:0;background:rgba(4,3,7,.72);backdrop-filter:blur(4px);border:0;padding:0;cursor:pointer}
+.case-modal-panel{position:relative;z-index:1;width:100%;max-height:88vh;overflow-y:auto;padding:36px clamp(22px,5vw,40px) 32px;border-radius:20px 20px 0 0;background:var(--ink-2);border:1px solid var(--line-2)}
+@media(min-width:760px){.case-modal-panel{max-width:640px;border-radius:20px}}
+.case-modal-close{position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--gold-pale);cursor:pointer;font-size:1rem;line-height:1}
+body.modal-open{overflow:hidden}
 
 /* SHOWCASE gallery */
 .sc-video{margin-top:42px;overflow:hidden;position:relative;border-radius:16px;aspect-ratio:16/9;background:#0d0b12}
@@ -427,105 +435,32 @@ footer ul a:hover{color:var(--gold-pale)}
       decision below is mine, every number is measured, and the whole build is open for
       inspection — source code included.</p>
 
-      <details class="case glass tappable">
-        <summary>
+      <div class="case-scroll" role="list">
+        <button class="case-mini glass tappable" type="button" data-modal="modal-glodigs" role="listitem">
           <span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <div class="case-head">
-            <span class="pf-tag">UI/UX · Web Development · Deployment</span>
-            <h3><span class="notranslate" translate="no">Glodigs</span> — Studio Website</h3>
-            <p>Inherited a broken site export, diagnosed the cause, rebuilt from zero as a self-contained document.</p>
-          </div>
-          <span class="case-toggle-ic" aria-hidden="true">+</span>
-        </summary>
-        <div class="case-body">
-          <div class="case-metrics">
-            <div><b>0</b><span>External Dependencies</span></div>
-            <div><b>93%</b><span>Video Weight Removed</span></div>
-            <div><b>9</b><span>Responsive Breakpoints</span></div>
-            <div><b>AA</b><span>Contrast Target</span></div>
-          </div>
-          <div class="case-foot">
-            <div class="case-list">
-              <span>Hand-written HTML, CSS and JavaScript — no framework, no build step</span>
-              <span>Cross-device motion bug traced to a reduced-motion override and rewritten on requestAnimationFrame</span>
-              <span>Runtime header measurement so in-page navigation lands correctly on every device</span>
-              <span>Git version control with tagged rollback points on a live host</span>
-            </div>
-            <a class="pf-link" href="https://github.com/inggrisgarem-dotcom/glodigs" target="_blank" rel="noopener">View Source Code ↗</a>
-          </div>
-        </div>
-      </details>
+          <span class="pf-tag">UI/UX · Web Development · Deployment</span>
+          <h3><span class="notranslate" translate="no">Glodigs</span> — Studio Website</h3>
+          <p>Inherited a broken site export, diagnosed the cause, rebuilt from zero as a self-contained document.</p>
+          <span class="case-mini-cta">View Case Study <span aria-hidden="true">+</span></span>
+        </button>
 
-      <details class="case glass tappable">
-        <summary>
+        <button class="case-mini glass tappable" type="button" data-modal="modal-sonnet7" role="listitem">
           <span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <div class="case-head">
-            <span class="pf-tag">Brand Identity · Logo Design · Deployment</span>
-            <h3><span class="notranslate" translate="no">sonnet.7</span> — Logo &amp; Brand Identity System</h3>
-            <p>A logo system for a fictional music brand — primary mark, dark/light/mono lockups, and a one-page brand guide.</p>
-          </div>
-          <span class="case-toggle-ic" aria-hidden="true">+</span>
-        </summary>
-        <div class="case-body">
-          <div class="case-metrics">
-            <div><b>12</b><span>Brand Assets Delivered</span></div>
-            <div><b>6</b><span>Guide Sections</span></div>
-            <div><b>6</b><span>QA Issues Fixed Pre-Launch</span></div>
-            <div><b>6</b><span>Fixed Palette Values</span></div>
-          </div>
-          <div class="case-foot">
-            <div class="case-list">
-              <span>SVG rendering issue traced to a wrong file path, not a browser limitation as first assumed — confirmed with direct HTTP checks before writing a fix</span>
-              <span>Desktop-only overlap between the eyebrow label and the disc rings fixed by restructuring layout flow, not by patching with a shadow</span>
-              <span>Gallery images rebuilt from portrait to landscape after the first upload didn't match the target platform's fixed aspect ratio</span>
-              <span>Every asset and page labeled "Demo build by Glodigs" — a fictional brand, disclosed as one, not dressed up as a real client</span>
-            </div>
-            <div style="display:flex;gap:16px;flex-wrap:wrap">
-              <a class="pf-link" href="https://inggrisgarem-dotcom.github.io/sonnet7-demo/" target="_blank" rel="noopener">View Live Demo ↗</a>
-              <a class="pf-link" href="https://github.com/inggrisgarem-dotcom/sonnet7-demo" target="_blank" rel="noopener">View Source Code ↗</a>
-            </div>
-          </div>
-        </div>
-      </details>
+          <span class="pf-tag">Brand Identity · Logo Design</span>
+          <h3><span class="notranslate" translate="no">sonnet.7</span> — Logo &amp; Brand Identity</h3>
+          <p>A logo system for a fictional music brand — primary mark, dark/light/mono lockups, and a one-page brand guide.</p>
+          <span class="case-mini-cta">View Case Study <span aria-hidden="true">+</span></span>
+        </button>
 
-      <div class="case-toggle-wrap">
-        <button id="caseToggle" class="btn btn-line" type="button" aria-expanded="false" aria-controls="caseExtra">See More Case Studies ↓</button>
+        <button class="case-mini glass tappable" type="button" data-modal="modal-ledgr" role="listitem">
+          <span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
+          <span class="pf-tag">UI/UX Design · Prototyping · QA</span>
+          <h3><span class="notranslate" translate="no">Ledgr</span> — Personal Finance App UI/UX</h3>
+          <p>A personal finance app UI/UX across three pricing tiers, with a working prototype — not static screens.</p>
+          <span class="case-mini-cta">View Case Study <span aria-hidden="true">+</span></span>
+        </button>
       </div>
-
-      <div class="case-extra" id="caseExtra">
-
-      <details class="case glass tappable">
-        <summary>
-          <span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <div class="case-head">
-            <span class="pf-tag">UI/UX Design · Prototyping · QA</span>
-            <h3><span class="notranslate" translate="no">Ledgr</span> — Personal Finance App UI/UX</h3>
-            <p>A personal finance app UI/UX across three pricing tiers, with a working prototype — not static screens.</p>
-          </div>
-          <span class="case-toggle-ic" aria-hidden="true">+</span>
-        </summary>
-        <div class="case-body">
-          <div class="case-metrics">
-            <div><b>3</b><span>Pricing Tiers Shipped</span></div>
-            <div><b>3</b><span>UI Bugs Fixed Pre-Launch</span></div>
-            <div><b>4</b><span>Gallery Screenshots Composited</span></div>
-            <div><b>100%</b><span>Interaction-Tested Pre-Deploy</span></div>
-          </div>
-          <div class="case-foot">
-            <div class="case-list">
-              <span>Activity search only scoped to a subset of transactions until traced and rewritten to search the full data set</span>
-              <span>"See all" navigation left stale filter and search state behind — fixed to reset cleanly on every entry</span>
-              <span>Send Money screen overflow caught through interaction testing, not a static preview, and fixed before handoff</span>
-              <span>A stale git tag pointing to the wrong commit was caught after deploy, corrected, and re-verified before calling the sprint done</span>
-            </div>
-            <div style="display:flex;gap:16px;flex-wrap:wrap">
-              <a class="pf-link" href="https://inggrisgarem-dotcom.github.io/ledgr-demo/" target="_blank" rel="noopener">View Live Demo ↗</a>
-              <a class="pf-link" href="https://github.com/inggrisgarem-dotcom/ledgr-demo" target="_blank" rel="noopener">View Source Code ↗</a>
-            </div>
-          </div>
-        </div>
-      </details>
-      </div>
+      <p class="case-hint">← Swipe to browse all case studies →</p>
 
       <div class="agency">
         <h3 class="agency-h">Agency Collaboration — Assistant Role</h3>
@@ -542,6 +477,81 @@ footer ul a:hover{color:var(--gold-pale)}
       </div>
     </div>
   </section>
+
+  <div class="case-modal" id="modal-glodigs" role="dialog" aria-modal="true" aria-labelledby="modal-glodigs-title">
+    <button class="case-modal-backdrop" type="button" data-close aria-label="Close"></button>
+    <div class="case-modal-panel glass">
+      <button class="case-modal-close" type="button" data-close aria-label="Close case study">✕</button>
+      <span class="pf-tag">UI/UX · Web Development · Deployment</span>
+      <h3 id="modal-glodigs-title"><span class="notranslate" translate="no">Glodigs</span> — Studio Website</h3>
+      <p>Inherited a broken site export that rendered as unstyled text whenever its external assets failed. Diagnosed the cause, rejected the patch, and rebuilt from zero as a self-contained document that carries everything it needs inside itself.</p>
+      <div class="case-metrics">
+        <div><b>0</b><span>External Dependencies</span></div>
+        <div><b>93%</b><span>Video Weight Removed</span></div>
+        <div><b>9</b><span>Responsive Breakpoints</span></div>
+        <div><b>AA</b><span>Contrast Target</span></div>
+      </div>
+      <div class="case-list" style="margin-top:22px">
+        <span>Hand-written HTML, CSS and JavaScript — no framework, no build step</span>
+        <span>Cross-device motion bug traced to a reduced-motion override and rewritten on requestAnimationFrame</span>
+        <span>Runtime header measurement so in-page navigation lands correctly on every device</span>
+        <span>Git version control with tagged rollback points on a live host</span>
+      </div>
+      <a class="pf-link" href="https://github.com/inggrisgarem-dotcom/glodigs" target="_blank" rel="noopener" style="display:inline-block;margin-top:20px">View Source Code ↗</a>
+    </div>
+  </div>
+
+  <div class="case-modal" id="modal-sonnet7" role="dialog" aria-modal="true" aria-labelledby="modal-sonnet7-title">
+    <button class="case-modal-backdrop" type="button" data-close aria-label="Close"></button>
+    <div class="case-modal-panel glass">
+      <button class="case-modal-close" type="button" data-close aria-label="Close case study">✕</button>
+      <span class="pf-tag">Brand Identity · Logo Design · Deployment</span>
+      <h3 id="modal-sonnet7-title"><span class="notranslate" translate="no">sonnet.7</span> — Logo &amp; Brand Identity System</h3>
+      <p>A logo system for a fictional music brand, built to demonstrate full identity work: primary mark, dark/light/mono lockups, and a one-page brand guide — not a single flat logo file.</p>
+      <div class="case-metrics">
+        <div><b>12</b><span>Brand Assets Delivered</span></div>
+        <div><b>6</b><span>Guide Sections</span></div>
+        <div><b>6</b><span>QA Issues Fixed Pre-Launch</span></div>
+        <div><b>6</b><span>Fixed Palette Values</span></div>
+      </div>
+      <div class="case-list" style="margin-top:22px">
+        <span>SVG rendering issue traced to a wrong file path, not a browser limitation as first assumed — confirmed with direct HTTP checks before writing a fix</span>
+        <span>Desktop-only overlap between the eyebrow label and the disc rings fixed by restructuring layout flow, not by patching with a shadow</span>
+        <span>Gallery images rebuilt from portrait to landscape after the first upload didn't match the target platform's fixed aspect ratio</span>
+        <span>Every asset and page labeled "Demo build by Glodigs" — a fictional brand, disclosed as one, not dressed up as a real client</span>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:20px">
+        <a class="pf-link" href="https://inggrisgarem-dotcom.github.io/sonnet7-demo/" target="_blank" rel="noopener">View Live Demo ↗</a>
+        <a class="pf-link" href="https://github.com/inggrisgarem-dotcom/sonnet7-demo" target="_blank" rel="noopener">View Source Code ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-modal" id="modal-ledgr" role="dialog" aria-modal="true" aria-labelledby="modal-ledgr-title">
+    <button class="case-modal-backdrop" type="button" data-close aria-label="Close"></button>
+    <div class="case-modal-panel glass">
+      <button class="case-modal-close" type="button" data-close aria-label="Close case study">✕</button>
+      <span class="pf-tag">UI/UX Design · Prototyping · QA</span>
+      <h3 id="modal-ledgr-title"><span class="notranslate" translate="no">Ledgr</span> — Personal Finance App UI/UX</h3>
+      <p>A personal finance app UI/UX, delivered across three pricing tiers with a working prototype, not static screens — every flow you can actually click through.</p>
+      <div class="case-metrics">
+        <div><b>3</b><span>Pricing Tiers Shipped</span></div>
+        <div><b>3</b><span>UI Bugs Fixed Pre-Launch</span></div>
+        <div><b>4</b><span>Gallery Screenshots Composited</span></div>
+        <div><b>100%</b><span>Interaction-Tested Pre-Deploy</span></div>
+      </div>
+      <div class="case-list" style="margin-top:22px">
+        <span>Activity search only scoped to a subset of transactions until traced and rewritten to search the full data set</span>
+        <span>"See all" navigation left stale filter and search state behind — fixed to reset cleanly on every entry</span>
+        <span>Send Money screen overflow caught through interaction testing, not a static preview, and fixed before handoff</span>
+        <span>A stale git tag pointing to the wrong commit was caught after deploy, corrected, and re-verified before calling the sprint done</span>
+      </div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:20px">
+        <a class="pf-link" href="https://inggrisgarem-dotcom.github.io/ledgr-demo/" target="_blank" rel="noopener">View Live Demo ↗</a>
+        <a class="pf-link" href="https://github.com/inggrisgarem-dotcom/ledgr-demo" target="_blank" rel="noopener">View Source Code ↗</a>
+      </div>
+    </div>
+  </div>
 
   <section id="why">
     <div class="wrap">
@@ -835,15 +845,39 @@ footer ul a:hover{color:var(--gold-pale)}
     // petunjuk hilang sendiri setelah 6 detik
     if(hint)setTimeout(function(){hint.classList.add('gone');},6000);
   }
-  /* ---------- 6. CASE STUDY "SEE MORE" TOGGLE ---------- */
-  var caseBtn=document.getElementById('caseToggle'),caseExtra=document.getElementById('caseExtra');
-  if(caseBtn&&caseExtra){
-    caseBtn.addEventListener('click',function(){
-      var isOpen=caseExtra.classList.toggle('is-open');
-      caseBtn.setAttribute('aria-expanded',isOpen?'true':'false');
-      caseBtn.textContent=isOpen?'Show Fewer Case Studies ↑':'See More Case Studies ↓';
-    });
+  /* ---------- 6. CASE STUDY MODALS ---------- */
+  var caseTriggers=document.querySelectorAll('.case-mini[data-modal]');
+  var lastTrigger=null;
+  function openCaseModal(id,trigger){
+    var m=document.getElementById(id);
+    if(!m)return;
+    m.classList.add('is-open');
+    document.body.classList.add('modal-open');
+    lastTrigger=trigger||null;
+    var closeBtn=m.querySelector('.case-modal-close');
+    if(closeBtn)closeBtn.focus();
   }
+  function closeCaseModal(m){
+    m.classList.remove('is-open');
+    document.body.classList.remove('modal-open');
+    if(lastTrigger){lastTrigger.focus();lastTrigger=null;}
+  }
+  caseTriggers.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      openCaseModal(btn.getAttribute('data-modal'),btn);
+    });
+  });
+  document.querySelectorAll('.case-modal').forEach(function(m){
+    m.querySelectorAll('[data-close]').forEach(function(el){
+      el.addEventListener('click',function(){closeCaseModal(m);});
+    });
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+      var openModalEl=document.querySelector('.case-modal.is-open');
+      if(openModalEl)closeCaseModal(openModalEl);
+    }
+  });
 })();
 </script>
 
