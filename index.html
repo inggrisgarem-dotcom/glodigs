@@ -54,7 +54,7 @@ p{margin:0 0 1.15em;color:var(--ivory);text-wrap:pretty}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 section{padding:72px 0;position:relative;scroll-margin-top:calc(var(--header-h,89px) + 4px)}
 @media(min-width:820px){section{padding:112px 0}}
-#top{scroll-margin-top:0}
+#top{scroll-margin-top:calc(var(--header-h,89px) + 4px)}
 
 .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:8px;font-weight:600;font-size:.95rem;border:1px solid transparent;transition:transform .2s ease,box-shadow .2s ease,background .2s ease;cursor:pointer;will-change:transform}
 .btn-gold{background:linear-gradient(180deg,var(--gold-pale),var(--gold) 55%,var(--gold-deep));color:#231803;box-shadow:0 8px 24px -8px rgba(232,198,106,.6),inset 0 1px 0 rgba(255,255,255,.5)}
