@@ -432,7 +432,7 @@ footer ul a:hover{color:var(--gold-pale)}
       <h2>What I build.</h2>
       <p style="color:var(--muted);max-width:56ch">Six services that cover a business from first sketch to first page of Google. Take one, or take the whole path.</p>
       <div class="grid grid-3">
-        <div class="card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span><div class="ic">✎</div><h3>UI/UX Design</h3><p>Interface and journey design grounded in how people actually read a page — so visitors find what they need and act on it.</p></div>
+        <div class="card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span><button type="button" class="acc-head" aria-expanded="true" aria-controls="acc-panel-1"><button type="button" class="acc-head" aria-expanded="false" aria-controls="acc-panel-2"><button type="button" class="acc-head" aria-expanded="false" aria-controls="acc-panel-3"><button type="button" class="acc-head" aria-expanded="false" aria-controls="acc-panel-4"><div class="ic">✎</div><h3>UI/UX Design</h3><p>Interface and journey design grounded in how people actually read a page — so visitors find what they need and act on it.</p></div>
         <div class="card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span><div class="ic">&lt;/&gt;</div><h3>Web Development</h3><p>Custom-built websites, coded for speed and stability. Every layout decision traced back to a business reason.</p></div>
         <div class="card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span><div class="ic">◎</div><h3>Landing Page</h3><p>A single page with a single job: turn traffic into enquiries. Built for ad campaigns, launches, and focused offers.</p></div>
         <div class="card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span><div class="ic">⟳</div><h3>Website Rebuild</h3><p>For sites that load slowly, break on phones, or no longer match the business. Same brand, rebuilt properly underneath.</p></div>
@@ -676,34 +676,26 @@ footer ul a:hover{color:var(--gold-pale)}
       <h2>I carry the risk, not you.</h2>
       <p style="color:var(--muted);max-width:60ch">I'm building this studio independently, and I'd
       rather earn trust with terms than with claims. Here's what that means in practice.</p>
-      <div class="grid grid-2">
+      <div class="acc-list">
         <div class="t-card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <div class="ic">◈</div>
-          <h3>You pay after approval</h3>
-          <p class="t-quote">No deposit, no upfront fee. You see the finished website first. If it
+          <div class="ic">◈</div><h3>You pay after approval</h3><span class="acc-chevron" aria-hidden="true">&#8964;</span></button><div class="acc-panel" id="acc-panel-1"><p class="t-quote">No deposit, no upfront fee. You see the finished website first. If it
           doesn't meet what we agreed, you don't pay — the risk sits with me, which is where a new
-          working relationship should start.</p>
+          working relationship should start.</p></div>
         </div>
         <div class="t-card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <div class="ic">◉</div>
-          <h3>You talk to the person building it</h3>
-          <p class="t-quote">No account manager, no handoffs, no message passed through three
+          <div class="ic">◉</div><h3>You talk to the person building it</h3><span class="acc-chevron" aria-hidden="true">&#8964;</span></button><div class="acc-panel" id="acc-panel-2" hidden><p class="t-quote">No account manager, no handoffs, no message passed through three
           people. Every question goes straight to the person writing the code, and every answer
-          comes back the same way.</p>
+          comes back the same way.</p></div>
         </div>
         <div class="t-card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <div class="ic">▤</div>
-          <h3>Every decision is documented</h3>
-          <p class="t-quote">You receive a written build record: what was made, why it was made
+          <div class="ic">▤</div><h3>Every decision is documented</h3><span class="acc-chevron" aria-hidden="true">&#8964;</span></button><div class="acc-panel" id="acc-panel-3" hidden><p class="t-quote">You receive a written build record: what was made, why it was made
           that way, and what the measured results are. You own the source code and the
-          documentation at the end — not a locked account.</p>
+          documentation at the end — not a locked account.</p></div>
         </div>
         <div class="t-card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <div class="ic">◐</div>
-          <h3>Scope agreed before work starts</h3>
-          <p class="t-quote">Pages, features, timeline and revision rounds are written down and
+          <div class="ic">◐</div><h3>Scope agreed before work starts</h3><span class="acc-chevron" aria-hidden="true">&#8964;</span></button><div class="acc-panel" id="acc-panel-4" hidden><p class="t-quote">Pages, features, timeline and revision rounds are written down and
           confirmed before a single line is written. No moving targets, no invoice surprises at
-          the end.</p>
+          the end.</p></div>
         </div>
       </div>
     </div>
@@ -1037,6 +1029,20 @@ footer ul a:hover{color:var(--gold-pale)}
     tickJkt();
     setInterval(tickJkt,1000);
   }
+
+  /* ---------- 9. WHY-ME ACCORDION ---------- */
+  var accHeads=document.querySelectorAll('.acc-head');
+  accHeads.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var panel=document.getElementById(btn.getAttribute('aria-controls'));
+      var isOpen=btn.getAttribute('aria-expanded')==='true';
+      accHeads.forEach(function(other){
+        other.setAttribute('aria-expanded','false');
+        document.getElementById(other.getAttribute('aria-controls')).hidden=true;
+      });
+      if(!isOpen){btn.setAttribute('aria-expanded','true');panel.hidden=false;}
+    });
+  });
 })();
 </script>
 
