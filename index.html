@@ -50,6 +50,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:700;color:var(--gold-pale);margin:
 p{margin:0 0 1.15em;color:var(--ivory);text-wrap:pretty}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,64px);position:relative;z-index:1}
 .eyebrow{font-family:var(--mono);font-size:.71rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:inline-block;margin-bottom:1.15em;line-height:1.5}
+.jkt-clock{font-family:var(--mono);font-size:.68rem;letter-spacing:.15em;color:var(--muted);display:block;margin-bottom:.6em}
 .eyebrow::before{content:"◆ ";color:var(--gold-deep)}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 section{padding:72px 0;position:relative;scroll-margin-top:calc(var(--header-h,89px) + 4px)}
@@ -355,6 +356,7 @@ footer ul a:hover{color:var(--gold-pale)}
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
+        <span class="jkt-clock" id="jktClock"></span>
         <span class="eyebrow">Jakarta · Available Worldwide</span>
         <h1>Custom websites,<br>built with structure.</h1>
         <p class="lede">Design, development, and search visibility under one roof. I build websites that load fast, read clearly, and turn visitors into enquiries. Working remotely with clients anywhere.</p>
@@ -1014,6 +1016,19 @@ footer ul a:hover{color:var(--gold-pale)}
       answerBox.hidden=false;
       answerBox.textContent='4 steps, no surprises: define the scope → design & development → review & revisions → you pay after you’re satisfied.';
     });
+  }
+
+  /* ---------- 8. JAKARTA CLOCK ---------- */
+  var jktEl=document.getElementById('jktClock');
+  if(jktEl){
+    var jktFmt=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Jakarta',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+    function tickJkt(){
+      var parts={};
+      jktFmt.formatToParts(new Date()).forEach(function(p){parts[p.type]=p.value;});
+      jktEl.textContent=parts.hour+':'+parts.minute+':'+parts.second+' WIB \u00B7 JAKARTA';
+    }
+    tickJkt();
+    setInterval(tickJkt,1000);
   }
 })();
 </script>
