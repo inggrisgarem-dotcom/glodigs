@@ -234,6 +234,13 @@ body.modal-open{overflow:hidden}
 .t-card{padding:28px;display:flex;flex-direction:column;gap:13px;transition:transform .25s ease,border-color .25s ease}
 .t-card:hover{transform:translateY(-4px);border-color:var(--line)}
 .t-card h3{font-size:1.1rem;margin:0}
+.acc-list{display:flex;flex-direction:column;gap:14px}
+.acc-head{background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;text-align:left;display:flex;align-items:center;gap:14px;width:100%;cursor:pointer}
+.acc-head h3{flex:1}
+.acc-head .ic{margin-bottom:0}
+.acc-chevron{flex-shrink:0;transition:transform .25s ease;color:var(--gold-pale)}
+.acc-head[aria-expanded="true"] .acc-chevron{transform:rotate(180deg)}
+.acc-panel{margin-top:13px}
 
 .t-quote{font-size:.96rem;line-height:1.72;color:var(--ivory);margin:0}
 .t-quote::before{content:"\201C";font-family:var(--serif);color:var(--gold);font-size:1.7rem;line-height:0;position:relative;top:.18em;margin-right:3px}
@@ -670,35 +677,19 @@ footer ul a:hover{color:var(--gold-pale)}
       <h2>I carry the risk, not you.</h2>
       <p style="color:var(--muted);max-width:60ch">I'm building this studio independently, and I'd
       rather earn trust with terms than with claims. Here's what that means in practice.</p>
-      <div class="grid grid-2">
-        <div class="t-card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <div class="ic">◈</div>
-          <h3>You pay after approval</h3>
-          <p class="t-quote">No deposit, no upfront fee. You see the finished website first. If it
+      <div class="acc-list">
+        <div class="t-card glass tappable acc-item"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span><button type="button" class="acc-head" aria-expanded="true" aria-controls="acc-panel-1"><div class="ic">◈</div><h3>You pay after approval</h3><span class="acc-chevron" aria-hidden="true">&#8964;</span></button><div class="acc-panel" id="acc-panel-1"><p class="t-quote">No deposit, no upfront fee. You see the finished website first. If it
           doesn't meet what we agreed, you don't pay — the risk sits with me, which is where a new
-          working relationship should start.</p>
-        </div>
-        <div class="t-card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <div class="ic">◉</div>
-          <h3>You talk to the person building it</h3>
-          <p class="t-quote">No account manager, no handoffs, no message passed through three
+          working relationship should start.</p></div></div>
+        <div class="t-card glass tappable acc-item"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span><button type="button" class="acc-head" aria-expanded="false" aria-controls="acc-panel-2"><div class="ic">◉</div><h3>You talk to the person building it</h3><span class="acc-chevron" aria-hidden="true">&#8964;</span></button><div class="acc-panel" id="acc-panel-2" hidden><p class="t-quote">No account manager, no handoffs, no message passed through three
           people. Every question goes straight to the person writing the code, and every answer
-          comes back the same way.</p>
-        </div>
-        <div class="t-card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <div class="ic">▤</div>
-          <h3>Every decision is documented</h3>
-          <p class="t-quote">You receive a written build record: what was made, why it was made
+          comes back the same way.</p></div></div>
+        <div class="t-card glass tappable acc-item"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span><button type="button" class="acc-head" aria-expanded="false" aria-controls="acc-panel-3"><div class="ic">▤</div><h3>Every decision is documented</h3><span class="acc-chevron" aria-hidden="true">&#8964;</span></button><div class="acc-panel" id="acc-panel-3" hidden><p class="t-quote">You receive a written build record: what was made, why it was made
           that way, and what the measured results are. You own the source code and the
-          documentation at the end — not a locked account.</p>
-        </div>
-        <div class="t-card glass tappable"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <div class="ic">◐</div>
-          <h3>Scope agreed before work starts</h3>
-          <p class="t-quote">Pages, features, timeline and revision rounds are written down and
+          documentation at the end — not a locked account.</p></div></div>
+        <div class="t-card glass tappable acc-item"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span><button type="button" class="acc-head" aria-expanded="false" aria-controls="acc-panel-4"><div class="ic">◐</div><h3>Scope agreed before work starts</h3><span class="acc-chevron" aria-hidden="true">&#8964;</span></button><div class="acc-panel" id="acc-panel-4" hidden><p class="t-quote">Pages, features, timeline and revision rounds are written down and
           confirmed before a single line is written. No moving targets, no invoice surprises at
-          the end.</p>
-        </div>
+          the end.</p></div></div>
       </div>
     </div>
   </section>
@@ -1031,6 +1022,20 @@ footer ul a:hover{color:var(--gold-pale)}
     tickJkt();
     setInterval(tickJkt,1000);
   }
+
+  /* ---------- 9. WHY-ME ACCORDION ---------- */
+  var accHeads=document.querySelectorAll('.acc-head');
+  accHeads.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var panel=document.getElementById(btn.getAttribute('aria-controls'));
+      var isOpen=btn.getAttribute('aria-expanded')==='true';
+      accHeads.forEach(function(other){
+        other.setAttribute('aria-expanded','false');
+        document.getElementById(other.getAttribute('aria-controls')).hidden=true;
+      });
+      if(!isOpen){btn.setAttribute('aria-expanded','true');panel.hidden=false;}
+    });
+  });
 })();
 </script>
 
