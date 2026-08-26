@@ -105,14 +105,15 @@ nav#navMenu a.nav-tapped::after{width:50%}
 }
 
 /* HERO — foto proporsional */
-.hero{padding:52px 0 62px}
+.hero{padding:20px 0 36px}
 @media(min-width:960px){.hero{padding:90px 0 104px}}
-.hero-grid{display:grid;gap:38px;align-items:center}
+.hero-grid{display:grid;gap:18px;align-items:center}
 @media(min-width:960px){.hero-grid{grid-template-columns:1.15fr .85fr;gap:60px}}
 .hero h1{font-size:clamp(2.35rem,1.5rem + 4.2vw,3.85rem);line-height:1.08}
 .hero .lede{font-size:clamp(1.04rem,.98rem + .3vw,1.18rem);color:var(--muted);max-width:48ch;margin-top:.35em;line-height:1.68}
-.hero .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
-.hero-photo-wrap{max-width:290px;margin:0 auto}
+.hero .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px}
+.hero-photo-wrap{max-width:195px;margin:0 auto}
+@media(min-width:960px){.hero-photo-wrap{max-width:290px}}
 .hero-photo{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 24px 60px -20px rgba(0,0,0,.8)}
 .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;filter:saturate(1.06) contrast(1.04);animation:kenburns 14s ease-in-out infinite}
 @keyframes kenburns{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
@@ -197,11 +198,11 @@ nav#navMenu a.nav-tapped::after{width:50%}
 .agency-grid span{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;color:var(--gold-pale);border:1px solid var(--line-2);padding:7px 12px;border-radius:6px}
 
 /* CASE STUDY — swipe strip ringkas + modal detail */
-#portfolio{padding-top:24px}
+#approach,#services,#portfolio,#why,#about,#showcase,#blog,#contact{padding-top:28px}
 .case-scroll{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:20px;padding-bottom:10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .case-scroll::-webkit-scrollbar{display:none}
 #portfolio .eyebrow+h2+p{font-size:.92rem;line-height:1.5}
-#portfolio .eyebrow{margin-bottom:.6em}
+section .eyebrow{margin-bottom:.75em}
 .case-mini{flex:0 0 82%;scroll-snap-align:start;text-align:left;background:none;border:1px solid var(--line-2);border-radius:16px;padding:18px clamp(20px,4vw,30px);cursor:pointer;font:inherit;color:inherit;position:relative;transition:border-color .25s ease,transform .25s ease}
 .case-mini:hover{border-color:var(--line);transform:translateY(-3px)}
 @media(min-width:640px){.case-mini{flex-basis:320px}}
@@ -308,7 +309,7 @@ body.modal-open{overflow:hidden}
 /* FOOTER */
 footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px solid var(--line-2);padding:62px 0 96px}
 .f-grid{display:grid;gap:36px}
-@media(min-width:800px){.f-grid{grid-template-columns:1.3fr 1fr 1fr}}
+@media(min-width:800px){.f-grid{grid-template-columns:2fr 1fr 1fr;gap:56px}}
 footer h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:0 0 15px}
 footer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
 footer ul a{color:var(--muted);font-size:.9rem;transition:color .2s}
@@ -734,7 +735,7 @@ footer ul a:hover{color:var(--gold-pale)}
         <p class="about-cap">Bari Vijaya<span>Founder &amp; Lead Designer</span></p>
       </div>
       <div class="about-bio">
-        <p>I run <span class="notranslate" translate="no">Glodigs</span> as a one-person studio with a deliberately narrow promise: I build websites that earn their keep. Not showpieces — working assets that bring in enquiries.</p>
+        <p><span class="notranslate" translate="no">Glodigs</span> is a one-person studio with a deliberately narrow promise: I build websites that earn their keep. Not showpieces — working assets that bring in enquiries.</p>
         <p>I started as an assistant at a partner studio, supporting website delivery for clients across Indonesia and the Netherlands. That's where I learned what actually matters once a site is live: it has to load fast, read clearly on a phone, and make the next step obvious. I now work independently and take projects end to end.</p>
         <p>I write my own HTML, CSS and JavaScript rather than assembling pages from plugins and page builders. It takes longer, and it's the reason the sites I build stay fast and don't break when something external goes down.</p>
         <p><strong style="color:var(--gold-pale)">No templates. No shortcuts.</strong> Every project is built for performance, structure, and long-term growth.</p>
