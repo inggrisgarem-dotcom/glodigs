@@ -197,17 +197,19 @@ nav#navMenu a.nav-tapped::after{width:50%}
 .agency-grid span{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;color:var(--gold-pale);border:1px solid var(--line-2);padding:7px 12px;border-radius:6px}
 
 /* CASE STUDY — swipe strip ringkas + modal detail */
-.case-scroll{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:42px;padding-bottom:10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#portfolio{padding-top:40px}
+.case-scroll{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:20px;padding-bottom:10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .case-scroll::-webkit-scrollbar{display:none}
-.case-mini{flex:0 0 82%;scroll-snap-align:start;text-align:left;background:none;border:1px solid var(--line-2);border-radius:16px;padding:26px clamp(20px,4vw,30px);cursor:pointer;font:inherit;color:inherit;position:relative;transition:border-color .25s ease,transform .25s ease}
+#portfolio .eyebrow+h2+p{font-size:.92rem;line-height:1.5}
+.case-mini{flex:0 0 82%;scroll-snap-align:start;text-align:left;background:none;border:1px solid var(--line-2);border-radius:16px;padding:18px clamp(20px,4vw,30px);cursor:pointer;font:inherit;color:inherit;position:relative;transition:border-color .25s ease,transform .25s ease}
 .case-mini:hover{border-color:var(--line);transform:translateY(-3px)}
 @media(min-width:640px){.case-mini{flex-basis:320px}}
-.case-mini h3{font-size:1.1rem;margin:.5em 0 .4em}
-.case-mini p{color:var(--muted);font-size:.9rem;margin-bottom:16px;line-height:1.55}
+.case-mini h3{font-size:1.1rem;margin:.3em 0 .3em}
+.case-mini p{color:var(--muted);font-size:.9rem;margin-bottom:10px;line-height:1.55}
 .case-mini-cta{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:6px}
-.case-mini-thumb{display:block;aspect-ratio:16/8;border-radius:10px;overflow:hidden;margin:0 0 12px}
+.case-mini-thumb{display:block;aspect-ratio:16/8;border-radius:10px;overflow:hidden;margin:0 0 8px}
 .case-mini-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
-.case-hint{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:16px}
+.case-hint{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:10px}
 
 .case-modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center}
 .case-modal.is-open{display:flex}
