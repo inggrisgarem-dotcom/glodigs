@@ -73,7 +73,9 @@ section{padding:72px 0;position:relative;scroll-margin-top:calc(var(--header-h,8
 
 /* HEADER — glass */
 header{position:sticky;top:0;z-index:50;background:rgba(8,7,12,.72);backdrop-filter:var(--glass);-webkit-backdrop-filter:var(--glass);border-bottom:1px solid var(--line-2)}
-.nav-row{display:flex;align-items:center;justify-content:space-between;min-height:72px;padding:8px 0}
+.nav-row{display:grid;grid-template-columns:46px 1fr 46px;align-items:center;min-height:72px;padding:8px 0}
+.brand-lockup{justify-self:center}
+#navToggle{grid-column:1;justify-self:start}
 .brand-lockup{display:flex;align-items:center;gap:12px}
 .brand-mark{width:42px;height:42px;border-radius:9px;object-fit:cover;box-shadow:0 4px 14px rgba(232,198,106,.28);flex-shrink:0}
 .brand-text{display:flex;flex-direction:column;gap:5px;line-height:1.05;padding-block:2px}
@@ -95,28 +97,20 @@ nav#navMenu a.nav-tapped::after{width:50%}
 .nav-social a{color:var(--gold-pale);display:flex;align-items:center;justify-content:center;opacity:.85;transition:opacity .2s}
 .nav-social a:hover{opacity:1}
 @media(min-width:960px){
-  #navToggle{display:none}
-  nav#navMenu{display:flex!important;position:static;background:none;border:0;flex-direction:row;gap:30px;padding:0;backdrop-filter:none}
-  nav#navMenu a{border:0;padding:0;font-size:.88rem;opacity:.82;transition:opacity .2s,color .2s;position:relative}
-  nav#navMenu a:hover{opacity:1;color:var(--gold)}
-  nav#navMenu a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--gold);transition:width .25s;transform:none}
-  nav#navMenu a:hover::after{width:100%}
-  .nav-social{display:none}
+  nav#navMenu{max-width:420px;left:50%;right:auto;transform:translateX(-50%);border:1px solid var(--line-2);border-radius:0 0 16px 16px}
 }
 
 /* HERO — foto proporsional */
-.hero{padding:40px 0 36px}
-@media(min-width:960px){.hero{padding:90px 0 104px}}
-.hero-grid{display:grid;gap:18px;align-items:center}
-@media(min-width:960px){.hero-grid{grid-template-columns:1.15fr .85fr;gap:60px}}
-.hero h1{font-size:clamp(1.95rem,1.25rem + 3.4vw,3.85rem);line-height:1.12}
-.hero .lede{font-size:clamp(1.04rem,.98rem + .3vw,1.18rem);color:var(--muted);max-width:48ch;margin-top:.35em;line-height:1.68}
-.hero .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px}
-.hero-photo-wrap{max-width:195px;margin:0 auto}
-@media(max-width:639px){.hero-grid{gap:44px}.hero-grid>div:first-child{min-height:calc(100vh - var(--header-h,73px) - 40px);min-height:calc(100dvh - var(--header-h,73px) - 40px)}}
-@media(max-width:639px){.hero-grid>div:first-child{min-height:calc(100vh - var(--header-h,73px) - 20px);min-height:calc(100dvh - var(--header-h,73px) - 20px)}}
-@media(min-width:960px){.hero-photo-wrap{max-width:290px}}
-.hero-photo{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 24px 60px -20px rgba(0,0,0,.8)}
+.hero{padding:40px 0 56px}
+@media(min-width:960px){.hero{padding:72px 0 96px}}
+.hero-stack{display:flex;flex-direction:column;align-items:center;text-align:center;gap:34px}
+.hero-copy{max-width:760px}
+.hero h1{font-size:clamp(2.1rem,1.3rem + 3.9vw,4.2rem);line-height:1.12}
+.hero .lede{font-size:clamp(1.04rem,.98rem + .3vw,1.18rem);color:var(--muted);max-width:60ch;margin:.5em auto 0;line-height:1.68}
+
+.hero-photo-wrap{width:100%;max-width:440px;margin:0 auto}
+.hero-photo{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 24px 60px -20px rgba(0,0,0,.8)}
+@media(min-width:960px){.hero-photo{aspect-ratio:16/10}.hero-photo img{object-position:50% 30%}}
 .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;filter:saturate(1.06) contrast(1.04);animation:kenburns 14s ease-in-out infinite}
 @keyframes kenburns{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 @media(prefers-reduced-motion:reduce){.hero-photo img{animation:none}}
@@ -349,14 +343,16 @@ footer ul a:hover{color:var(--gold-pale)}
 .floaty{animation:float-soft 6.5s ease-in-out infinite,glow-soft 6.5s ease-in-out infinite;will-change:transform}
 .floaty-slow{animation:float-soft 8s ease-in-out infinite .6s,glow-soft 8s ease-in-out infinite .6s;will-change:transform}
 @media(prefers-reduced-motion:reduce){.floaty,.floaty-slow{animation:none}}
-.hero-grid>*{animation:fadeUp .8s ease both}
-.hero-grid>*:nth-child(2){animation-delay:.14s}
+.hero-stack>*{animation:fadeUp .8s ease both}
+.hero-stack>*:nth-child(2){animation-delay:.1s}
+.hero-stack>*:nth-child(3){animation-delay:.2s}
 </style>
 </head>
 <body>
 
 <header>
   <div class="wrap nav-row">
+    <button id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Menu">☰</button>
     <a href="#top" class="brand-lockup">
       <img class="brand-mark" src="assets/img-202e4a8a.png" alt="Glodigs logo">
       <span class="brand-text">
@@ -364,7 +360,6 @@ footer ul a:hover{color:var(--gold-pale)}
         <span class="brand-sub notranslate" translate="no">Global Digital Growth Studio</span>
       </span>
     </a>
-    <button id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Menu">☰</button>
     <nav id="navMenu">
       <a href="#top">Home</a>
       <a href="#about">About</a>
@@ -384,24 +379,18 @@ footer ul a:hover{color:var(--gold-pale)}
 <main id="top">
 
   <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
+    <div class="wrap hero-stack">
+      <div class="hero-copy">
         <span class="jkt-clock" id="jktClock"></span>
         <span class="eyebrow">Jakarta · Available Worldwide</span>
         <h1>Custom websites,<br>built with structure.</h1>
         <p class="lede">Design, development, and search visibility under one roof. I build websites that load fast, read clearly, and turn visitors into enquiries. Working remotely with clients anywhere.</p>
-        <div class="cta-row">
-          <a href="#portfolio" class="btn btn-gold">View Portfolio</a>
-          <a href="https://api.whatsapp.com/send/?phone=6288809344978&amp;text=Hi+Glodigs%2C+I%27m+interested+in+your+service&amp;type=phone_number&amp;app_absent=0" class="btn btn-line" target="_blank" rel="noopener">Contact Me →</a>
-        </div>
       </div>
-      <div>
-        <div class="hero-photo-wrap">
-          <div class="hero-photo bracket floaty">
-            <img src="assets/img-9da6d855.jpg" alt="Bari Vijaya, founder of Glodigs" width="683" height="1024">
-          </div>
-          <p class="plaque">Bari Vijaya<span>Founder &amp; Lead Designer</span></p>
+      <div class="hero-photo-wrap">
+        <div class="hero-photo bracket floaty">
+          <img src="assets/img-9da6d855.jpg" alt="Bari Vijaya, founder of Glodigs" width="683" height="1024">
         </div>
+        <p class="plaque">Bari Vijaya<span>Founder &amp; Lead Designer</span></p>
       </div>
     </div>
   </section>
