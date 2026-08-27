@@ -73,7 +73,7 @@ section{padding:72px 0;position:relative;scroll-margin-top:calc(var(--header-h,8
 
 /* HEADER — glass */
 header{position:sticky;top:0;z-index:50;background:rgba(8,7,12,.72);backdrop-filter:var(--glass);-webkit-backdrop-filter:var(--glass);border-bottom:1px solid var(--line-2)}
-.nav-row{display:flex;align-items:center;justify-content:space-between;min-height:72px;padding:8px 0}
+.nav-row{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px;padding:8px 0}
 .brand-lockup{display:flex;align-items:center;gap:12px}
 .brand-mark{width:42px;height:42px;border-radius:9px;object-fit:cover;box-shadow:0 4px 14px rgba(232,198,106,.28);flex-shrink:0}
 .brand-text{display:flex;flex-direction:column;gap:5px;line-height:1.05;padding-block:2px}
@@ -114,6 +114,7 @@ nav#navMenu a.nav-tapped::after{width:50%}
 .hero .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px}
 .hero-photo-wrap{max-width:195px;margin:0 auto}
 @media(max-width:639px){.hero-grid{gap:44px}.hero-grid>div:first-child{min-height:calc(100vh - var(--header-h,73px) - 40px);min-height:calc(100dvh - var(--header-h,73px) - 40px)}}
+@media(max-width:639px){.hero .cta-row{flex-direction:column;align-items:stretch}}
 @media(max-width:639px){.hero-grid>div:first-child{min-height:calc(100vh - var(--header-h,73px) - 20px);min-height:calc(100dvh - var(--header-h,73px) - 20px)}}
 @media(min-width:960px){.hero-photo-wrap{max-width:290px}}
 .hero-photo{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 24px 60px -20px rgba(0,0,0,.8)}
@@ -200,7 +201,8 @@ nav#navMenu a.nav-tapped::after{width:50%}
 .agency-grid span{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;color:var(--gold-pale);border:1px solid var(--line-2);padding:7px 12px;border-radius:6px}
 
 /* CASE STUDY — swipe strip ringkas + modal detail */
-#approach,#services,#portfolio,#why,#about,#showcase,#blog,#contact{padding-top:28px}
+#approach,#services,#why,#about,#showcase,#blog,#contact{padding-top:56px}
+#portfolio{padding-top:28px}
 .case-scroll{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:20px;padding-bottom:10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .case-scroll::-webkit-scrollbar{display:none}
 #portfolio .eyebrow+h2+p{font-size:.92rem;line-height:1.5}
