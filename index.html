@@ -72,18 +72,18 @@ section{padding:72px 0;position:relative;scroll-margin-top:calc(var(--header-h,8
 .bracket::after{bottom:-9px;right:-9px;border-left:none;border-top:none}
 
 /* HEADER — glass */
-header{position:sticky;top:0;z-index:50;background:var(--ink);border-bottom:0}
-.nav-row{display:flex;align-items:center;justify-content:space-between;min-height:92px;padding:8px 0}
+header{position:sticky;top:0;z-index:50;background:rgba(8,7,12,.5);backdrop-filter:var(--glass);-webkit-backdrop-filter:var(--glass);border-bottom:0}
+.nav-row{display:flex;align-items:center;justify-content:space-between;min-height:64px;padding:6px 0}
 
 
 .brand-lockup{display:flex;align-items:center;gap:12px}
-.brand-mark{width:60px;height:60px;border-radius:12px;object-fit:cover;box-shadow:0 4px 14px rgba(232,198,106,.28);flex-shrink:0}
+.brand-mark{width:42px;height:42px;border-radius:9px;object-fit:cover;box-shadow:0 4px 14px rgba(232,198,106,.28);flex-shrink:0}
 .brand-text{display:flex;flex-direction:column;gap:2px;line-height:1;padding-block:1px}
-.brand-name{font-family:var(--serif);font-size:1.28rem;font-weight:700;color:var(--gold-pale);letter-spacing:.34em;line-height:1.2;padding-bottom:1px}
+.brand-name{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--gold-pale);letter-spacing:.22em;line-height:1.2;padding-bottom:1px}
 .brand-name b{color:var(--gold)}
 .notranslate{unicode-bidi:isolate}
-.brand-sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);line-height:1.5;display:block}
-@media(max-width:420px){.brand-name{font-size:1.12rem;letter-spacing:.28em}.brand-sub{font-size:.54rem}.brand-mark{width:52px;height:52px}}
+.brand-sub{font-family:var(--mono);font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.45;display:block}
+
 #navToggle{background:none;border:0;color:var(--gold-pale);width:52px;height:52px;font-size:2rem;line-height:1;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
 nav#navMenu{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;z-index:70;background:rgba(8,7,12,.98);backdrop-filter:var(--glass);flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:80px 24px}
 nav#navMenu.is-open{display:flex}
@@ -362,7 +362,7 @@ footer ul a:hover{color:var(--gold-pale)}
         <span class="brand-sub notranslate" translate="no">Global Digital<br>Growth Studio</span>
       </span>
     </a>
-    <button id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Menu"><svg viewBox="0 0 28 28" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="9" x2="24" y2="9"/><line x1="4" y1="14" x2="24" y2="14"/><line x1="4" y1="19" x2="24" y2="19"/></svg></button>
+    <button id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Menu"><svg viewBox="0 0 28 28" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="9" x2="24" y2="9"/><line x1="4" y1="14" x2="24" y2="14"/><line x1="4" y1="19" x2="24" y2="19"/></svg></button>
     <nav id="navMenu">
       <a href="#top">Home</a>
       <a href="#about">About</a>
