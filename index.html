@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title translate="no">Glodigs — Global Digital Growth Studio | Bari Vijaya</title>
 <meta name="description" content="UI/UX design, web development, landing pages, website rebuilds, SEO and logo design for growing businesses worldwide. Serving clients across the US, Europe, and beyond. Pay only after final approval.">
-<link rel="preconnect" href="https://i.pravatar.cc">
-<link rel="preconnect" href="https://s.wordpress.com">
 <style>
 :root{
   --ink:#08070c;
@@ -19,13 +17,12 @@
   --gold-pale:#f6e7b8;
   --ivory:#efe9dd;
   --muted:#a8a08d;
-  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+  --serif:Georgia,'Times New Roman',serif;
   --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
   --maxw:1200px;
   --glass:saturate(1.3) blur(16px);
 }
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap');
 *{box-sizing:border-box}
 /* hilangkan kotak sorot biru bawaan browser saat disentuh —
    fokus keyboard tetap ada lewat :focus-visible di bawah */
@@ -546,17 +543,24 @@ footer ul a:hover{color:var(--gold-pale)}
       <span class="pf-tag">UI/UX · Web Development · Deployment</span>
       <h3 id="modal-glodigs-title"><span class="notranslate" translate="no">Glodigs</span> — Studio Website</h3>
       <img src="assets/case-glodigs.jpg" alt="Glodigs studio website homepage" loading="lazy" class="case-preview">
-      <p>Inherited a broken site export that rendered as unstyled text whenever its external assets failed. Diagnosed the cause, rejected the patch, and rebuilt from zero as a self-contained document that carries everything it needs inside itself.</p>
+      <p>Inherited a broken site export that rendered as unstyled text whenever its external assets failed. Diagnosed the cause, rejected the patch, and rebuilt from zero as a self-contained document — then kept rebuilding across a dozen measured revisions, closing with a 47-point automated audit.</p>
       <div class="case-metrics">
         <div><b>0</b><span>External Dependencies</span></div>
         <div><b>93%</b><span>Video Weight Removed</span></div>
         <div><b>9</b><span>Responsive Breakpoints</span></div>
-        <div><b>AA</b><span>Contrast Target</span></div>
+        <div><b>AAA</b><span>Contrast Achieved</span></div>
+        <div><b>47</b><span>Automated Checks Passed</span></div>
+        <div><b>0.5s</b><span>Load Time on 4G</span></div>
+        <div><b>5</b><span>Screen Widths Verified</span></div>
+        <div><b>887KB</b><span>Showreel Weight</span></div>
       </div>
       <div class="case-list" style="margin-top:22px">
         <span>Hand-written HTML, CSS and JavaScript — no framework, no build step</span>
         <span>Cross-device motion bug traced to a reduced-motion override and rewritten on requestAnimationFrame</span>
         <span>Runtime header measurement so in-page navigation lands correctly on every device</span>
+        <span>Founder photo kept clipping the fold on short screens; measured the shortfall at 193px, then solved it with a dvh-based adaptive spacer verified across four viewport heights</span>
+        <span>An AI-generated showreel with garbled on-screen text was rejected rather than shipped — the replacement was re-cut and compressed by 63%</span>
+        <span>Audit found three dead external references the site never actually requested; removed so the source matches the behaviour it claims</span>
         <span>Git version control with tagged rollback points on a live host</span>
       </div>
       <a class="pf-link" href="https://github.com/inggrisgarem-dotcom/glodigs" target="_blank" rel="noopener" style="display:inline-block;margin-top:20px">View Source Code ↗</a>
