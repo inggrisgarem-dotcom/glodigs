@@ -189,8 +189,9 @@ nav#navMenu a.nav-tapped::after{width:50%}
 .agency{margin-top:44px;padding:30px clamp(22px,4vw,34px);border:1px dashed var(--line);border-radius:16px;background:rgba(13,11,18,.35)}
 .agency-h{font-size:1.05rem;margin-bottom:.55em}
 .agency-p{color:var(--muted);font-size:.92rem;max-width:70ch;margin-bottom:20px}
-.agency-grid{display:flex;flex-wrap:wrap;gap:9px}
-.agency-grid span{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;color:var(--gold-pale);border:1px solid var(--line-2);padding:7px 12px;border-radius:6px}
+.agency-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+@media(min-width:700px){.agency-grid{grid-template-columns:repeat(4,1fr)}}
+.agency-grid span{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;color:var(--gold-pale);border:1px solid var(--line-2);padding:9px 8px;border-radius:6px;text-align:center}
 
 /* CASE STUDY — swipe strip ringkas + modal detail */
 #approach,#services,#portfolio,#why,#about,#showcase,#blog,#contact{padding-top:28px}
@@ -343,6 +344,9 @@ footer ul a:hover{color:var(--gold-pale)}
 .floaty{animation:float-soft 6.5s ease-in-out infinite,glow-soft 6.5s ease-in-out infinite;will-change:transform}
 .floaty-slow{animation:float-soft 8s ease-in-out infinite .6s,glow-soft 8s ease-in-out infinite .6s;will-change:transform}
 @media(prefers-reduced-motion:reduce){.floaty,.floaty-slow{animation:none}}
+.tappable{transition:transform .3s ease,opacity .3s ease}
+.tappable.lit{transform:scale(1.02)}
+.tappable.dimmed{transform:scale(.95);opacity:.5}
 .hero-stack>*{animation:fadeUp .8s ease both}
 .hero-stack>*:nth-child(2){animation-delay:.1s}
 .hero-stack>*:nth-child(3){animation-delay:.2s}
@@ -920,15 +924,16 @@ footer ul a:hover{color:var(--gold-pale)}
   var cards=document.querySelectorAll('.tappable');
   cards.forEach(function(c){
     c.addEventListener('pointerdown',function(){
-      cards.forEach(function(o){if(o!==c)o.classList.remove('lit');});
-      c.classList.remove('lit');
+      var group=c.parentElement;
+      cards.forEach(function(o){o.classList.remove('lit');o.classList.remove('dimmed');});
       void c.offsetWidth;          // paksa reflow supaya animasi mengulang
       c.classList.add('lit');
+      cards.forEach(function(o){if(o!==c&&o.parentElement===group)o.classList.add('dimmed');});
     });
   });
   document.addEventListener('pointerdown',function(e){
     if(!e.target.closest('.tappable')){
-      cards.forEach(function(o){o.classList.remove('lit');});
+      cards.forEach(function(o){o.classList.remove('lit');o.classList.remove('dimmed');});
     }
   });
 
