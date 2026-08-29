@@ -472,8 +472,8 @@ footer ul a:hover{color:var(--gold-pale)}
         <button class="case-mini glass tappable" type="button" data-modal="modal-palminsurance" role="listitem">
           <span class="case-mini-thumb"><img src="assets/case-palminsurance.jpg" alt="Palm Insurance commercial brokerage homepage" loading="lazy"></span>
           <span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <span class="pf-tag">Corporate Website · UI/UX · Web Development</span>
-          <h3><span class="notranslate" translate="no">Palm Insurance</span> — Corporate Brokerage Website</h3>
+          <span class="pf-tag">Insurance Brokerage · UI/UX</span>
+          <h3><span class="notranslate" translate="no">Palm Insurance</span> — Corporate Website</h3>
           <p>A B2B insurance brokerage front end built to project stability and trust — full-screen mobile nav, simulated contact flow, real business copy throughout.</p>
           <span class="case-mini-cta">View Case Study <span aria-hidden="true">+</span></span>
         </button>
@@ -545,8 +545,8 @@ footer ul a:hover{color:var(--gold-pale)}
     <button class="case-modal-backdrop" type="button" data-close aria-label="Close"></button>
     <div class="case-modal-panel glass">
       <button class="case-modal-close" type="button" data-close aria-label="Close case study">✕</button>
-      <span class="pf-tag">Corporate Website · UI/UX · Web Development</span>
-      <h3 id="modal-palminsurance-title"><span class="notranslate" translate="no">Palm Insurance</span> — Corporate Brokerage Website</h3>
+      <span class="pf-tag">Insurance Brokerage · UI/UX</span>
+      <h3 id="modal-palminsurance-title"><span class="notranslate" translate="no">Palm Insurance</span> — Corporate Website</h3>
       <img src="assets/case-palminsurance.jpg" alt="Palm Insurance commercial brokerage homepage" loading="lazy" class="case-preview">
       <p>A corporate site for a fictional B2B insurance brokerage, built to carry a different visual language than the rest of the portfolio — deep green and gold, dense information architecture, six coverage lines, and two written executive profiles instead of one founder story.</p>
       <div class="case-metrics">
@@ -903,13 +903,34 @@ footer ul a:hover{color:var(--gold-pale)}
     }
     btn.addEventListener('click',function(){setMenu(!menu.classList.contains('is-open'));});
     if(closeBtn)closeBtn.addEventListener('click',function(){setMenu(false);});
-    menu.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click',function(){
+    function fastScrollTo(targetY,duration){
+      var startY=window.scrollY,diff=targetY-startY,startTime=null;
+      var htmlEl=document.documentElement,prevBehavior=htmlEl.style.scrollBehavior;
+      htmlEl.style.scrollBehavior='auto';
+      function step(ts){
+        if(!startTime)startTime=ts;
+        var p=Math.min((ts-startTime)/duration,1);
+        var eased=1-Math.pow(1-p,3);
+        window.scrollTo(0,startY+diff*eased);
+        if(p<1){requestAnimationFrame(step);}
+        else{htmlEl.style.scrollBehavior=prevBehavior;}
+      }
+      requestAnimationFrame(step);
+    }
+    menu.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener('click',function(e){
+        var id=a.getAttribute('href'),target=document.querySelector(id);
         a.classList.add('nav-tapped');
-        setTimeout(function(){
+        if(target){
+          e.preventDefault();
+          var hh=hdr?hdr.offsetHeight:73;
+          var y=target.getBoundingClientRect().top+window.scrollY-hh-4;
           setMenu(false);
-          a.classList.remove('nav-tapped');
-        },220);
+          fastScrollTo(Math.max(0,y),380);
+        } else {
+          setMenu(false);
+        }
+        setTimeout(function(){a.classList.remove('nav-tapped');},220);
       });
     });
   }
@@ -957,7 +978,7 @@ footer ul a:hover{color:var(--gold-pale)}
   }
 
   /* ---------- 4. STUDIO CLICK — garis emas menggambar di tepi kolom ---------- */
-  var cards=document.querySelectorAll('.tappable');
+  var cards=[].slice.call(document.querySelectorAll('.tappable')).filter(function(c){return !c.closest('.case-scroll');});
   cards.forEach(function(c){
     c.addEventListener('pointerdown',function(){
       var group=c.parentElement;
