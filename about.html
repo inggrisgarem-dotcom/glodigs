@@ -37,6 +37,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(8,7,12,.95);backdrop-fil
 .brand-mark{width:42px;height:42px;border-radius:9px;object-fit:cover;box-shadow:0 4px 14px rgba(232,198,106,.28);flex-shrink:0}
 .brand-text{display:flex;flex-direction:column;gap:2px;line-height:1}
 .brand-name{font-family:var(--serif);font-weight:700;font-size:1.05rem;letter-spacing:.22em;color:var(--gold-pale)}
+.brand-name b{color:var(--gold)}
 .brand-sub{font-family:var(--mono);font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.45}
 #navToggle{background:none;border:0;color:var(--gold-pale);width:52px;height:52px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
 nav#navMenu{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;z-index:70;background:rgba(8,7,12,.98);backdrop-filter:var(--glass);flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:80px 24px}
@@ -54,8 +55,17 @@ nav#navMenu a.current{color:var(--gold)}
 @media(min-width:880px){.about-grid{grid-template-columns:.85fr 1.15fr;align-items:start}}
 .about-bio p{color:var(--muted)}
 .about-side{display:flex;flex-direction:column;gap:22px}
+.bracket{position:relative}
+.bracket::before,.bracket::after{content:"";position:absolute;width:24px;height:24px;border:1.5px solid var(--gold);opacity:.8;z-index:2}
+.bracket::before{top:-9px;left:-9px;border-right:none;border-bottom:none}
+.bracket::after{bottom:-9px;right:-9px;border-left:none;border-top:none}
+@keyframes kenburns{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+@keyframes float-soft{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+@keyframes glow-soft{0%,100%{box-shadow:0 24px 60px -20px rgba(0,0,0,.8),0 0 0 0 rgba(232,198,106,0)}50%{box-shadow:0 34px 70px -20px rgba(0,0,0,.85),0 0 46px -12px rgba(232,198,106,.32)}}
+.floaty-slow{animation:float-soft 8s ease-in-out infinite .6s,glow-soft 8s ease-in-out infinite .6s;will-change:transform}
+@media(prefers-reduced-motion:reduce){.floaty-slow{animation:none}.about-photo img{animation:none}}
 .about-photo{width:clamp(130px,34vw,190px);aspect-ratio:1;border-radius:14px;overflow:hidden;position:relative;box-shadow:0 16px 40px -14px rgba(0,0,0,.8)}
-.about-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+.about-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;animation:kenburns 14s ease-in-out infinite}
 @media(min-width:880px){.about-photo{width:100%;max-width:210px;aspect-ratio:4/5}}
 .about-cap{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale)}
 .about-cap span{display:block;color:var(--muted);font-size:.64rem;margin-top:3px}
@@ -86,7 +96,7 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
     <a href="index.html#top" class="brand-lockup">
       <img class="brand-mark" src="assets/img-202e4a8a.png" alt="Glodigs logo">
       <span class="brand-text">
-        <span class="brand-name">G l o d i g s</span>
+        <span class="brand-name"><b>Glo</b>digs</span>
         <span class="brand-sub">Global Digital<br>Growth Studio</span>
       </span>
     </a>
@@ -119,7 +129,7 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
   <section id="about">
     <div class="wrap about-grid">
       <div class="about-side">
-        <div class="about-photo"><img src="assets/img-9da6d855.jpg" alt="Bari Vijaya, founder of Glodigs" loading="lazy"></div>
+        <div class="about-photo bracket floaty-slow"><img src="assets/img-9da6d855.jpg" alt="Bari Vijaya, founder of Glodigs" loading="lazy"></div>
         <p class="about-cap">Bari Vijaya<span>Founder &amp; Lead Designer</span></p>
       </div>
       <div class="about-bio">
