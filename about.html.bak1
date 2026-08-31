@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title translate="no">About — Glodigs | Global Digital Growth Studio</title>
+<meta name="description" content="Built on experience, delivered with transparency. The story and milestones behind Glodigs, a one-person digital growth studio in Jakarta.">
+<style>
+:root{
+  --ink:#08070c;--gold:#e8c66a;--gold-deep:#b08d3a;--gold-pale:#f6e7b8;--ivory:#efe9dd;--muted:#a8a08d;
+  --line:rgba(212,175,55,.18);--line-2:rgba(255,255,255,.08);
+  --serif:Georgia,'Times New Roman',serif;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;--maxw:1200px;--glass:saturate(1.3) blur(16px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--ink);color:var(--ivory);font-family:var(--sans);font-size:clamp(16px,.96rem + .18vw,17.5px);line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+body::before{content:"";position:fixed;width:520px;height:520px;top:-160px;right:-140px;background:radial-gradient(circle,rgba(184,141,58,.28),transparent 70%);filter:blur(90px);z-index:0;pointer-events:none;opacity:.5}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--serif);font-weight:700;color:var(--gold-pale);margin:0 0 .45em;letter-spacing:-.015em;line-height:1.16}
+p{margin:0 0 1.15em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,64px);position:relative;z-index:1}
+.eyebrow{font-family:var(--mono);font-size:.71rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:inline-block;margin-bottom:1.15em}
+.eyebrow::before{content:"◆ ";color:var(--gold-deep)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+section{padding:64px 0}
+@media(min-width:820px){section{padding:96px 0}}
+.particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.particle{position:absolute;top:0;left:0;border-radius:50%;border:1px solid rgba(232,198,106,.55);background:radial-gradient(circle at 32% 28%,rgba(246,231,184,.42),rgba(232,198,106,.08) 55%,transparent 78%);box-shadow:0 0 20px rgba(232,198,106,.28),inset 0 0 12px rgba(255,255,255,.16);will-change:transform}
+header{position:sticky;top:0;z-index:50;background:rgba(8,7,12,.95);backdrop-filter:saturate(1.3) blur(30px);border-bottom:0}
+.nav-row{display:flex;align-items:center;justify-content:space-between;min-height:64px;padding:6px 0}
+.brand-lockup{display:flex;align-items:center;gap:12px}
+.brand-mark{width:42px;height:42px;border-radius:9px;object-fit:cover;box-shadow:0 4px 14px rgba(232,198,106,.28);flex-shrink:0}
+.brand-text{display:flex;flex-direction:column;gap:2px;line-height:1}
+.brand-name{font-family:var(--serif);font-weight:700;font-size:1.05rem;letter-spacing:.22em;color:var(--gold-pale)}
+.brand-sub{font-family:var(--mono);font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.45}
+#navToggle{background:none;border:0;color:var(--gold-pale);width:52px;height:52px;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+nav#navMenu{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;z-index:70;background:rgba(8,7,12,.98);backdrop-filter:var(--glass);flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:80px 24px}
+nav#navMenu.is-open{display:flex}
+#navClose{position:fixed;top:22px;right:24px;z-index:71;background:none;border:0;color:var(--gold-pale);cursor:pointer;width:52px;height:52px;display:none;align-items:center;justify-content:center}
+#navClose.show{display:flex}
+nav#navMenu a{padding:15px 0;font-size:1.5rem;font-family:var(--serif);font-weight:600;color:var(--gold-pale);position:relative}
+nav#navMenu a.current{color:var(--gold)}
+.nav-social{display:flex;gap:18px;margin-top:16px}
+.nav-social a{color:var(--gold-pale);opacity:.85}
+@media(min-width:960px){nav#navMenu a{font-size:2rem;padding:18px 0}}
+.page-hero{padding:52px 0 20px}
+.page-hero .eyebrow{margin-bottom:.5em}
+.about-grid{display:grid;gap:34px}
+@media(min-width:880px){.about-grid{grid-template-columns:.85fr 1.15fr;align-items:start}}
+.about-bio p{color:var(--muted)}
+.about-side{display:flex;flex-direction:column;gap:22px}
+.about-photo{width:clamp(130px,34vw,190px);aspect-ratio:1;border-radius:14px;overflow:hidden;position:relative;box-shadow:0 16px 40px -14px rgba(0,0,0,.8)}
+.about-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+@media(min-width:880px){.about-photo{width:100%;max-width:210px;aspect-ratio:4/5}}
+.about-cap{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale)}
+.about-cap span{display:block;color:var(--muted);font-size:.64rem;margin-top:3px}
+.regions{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 8px}
+.regions span{font-family:var(--mono);font-size:.7rem;border:1px solid var(--line);color:var(--gold-pale);padding:7px 13px;border-radius:20px;background:rgba(232,198,106,.05)}
+.tech-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tech-tags span{font-family:var(--mono);font-size:.7rem;border:1px solid var(--line-2);color:var(--gold-pale);padding:6px 11px;border-radius:6px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer}
+.btn-gold{background:linear-gradient(180deg,var(--gold-pale),var(--gold) 55%,var(--gold-deep));color:#231803}
+.milestone-list{position:relative;margin-top:46px;padding-left:28px;border-left:1px solid var(--line)}
+.milestone{position:relative;padding-bottom:38px}
+.milestone:last-child{padding-bottom:0}
+.milestone::before{content:attr(data-n);position:absolute;left:-44px;top:-2px;width:34px;height:34px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.8rem;color:var(--gold-pale);background:var(--ink);box-shadow:0 0 0 5px var(--ink)}
+.milestone h3{font-size:1.1rem;margin-bottom:.3em}
+.milestone p{color:var(--muted);max-width:58ch;font-size:.95rem}
+footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px solid var(--line-2);padding:44px 0 90px}
+.f-bottom{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.f-bottom span{color:var(--muted);font-size:.8rem}
+.social{display:flex;gap:12px}
+.social a{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold-pale);background:rgba(255,255,255,.03)}
+</style>
+</head>
+<body>
+<div class="particles" aria-hidden="true"></div>
+
+<header>
+  <div class="wrap nav-row">
+    <a href="index.html#top" class="brand-lockup">
+      <img class="brand-mark" src="assets/img-202e4a8a.png" alt="Glodigs logo">
+      <span class="brand-text">
+        <span class="brand-name">G l o d i g s</span>
+        <span class="brand-sub">Global Digital<br>Growth Studio</span>
+      </span>
+    </a>
+    <button id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Menu"><svg viewBox="0 0 28 28" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="9" x2="24" y2="9"/><line x1="4" y1="14" x2="24" y2="14"/><line x1="4" y1="19" x2="24" y2="19"/></svg></button>
+    <nav id="navMenu">
+      <a href="index.html#top">Home</a>
+      <a href="about.html" class="current">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#portfolio">Portfolio</a>
+      <a href="index.html#why">Why Me</a>
+      <a href="index.html#blog">Article</a>
+      <a href="index.html#contact">Contact</a>
+      <div class="nav-social">
+        <a href="https://github.com/inggrisgarem-dotcom" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.8 1.19 1.83 1.19 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg></a>
+        <a href="https://www.linkedin.com/in/bari-vijaya-651738430" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg></a>
+      </div>
+    </nav>
+    <button id="navClose" aria-label="Close menu"><svg viewBox="0 0 28 28" width="25" height="25" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><line x1="7" y1="7" x2="21" y2="21"/><line x1="21" y1="7" x2="7" y2="21"/></svg></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">About Me</span>
+      <h1>Built on experience.<br>Delivered with transparency.</h1>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="about-side">
+        <div class="about-photo"><img src="assets/img-9da6d855.jpg" alt="Bari Vijaya, founder of Glodigs" loading="lazy"></div>
+        <p class="about-cap">Bari Vijaya<span>Founder &amp; Lead Designer</span></p>
+      </div>
+      <div class="about-bio">
+        <p><span translate="no">Glodigs</span> is a one-person studio with a deliberately narrow promise: I build websites that earn their keep. Not showpieces — working assets that bring in enquiries.</p>
+        <p>I started as an assistant at a partner studio, supporting website delivery for clients across Indonesia and the Netherlands. That's where I learned what actually matters once a site is live: it has to load fast, read clearly on a phone, and make the next step obvious. I now work independently and take projects end to end.</p>
+        <p>I write my own HTML, CSS and JavaScript rather than assembling pages from plugins and page builders. It takes longer, and it's the reason the sites I build stay fast and don't break when something external goes down.</p>
+        <p><strong style="color:var(--gold-pale)">No templates. No shortcuts.</strong> Every project is built for performance, structure, and long-term growth.</p>
+        <div class="regions">
+          <span>🌍 Remote Worldwide</span><span>🗣 English &amp; Indonesian</span><span>⚡ Pay After Approval</span>
+        </div>
+        <div class="tech-tags">
+          <span>UI/UX Design</span><span>Web Development</span><span>Landing Page</span><span>Website Rebuild</span><span>SEO</span><span>Logo &amp; Brand Identity</span>
+        </div>
+        <div style="margin-top:26px"><a href="index.html#contact" class="btn btn-gold">Discuss Your Website</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="milestones">
+    <div class="wrap">
+      <span class="eyebrow">The Journey</span>
+      <h2>Milestones so far.</h2>
+      <p style="color:var(--muted);max-width:58ch">Not a highlight reel — a record of what was actually built, tested, and sometimes rejected along the way.</p>
+      <div class="milestone-list">
+        <div class="milestone" data-n="1"><h3>Started as an assistant</h3><p>Supported website delivery for a partner studio across Indonesian and Dutch markets, before going independent.</p></div>
+        <div class="milestone" data-n="2"><h3>Inherited a broken export, rebuilt from zero</h3><p>A site export that failed without external assets was diagnosed and rebuilt as a single self-contained document — the studio's own first proof of the standard client work is held to.</p></div>
+        <div class="milestone" data-n="3"><h3>Six demos shipped, source code open</h3><p>Independent case studies built end-to-end, each with a live demo and published source — not just screenshots.</p></div>
+        <div class="milestone" data-n="4"><h3>A flawed showreel was rejected, not shipped</h3><p>An AI-generated video with garbled on-screen text was flagged and pulled before publishing, then rebuilt from real material.</p></div>
+        <div class="milestone" data-n="5"><h3>47-point audit, zero fails</h3><p>Navigation, every modal, video playback, and five screen widths tested with a headless browser — not eyeballed.</p></div>
+        <div class="milestone" data-n="6"><h3>Now: outreach over polish</h3><p>The site is intentionally frozen for routine changes. Studio focus has moved to reaching the first paid clients directly.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap f-bottom">
+    <span>© 2026 <span translate="no">Glodigs</span> — Bari Vijaya</span>
+    <div class="social">
+      <a href="https://github.com/inggrisgarem-dotcom" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.79-.25.79-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.8 1.19 1.83 1.19 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg></a>
+      <a href="https://www.linkedin.com/in/bari-vijaya-651738430" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn=document.getElementById('navToggle'),menu=document.getElementById('navMenu'),closeBtn=document.getElementById('navClose');
+  function setMenu(open){
+    menu.classList.toggle('is-open',open);
+    if(closeBtn)closeBtn.classList.toggle('show',open);
+    document.body.style.overflow=open?'hidden':'';
+    btn.setAttribute('aria-expanded',open?'true':'false');
+  }
+  btn.addEventListener('click',function(){setMenu(!menu.classList.contains('is-open'));});
+  if(closeBtn)closeBtn.addEventListener('click',function(){setMenu(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
+
+  var wrap=document.querySelector('.particles');
+  if(wrap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var COUNT=10, parts=[];
+    for(var i=0;i<COUNT;i++){
+      var el=document.createElement('span');
+      el.className='particle';
+      var size=(16+Math.random()*30).toFixed(1);
+      el.style.width=size+'px'; el.style.height=size+'px';
+      el.style.left=(Math.random()*100).toFixed(1)+'%';
+      el.style.opacity=(0.25+Math.random()*0.35).toFixed(2);
+      wrap.appendChild(el);
+      parts.push({el:el,y:Math.random()*window.innerHeight,
+        speed:3+Math.random()*5,amp:8+Math.random()*14,phase:Math.random()*Math.PI*2});
+    }
+    var boost=0,lastY=window.scrollY,lastT=0;
+    window.addEventListener('scroll',function(){
+      var dy=Math.abs(window.scrollY-lastY); lastY=window.scrollY;
+      boost=Math.min(boost+dy*0.6,140);
+    },{passive:true});
+    function tick(ts){
+      if(!lastT)lastT=ts;
+      var dt=Math.min((ts-lastT)/1000,.05); lastT=ts;
+      boost*=Math.pow(0.9,dt*60);
+      var mul=1+boost/45, h=window.innerHeight;
+      parts.forEach(function(p){
+        p.y-=p.speed*mul*dt;
+        if(p.y<-10)p.y=h+10;
+        var wob=Math.sin(ts/1000+p.phase)*p.amp;
+        p.el.style.transform='translate('+wob.toFixed(1)+'px,'+p.y.toFixed(1)+'px)';
+      });
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+})();
+</script>
+</body>
+</html>
