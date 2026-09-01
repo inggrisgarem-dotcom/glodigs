@@ -125,51 +125,45 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
       <h1 id="isotype-heading" style="margin: 0;"></h1>
     </div>
     <style>
-      /* [ISOLATED CSS] Kursor dirender sebagai elemen palsu (pseudo) seukuran font */
-      .isotype-cursor::after {
-        content: '';
-        display: inline-block;
-        width: 4px;
-        height: 1.1em;
-        background-color: var(--gold-pale, currentColor);
-        vertical-align: text-bottom;
-        margin-left: 4px;
+      .hero-cursor::after {
+        content: ''; display: inline-block; width: 4px; height: 1.1em;
+        background-color: var(--gold-pale, currentColor); vertical-align: text-bottom; margin-left: 4px;
         animation: isoBlink 0.8s step-end infinite;
-      }
-      @keyframes isoBlink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
       }
     </style>
     <script>
-      /* [ISOLATED LOGIC] Engine tetap murni, hanya class yang dikontrol */
+      window.heroCompleted = false; // Status Global
       document.addEventListener("DOMContentLoaded", function() {
         const eyebrowEl = document.getElementById("isotype-eyebrow");
         const headingEl = document.getElementById("isotype-heading");
         const txtEyebrow = "About Me";
         const txtHeading1 = "Built on experience.";
         const txtHeading2 = "Delivered with transparency.";
-        
+
         function typeWriter(element, text, speed, callback) {
           let i = 0;
-          element.classList.add("isotype-cursor");
+          element.classList.add("hero-cursor");
           function typing() {
             if (i < text.length) {
               element.innerHTML += text.charAt(i);
               i++;
               setTimeout(typing, speed);
             } else {
-              element.classList.remove("isotype-cursor");
+              element.classList.remove("hero-cursor");
               if (callback) callback();
             }
           }
-          setTimeout(typing, 150); 
+          setTimeout(typing, 150);
         }
-        
-        typeWriter(eyebrowEl, txtEyebrow, 50, function() {
-          typeWriter(headingEl, txtHeading1, 40, function() {
+
+        // Eksekusi Berurutan Hero
+        typeWriter(eyebrowEl, txtEyebrow, 40, function() {
+          typeWriter(headingEl, txtHeading1, 30, function() {
             headingEl.innerHTML += "<br>";
-            typeWriter(headingEl, txtHeading2, 40, null);
+            typeWriter(headingEl, txtHeading2, 30, function() {
+              window.heroCompleted = true; // Tandai selesai
+              document.dispatchEvent(new Event("heroSequenceComplete")); // Kirim Sinyal ke Bio
+            });
           });
         });
       });
@@ -224,8 +218,7 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
     </div>
   </div>
 </footer>
-
-<!-- [ISOLATED SCROLL ANIMATION ENGINE V3] -->
+<!-- [ISOLATED SCROLL ANIMATION ENGINE V4] -->
 <style>
   .pop-hidden { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .pop-visible { opacity: 1; transform: translateY(0); }
@@ -234,21 +227,18 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
   .delay-1 { transition-delay: 100ms; }
   .delay-2 { transition-delay: 200ms; }
   .delay-3 { transition-delay: 300ms; }
-  
+
   .bio-cursor::after {
     content: ''; display: inline-block; width: 4px; height: 1.1em;
-    background-color: var(--gold-pale, currentColor);
-    vertical-align: text-bottom; margin-left: 4px;
+    background-color: var(--gold-pale, currentColor); vertical-align: text-bottom; margin-left: 4px;
     animation: isoBlink 0.8s step-end infinite;
   }
 </style>
-
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // 1. Kumpulkan elemen teks dalam urutan yang benar
     const textElements = Array.from(document.querySelectorAll(".about-cap, .about-bio p"));
-
-    // Persiapan: Kunci tinggi dan kosongkan teks agar tidak ada loncatan layout
+    
+    // Kunci dimensi dan kosongkan teks awal
     textElements.forEach(el => {
       el.dataset.rawHtml = el.innerHTML;
       el.style.minHeight = el.offsetHeight + "px";
@@ -256,83 +246,81 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
     });
 
     let isSequenceRunning = false;
+    let isHeroReady = window.heroCompleted || false; 
 
-    // Fungsi Ketikan dengan Callback
+    // MENDENGARKAN SINYAL DARI HERO
+    document.addEventListener("heroSequenceComplete", function() {
+      isHeroReady = true;
+      const aboutGrid = document.querySelector(".about-grid");
+      // Jika saat sinyal diterima halaman sedang di area Bio, langsung mulai ketik
+      if (aboutGrid && aboutGrid.dataset.intersecting === "true") {
+         startBioSequence();
+      }
+    });
+
     function typeWriterHTML(el, speed, onComplete) {
       const rawHTML = el.dataset.rawHtml;
       el.innerHTML = "";
       el.classList.add("bio-cursor");
-
-      let i = 0;
-      let isTag = false;
-      let textBuffer = "";
+      let i = 0; let isTag = false; let textBuffer = "";
 
       function typing() {
-        // Hentikan paksa jika di-scroll ke atas
-        if (el.dataset.cancel === "true") {
-          el.classList.remove("bio-cursor");
-          return;
-        }
-
+        if (el.dataset.cancel === "true") { el.classList.remove("bio-cursor"); return; }
         if (i < rawHTML.length) {
           if (rawHTML.charAt(i) === "<") isTag = true;
           textBuffer += rawHTML.charAt(i);
           el.innerHTML = textBuffer;
           i++;
           if (rawHTML.charAt(i-1) === ">") isTag = false;
-
-          if (isTag) {
-            typing(); // Render tag HTML instan
-          } else {
-            setTimeout(typing, speed);
-          }
+          if (isTag) typing(); else setTimeout(typing, speed);
         } else {
           el.classList.remove("bio-cursor");
-          if (onComplete) setTimeout(onComplete, 250); // Jeda bernapas sebelum paragraf berikutnya
+          if (onComplete) setTimeout(onComplete, 150); // Jeda sebelum paragraf berikutnya
         }
       }
       typing();
     }
 
-    // Orchestrator: Menjalankan paragraf secara berurutan
     function playSequence(index) {
       if (index >= textElements.length) return;
       const el = textElements[index];
       if (el.dataset.cancel === "true") return;
-
-      typeWriterHTML(el, 25, () => {
-         playSequence(index + 1);
-      });
+      typeWriterHTML(el, 25, () => playSequence(index + 1));
     }
 
-    // Reset sistem saat keluar dari layar
+    function startBioSequence() {
+       if (!isSequenceRunning && isHeroReady) {
+         isSequenceRunning = true;
+         textElements.forEach(el => el.dataset.cancel = "false");
+         playSequence(0);
+       }
+    }
+
     function resetSequence() {
+      isSequenceRunning = false;
       textElements.forEach(el => {
         el.dataset.cancel = "true";
-        el.innerHTML = ""; 
+        el.innerHTML = "";
       });
     }
 
-    // 2. Observer Bio (Trigger berbasis grid induk, bukan per paragraf)
+    // OBSERVER BIO (Tergantung Sinyal Hero)
     const aboutGrid = document.querySelector(".about-grid");
     const bioObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          if (!isSequenceRunning) {
-            isSequenceRunning = true;
-            textElements.forEach(el => el.dataset.cancel = "false");
-            playSequence(0); // Mulai dari baris pertama (About Cap)
-          }
+          aboutGrid.dataset.intersecting = "true";
+          if (isHeroReady) startBioSequence(); // Hanya jalan jika Hero sudah selesai
         } else {
-          isSequenceRunning = false;
-          resetSequence();
+          aboutGrid.dataset.intersecting = "false";
+          resetSequence(); // Reset animasi untuk memicu ulang saat discroll
         }
       });
-    }, { root: null, rootMargin: "-15% 0px", threshold: 0.1 }); // -15% menahan animasi sampai di-scroll ke bawah
+    }, { root: null, rootMargin: "-10% 0px", threshold: 0.1 });
 
     if(aboutGrid) bioObserver.observe(aboutGrid);
 
-    // 3. Observer Kotak Layanan & Tags
+    // OBSERVER KOTAK LAYANAN (Pop-up)
     const boxObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -352,7 +340,8 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
     });
   });
 </script>
-<!-- [/ISOLATED SCROLL ANIMATION ENGINE V3] -->
+<!-- [/ISOLATED SCROLL ANIMATION ENGINE V4] -->
+
 
 
 
