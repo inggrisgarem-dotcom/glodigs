@@ -685,49 +685,57 @@ footer ul a:hover{color:var(--gold-pale)}
       <p style="color:var(--muted);max-width:62ch">Concept designs showing layout, hierarchy and interface style across desktop and mobile. These are studio explorations rather than delivered client projects — figures shown inside them are illustrative.</p>
       <div class="sc-video glass bracket">
         <span class="sc-badge"><i></i> Concept Reel</span>
-        <!-- Isolasi Engine Video Berbasis Baris Kode Biner (Blob RAM) -->
+        <!-- Isolasi Engine Video Berbasis Baris Kode Biner (Blob RAM) - Aggressive Edition -->
+        <style>
+          /* Mencegah klik nyasar pada layar yang membuat video terjeda (pause) */
+          #scVideo-container { pointer-events: none; }
+          /* Memaksa musnah kontrol media native bawaan OS */
+          video::-webkit-media-controls, video::-webkit-media-controls-enclosure { display: none !important; }
+        </style>
         <div id="scVideo-container" style="position: relative; width: 100%; height: 100%;">
-          <video id="scVideo" autoplay loop muted playsinline disablePictureInPicture poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel" style="width: 100%; height: 100%; object-fit: cover;"></video>
+          <video id="scVideo" autoplay loop muted playsinline disablePictureInPicture disableRemotePlayback poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel" style="width: 100%; height: 100%; object-fit: cover;"></video>
         </div>
         <script>
           document.addEventListener("DOMContentLoaded", function() {
             var vid = document.getElementById("scVideo");
             
-            /* STRATEGI 1: Memaksa OS mengenali status bisu dan inline secara mutlak lewat objek DOM */
-            vid.muted = true;
-            vid.defaultMuted = true;
-            vid.playsInline = true;
+            vid.muted = true; vid.defaultMuted = true; vid.playsInline = true;
             
+            /* EKSEKUSI PEMUSNAHAN IKON SPEAKER TAMPLAT */
+            try {
+              var parentSec = vid.closest('section') || vid.parentElement.parentElement;
+              if (parentSec) {
+                var uiElements = parentSec.querySelectorAll('button, a, .icon, [class*="speaker"], [class*="audio"], [class*="mute"], [class*="sound"]');
+                uiElements.forEach(function(el) {
+                  // Jika elemen dicurigai sebagai tombol pengontrol suara, lenyapkan
+                  if(el.innerHTML.includes('svg') || el.tagName === 'BUTTON' || el.className.includes('audio')) {
+                    el.style.display = 'none';
+                  }
+                });
+              }
+            } catch(e) {}
+
             fetch("assets/glodigs-reel.mp4")
-              .then(function(response) { return response.blob(); })
-              .then(function(blob) {
-                vid.src = URL.createObjectURL(blob);
+              .then(function(r) { return r.blob(); })
+              .then(function(b) {
+                vid.src = URL.createObjectURL(b);
+                vid.load();
                 
-                /* STRATEGI 2: Eksekusi murni setelah baris biner terakit utuh di RAM */
-                vid.addEventListener("canplaythrough", function() {
-                  vid.muted = true; /* Penegasan ulang status bisu sesaat sebelum mesin menyala */
+                /* AGGRESSIVE AUTOPLAY ENGINE (BRUTE-FORCE) */
+                var forcePlayEngine = function() {
+                  vid.muted = true;
                   var playPromise = vid.play();
-                  
                   if (playPromise !== undefined) {
-                    playPromise.catch(function(error) {
-                      /* STRATEGI 3: Kait Sentuhan Siluman (Invisible Gesture Hook) */
-                      /* Jika OS masih mencekal keras, kita gunakan interaksi pertama pengguna secara diam-diam */
-                      var forcePlay = function() {
-                        vid.muted = true;
-                        vid.play();
-                        window.removeEventListener("scroll", forcePlay);
-                        window.removeEventListener("touchstart", forcePlay);
-                      };
-                      window.addEventListener("scroll", forcePlay, {once: true});
-                      window.addEventListener("touchstart", forcePlay, {once: true});
+                    playPromise.then(function() {
+                      // Sukses menembus OS seluler
+                    }).catch(function(e) {
+                      // OS menolak? Tembak lagi perintah play dalam 250 milidetik tanpa henti
+                      setTimeout(forcePlayEngine, 250);
                     });
                   }
-                }, { once: true });
+                };
                 
-                vid.load();
-              })
-              .catch(function(err) {
-                console.error("Gagal merakit data biner:", err);
+                vid.addEventListener("canplay", forcePlayEngine, { once: true });
               });
           });
         </script>
