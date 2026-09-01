@@ -121,9 +121,60 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
 <main id="top">
   <section class="page-hero">
     <div class="wrap">
-      <span class="eyebrow">About Me</span>
-      <h1>Built on experience.<br>Delivered with transparency.</h1>
+      <span class="eyebrow" id="isotype-eyebrow"></span>
+      <h1 id="isotype-heading" style="min-height: 2.5em; display: inline-block; margin: 0;"></h1>
     </div>
+    <style>
+      /* [ISOLATED CSS] Khusus untuk kursor berkedip, tidak menyentuh elemen luar */
+      .isotype-cursor {
+        border-right: 2px solid var(--gold-pale, currentColor);
+        padding-right: 4px;
+        animation: isoBlink 0.8s step-end infinite;
+      }
+      @keyframes isoBlink {
+        from, to { border-color: transparent; }
+        50% { border-color: var(--gold-pale, currentColor); }
+      }
+    </style>
+    <script>
+      /* [ISOLATED LOGIC] Vanilla JS murni, eksekusi tertutup dalam section */
+      document.addEventListener("DOMContentLoaded", function() {
+        const eyebrowEl = document.getElementById("isotype-eyebrow");
+        const headingEl = document.getElementById("isotype-heading");
+        
+        // Data Murni - Silakan ubah string ini jika ada teks baru
+        const txtEyebrow = "About Me";
+        const txtHeading1 = "Built on experience.";
+        const txtHeading2 = "Delivered with transparency.";
+        
+        // Engine Mesin Tik
+        function typeWriter(element, text, speed, callback) {
+          let i = 0;
+          element.classList.add("isotype-cursor");
+          
+          function typing() {
+            if (i < text.length) {
+              element.innerHTML += text.charAt(i);
+              i++;
+              setTimeout(typing, speed);
+            } else {
+              element.classList.remove("isotype-cursor");
+              if (callback) callback();
+            }
+          }
+          // Jeda eksekusi agar tidak terlalu cepat saat halaman dimuat
+          setTimeout(typing, 150); 
+        }
+        
+        // Arus Eksekusi Sekuensial: Eyebrow -> Baris 1 -> Baris 2
+        typeWriter(eyebrowEl, txtEyebrow, 50, function() {
+          typeWriter(headingEl, txtHeading1, 40, function() {
+            headingEl.innerHTML += "<br>"; // Line break bedah presisi
+            typeWriter(headingEl, txtHeading2, 40, null);
+          });
+        });
+      });
+    </script>
   </section>
 
   <section id="about">
