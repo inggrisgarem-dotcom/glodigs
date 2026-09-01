@@ -685,10 +685,70 @@ footer ul a:hover{color:var(--gold-pale)}
       <p style="color:var(--muted);max-width:62ch">Concept designs showing layout, hierarchy and interface style across desktop and mobile. These are studio explorations rather than delivered client projects — figures shown inside them are illustrative.</p>
       <div class="sc-video glass bracket">
         <span class="sc-badge"><i></i> Concept Reel</span>
-        <video id="scVideo" autoplay muted loop playsinline preload="auto" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel">
-          <source src="assets/glodigs-reel.mp4" type="video/mp4">
-          <source src="assets/Glodigs%20concept%20reel.webm" type="video/webm">
-        </video>
+        <video id="scVideo" autoplay muted loop playsinline poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            var v = document.getElementById("scVideo");
+            var src = "assets/glodigs-reel.m3u8";
+            if (Hls.isSupported()) {
+              var hls = new Hls(); hls.loadSource(src); hls.attachMedia(v);
+              hls.on(Hls.Events.MANIFEST_PARSED, function() { 
+                v.play().catch(function(e){ console.log("HLS Autoplay standby"); }); 
+              });
+            } else if (v.canPlayType("application/vnd.apple.mpegurl")) {
+              v.src = src; v.addEventListener("loadedmetadata", function() { v.play(); });
+            }
+          });
+        </script>
+        <video id="scVideo" autoplay muted loop playsinline poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            var v = document.getElementById("scVideo");
+            var src = "assets/glodigs-reel.m3u8";
+            if (Hls.isSupported()) {
+              var hls = new Hls(); hls.loadSource(src); hls.attachMedia(v);
+              hls.on(Hls.Events.MANIFEST_PARSED, function() { 
+                v.play().catch(function(e){ console.log("HLS Autoplay standby"); }); 
+              });
+            } else if (v.canPlayType("application/vnd.apple.mpegurl")) {
+              v.src = src; v.addEventListener("loadedmetadata", function() { v.play(); });
+            }
+          });
+        </script>
+        <video id="scVideo" autoplay muted loop playsinline poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            var v = document.getElementById("scVideo");
+            var src = "assets/glodigs-reel.m3u8";
+            if (Hls.isSupported()) {
+              var hls = new Hls(); hls.loadSource(src); hls.attachMedia(v);
+              hls.on(Hls.Events.MANIFEST_PARSED, function() { 
+                v.play().catch(function(e){ console.log("HLS Autoplay standby"); }); 
+              });
+            } else if (v.canPlayType("application/vnd.apple.mpegurl")) {
+              v.src = src; v.addEventListener("loadedmetadata", function() { v.play(); });
+            }
+          });
+        </script>
+        <video id="scVideo" autoplay muted loop playsinline poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+        <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            var v = document.getElementById("scVideo");
+            var src = "assets/glodigs-reel.m3u8";
+            if (Hls.isSupported()) {
+              var hls = new Hls(); hls.loadSource(src); hls.attachMedia(v);
+              hls.on(Hls.Events.MANIFEST_PARSED, function() { 
+                v.play().catch(function(e){ console.log("HLS Autoplay standby"); }); 
+              });
+            } else if (v.canPlayType("application/vnd.apple.mpegurl")) {
+              v.src = src; v.addEventListener("loadedmetadata", function() { v.play(); });
+            }
+          });
+        </script>
         <span class="sc-hint" id="scHint">Tap for sound</span>
         <button class="sc-sound" id="scSound" aria-label="Turn sound on" aria-pressed="false">🔇</button>
       </div>
