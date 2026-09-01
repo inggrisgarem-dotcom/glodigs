@@ -685,70 +685,29 @@ footer ul a:hover{color:var(--gold-pale)}
       <p style="color:var(--muted);max-width:62ch">Concept designs showing layout, hierarchy and interface style across desktop and mobile. These are studio explorations rather than delivered client projects — figures shown inside them are illustrative.</p>
       <div class="sc-video glass bracket">
         <span class="sc-badge"><i></i> Concept Reel</span>
-        <video id="scVideo" autoplay loop muted playsinline disablePictureInPicture preload="auto" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel">
-          <source src="assets/glodigs-reel.mp4" type="video/mp4">
-        </video>
-        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+        <!-- Isolasi Engine Video Berbasis Baris Kode Biner (Blob RAM) -->
+        <div id="scVideo-container" style="position: relative; width: 100%; height: 100%;">
+          <video id="scVideo" autoplay loop muted playsinline disablePictureInPicture poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel" style="width: 100%; height: 100%; object-fit: cover;"></video>
+        </div>
         <script>
           document.addEventListener("DOMContentLoaded", function() {
-            var v = document.getElementById("scVideo");
-            var src = "assets/glodigs-reel.m3u8";
-            if (Hls.isSupported()) {
-              var hls = new Hls(); hls.loadSource(src); hls.attachMedia(v);
-              hls.on(Hls.Events.MANIFEST_PARSED, function() { 
-                v.play().catch(function(e){ console.log("HLS Autoplay standby"); }); 
+            var vid = document.getElementById("scVideo");
+            
+            /* Teknik Data Fetching: Memecah media MP4 menjadi baris kode biner untuk dirakit di RAM */
+            fetch("assets/glodigs-reel.mp4")
+              .then(function(response) { return response.blob(); })
+              .then(function(blob) {
+                var blobURL = URL.createObjectURL(blob);
+                vid.src = blobURL;
+                vid.load();
+                /* Video diputar langsung dari memori internal perangkat (Aman, Cepat, Lancar) */
+                vid.play().catch(function(e) { 
+                  console.log("Autoplay disiagakan, sistem OS seluler menahan eksekusi awal."); 
+                });
+              })
+              .catch(function(err) {
+                console.error("Gagal menyusun algoritma baris kode media:", err);
               });
-            } else if (v.canPlayType("application/vnd.apple.mpegurl")) {
-              v.src = src; v.addEventListener("loadedmetadata", function() { v.play(); });
-            }
-          });
-        </script>
-        <video id="scVideo" autoplay muted loop playsinline poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
-        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
-        <script>
-          document.addEventListener("DOMContentLoaded", function() {
-            var v = document.getElementById("scVideo");
-            var src = "assets/glodigs-reel.m3u8";
-            if (Hls.isSupported()) {
-              var hls = new Hls(); hls.loadSource(src); hls.attachMedia(v);
-              hls.on(Hls.Events.MANIFEST_PARSED, function() { 
-                v.play().catch(function(e){ console.log("HLS Autoplay standby"); }); 
-              });
-            } else if (v.canPlayType("application/vnd.apple.mpegurl")) {
-              v.src = src; v.addEventListener("loadedmetadata", function() { v.play(); });
-            }
-          });
-        </script>
-        <video id="scVideo" autoplay muted loop playsinline poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
-        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
-        <script>
-          document.addEventListener("DOMContentLoaded", function() {
-            var v = document.getElementById("scVideo");
-            var src = "assets/glodigs-reel.m3u8";
-            if (Hls.isSupported()) {
-              var hls = new Hls(); hls.loadSource(src); hls.attachMedia(v);
-              hls.on(Hls.Events.MANIFEST_PARSED, function() { 
-                v.play().catch(function(e){ console.log("HLS Autoplay standby"); }); 
-              });
-            } else if (v.canPlayType("application/vnd.apple.mpegurl")) {
-              v.src = src; v.addEventListener("loadedmetadata", function() { v.play(); });
-            }
-          });
-        </script>
-        <video id="scVideo" autoplay muted loop playsinline poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
-        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
-        <script>
-          document.addEventListener("DOMContentLoaded", function() {
-            var v = document.getElementById("scVideo");
-            var src = "assets/glodigs-reel.m3u8";
-            if (Hls.isSupported()) {
-              var hls = new Hls(); hls.loadSource(src); hls.attachMedia(v);
-              hls.on(Hls.Events.MANIFEST_PARSED, function() { 
-                v.play().catch(function(e){ console.log("HLS Autoplay standby"); }); 
-              });
-            } else if (v.canPlayType("application/vnd.apple.mpegurl")) {
-              v.src = src; v.addEventListener("loadedmetadata", function() { v.play(); });
-            }
           });
         </script>
         <span class="sc-hint" id="scHint">Tap for sound</span>
