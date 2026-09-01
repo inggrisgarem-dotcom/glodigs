@@ -225,139 +225,135 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
   </div>
 </footer>
 
-<!-- [ISOLATED SCROLL ANIMATION ENGINE V2] -->
+<!-- [ISOLATED SCROLL ANIMATION ENGINE V3] -->
 <style>
-  /* Animasi Pop-up Kotak */
-  .pop-hidden {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .pop-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .tech-tags span.pop-hidden, .regions span.pop-hidden, .milestone.pop-hidden {
-    transition-delay: var(--delay, 0ms);
-  }
-  /* Kursor Naratif Bio (Mirip Hero) */
+  .pop-hidden { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .pop-visible { opacity: 1; transform: translateY(0); }
+  .tech-tags span, .regions span, .milestone { transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .delay-0 { transition-delay: 0ms; }
+  .delay-1 { transition-delay: 100ms; }
+  .delay-2 { transition-delay: 200ms; }
+  .delay-3 { transition-delay: 300ms; }
+  
   .bio-cursor::after {
-    content: '';
-    display: inline-block;
-    width: 4px;
-    height: 1.1em;
+    content: ''; display: inline-block; width: 4px; height: 1.1em;
     background-color: var(--gold-pale, currentColor);
-    vertical-align: text-bottom;
-    margin-left: 4px;
+    vertical-align: text-bottom; margin-left: 4px;
     animation: isoBlink 0.8s step-end infinite;
   }
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const bioParas = document.querySelectorAll(".about-bio p, .about-cap");
-    
-    // SETUP: Simpan HTML asli & Kunci Tinggi Elemen (Mencegah Layout Jump saat discroll)
-    bioParas.forEach(p => {
-      p.dataset.rawHtml = p.innerHTML;
-      p.style.minHeight = p.offsetHeight + "px"; // Kunci koordinat dimensi
+    // 1. Kumpulkan elemen teks dalam urutan yang benar
+    const textElements = Array.from(document.querySelectorAll(".about-cap, .about-bio p"));
+
+    // Persiapan: Kunci tinggi dan kosongkan teks agar tidak ada loncatan layout
+    textElements.forEach(el => {
+      el.dataset.rawHtml = el.innerHTML;
+      el.style.minHeight = el.offsetHeight + "px";
+      el.innerHTML = "";
     });
 
-    // ENGINE MESIN TIK (Smart HTML Parser)
-    function typeWriterHTML(el, speed) {
-      if (el.dataset.isTyping === "true") return;
-      el.dataset.isTyping = "true";
-      el.dataset.typed = "true";
-      
+    let isSequenceRunning = false;
+
+    // Fungsi Ketikan dengan Callback
+    function typeWriterHTML(el, speed, onComplete) {
       const rawHTML = el.dataset.rawHtml;
       el.innerHTML = "";
-      el.style.opacity = 1;
       el.classList.add("bio-cursor");
-      
+
       let i = 0;
       let isTag = false;
       let textBuffer = "";
-      
+
       function typing() {
-        // Hentikan pengetikan secara paksa jika elemen di-scroll keluar layar
-        if (el.dataset.cancelTyping === "true") {
-          el.dataset.isTyping = "false";
+        // Hentikan paksa jika di-scroll ke atas
+        if (el.dataset.cancel === "true") {
           el.classList.remove("bio-cursor");
           return;
         }
 
         if (i < rawHTML.length) {
           if (rawHTML.charAt(i) === "<") isTag = true;
-          
           textBuffer += rawHTML.charAt(i);
           el.innerHTML = textBuffer;
           i++;
-          
           if (rawHTML.charAt(i-1) === ">") isTag = false;
-          
+
           if (isTag) {
-            typing(); // Lewati jeda untuk tag HTML agar tidak rusak
+            typing(); // Render tag HTML instan
           } else {
-            setTimeout(typing, speed); // Tempo storytelling
+            setTimeout(typing, speed);
           }
         } else {
-          el.dataset.isTyping = "false";
           el.classList.remove("bio-cursor");
+          if (onComplete) setTimeout(onComplete, 250); // Jeda bernapas sebelum paragraf berikutnya
         }
       }
-      setTimeout(typing, 100);
+      typing();
     }
 
-    // OBSERVER: Pemantau Scroll (Re-triggerable)
-    const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
-    
-    const scrollObserver = new IntersectionObserver((entries) => {
+    // Orchestrator: Menjalankan paragraf secara berurutan
+    function playSequence(index) {
+      if (index >= textElements.length) return;
+      const el = textElements[index];
+      if (el.dataset.cancel === "true") return;
+
+      typeWriterHTML(el, 25, () => {
+         playSequence(index + 1);
+      });
+    }
+
+    // Reset sistem saat keluar dari layar
+    function resetSequence() {
+      textElements.forEach(el => {
+        el.dataset.cancel = "true";
+        el.innerHTML = ""; 
+      });
+    }
+
+    // 2. Observer Bio (Trigger berbasis grid induk, bukan per paragraf)
+    const aboutGrid = document.querySelector(".about-grid");
+    const bioObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        const el = entry.target;
-        
         if (entry.isIntersecting) {
-          // KONDISI 1: Masuk Layar (Halaman menjadi "Hidup")
-          if (el.classList.contains("type-ready")) {
-            el.dataset.cancelTyping = "false";
-            if (el.dataset.typed !== "true") {
-              typeWriterHTML(el, 25); // Tempo pelan nan pasti (25ms/karakter)
-            }
-          }
-          if (el.classList.contains("pop-hidden")) {
-            el.classList.add("pop-visible");
+          if (!isSequenceRunning) {
+            isSequenceRunning = true;
+            textElements.forEach(el => el.dataset.cancel = "false");
+            playSequence(0); // Mulai dari baris pertama (About Cap)
           }
         } else {
-          // KONDISI 2: Keluar Layar (Mereset data agar bisa diulang)
-          if (el.classList.contains("type-ready")) {
-            el.dataset.cancelTyping = "true";
-            el.dataset.typed = "false";
-            el.dataset.isTyping = "false";
-            el.innerHTML = ""; // Kosongkan teks (tinggi tetap aman karena di-lock)
-            el.style.opacity = 0;
-          }
-          if (el.classList.contains("pop-hidden")) {
-            el.classList.remove("pop-visible"); // Sembunyikan kotak-kotak layanan
-          }
+          isSequenceRunning = false;
+          resetSequence();
         }
       });
-    }, observerOptions);
+    }, { root: null, rootMargin: "-15% 0px", threshold: 0.1 }); // -15% menahan animasi sampai di-scroll ke bawah
 
-    // REGISTRASI ELEMEN
-    bioParas.forEach(p => {
-      p.classList.add("type-ready");
-      p.style.opacity = 0;
-      scrollObserver.observe(p);
-    });
+    if(aboutGrid) bioObserver.observe(aboutGrid);
+
+    // 3. Observer Kotak Layanan & Tags
+    const boxObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("pop-visible");
+          entry.target.classList.remove("pop-hidden");
+        } else {
+          entry.target.classList.remove("pop-visible");
+          entry.target.classList.add("pop-hidden");
+        }
+      });
+    }, { root: null, rootMargin: "0px", threshold: 0.1 });
 
     const boxElements = document.querySelectorAll(".milestone, .tech-tags span, .regions span");
     boxElements.forEach((box, index) => {
-      box.classList.add("pop-hidden");
-      box.style.setProperty("--delay", (index % 5) * 80 + "ms"); // Jeda kemunculan bergiliran
-      scrollObserver.observe(box);
+      box.classList.add("pop-hidden", "delay-" + (index % 4));
+      boxObserver.observe(box);
     });
   });
 </script>
-<!-- [/ISOLATED SCROLL ANIMATION ENGINE V2] -->
+<!-- [/ISOLATED SCROLL ANIMATION ENGINE V3] -->
+
 
 
 <script>
