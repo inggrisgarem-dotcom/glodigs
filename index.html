@@ -685,58 +685,31 @@ footer ul a:hover{color:var(--gold-pale)}
       <p style="color:var(--muted);max-width:62ch">Concept designs showing layout, hierarchy and interface style across desktop and mobile. These are studio explorations rather than delivered client projects — figures shown inside them are illustrative.</p>
       <div class="sc-video glass bracket">
         <span class="sc-badge"><i></i> Concept Reel</span>
-        <!-- Isolasi Engine Video Berbasis Baris Kode Biner (Blob RAM) - Aggressive Edition -->
+        <!-- Arsitektur Mutasi WebP (Bypass Absolut Keamanan OS) -->
         <style>
-          /* Mencegah klik nyasar pada layar yang membuat video terjeda (pause) */
-          #scVideo-container { pointer-events: none; }
-          /* Memaksa musnah kontrol media native bawaan OS */
-          video::-webkit-media-controls, video::-webkit-media-controls-enclosure { display: none !important; }
+          /* Mencegah interaksi pointer dan mengunci tampilan */
+          #scVideo-container { position: relative; width: 100%; height: 100%; pointer-events: none; background: #000; }
+          #scVideo-container img { width: 100%; height: 100%; object-fit: cover; }
         </style>
-        <div id="scVideo-container" style="position: relative; width: 100%; height: 100%;">
-          <video id="scVideo" autoplay loop muted playsinline disablePictureInPicture disableRemotePlayback poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel" style="width: 100%; height: 100%; object-fit: cover;"></video>
+        <div id="scVideo-container">
+          <!-- Dibaca oleh mesin OS murni sebagai gambar biasa yang tidak berbahaya -->
+          <img src="assets/glodigs-reel.webp" alt="Glodigs Concept Reel" decoding="async" fetchpriority="high">
         </div>
         <script>
+          /* Algoritma pemusnah ikon speaker tamplat yang membingungkan */
           document.addEventListener("DOMContentLoaded", function() {
-            var vid = document.getElementById("scVideo");
-            
-            vid.muted = true; vid.defaultMuted = true; vid.playsInline = true;
-            
-            /* EKSEKUSI PEMUSNAHAN IKON SPEAKER TAMPLAT */
             try {
-              var parentSec = vid.closest('section') || vid.parentElement.parentElement;
+              var container = document.getElementById("scVideo-container");
+              var parentSec = container.closest('section') || container.parentElement.parentElement;
               if (parentSec) {
-                var uiElements = parentSec.querySelectorAll('button, a, .icon, [class*="speaker"], [class*="audio"], [class*="mute"], [class*="sound"]');
+                var uiElements = parentSec.querySelectorAll('button, a, .icon, [class*="speaker"], [class*="audio"], [class*="mute"]');
                 uiElements.forEach(function(el) {
-                  // Jika elemen dicurigai sebagai tombol pengontrol suara, lenyapkan
                   if(el.innerHTML.includes('svg') || el.tagName === 'BUTTON' || el.className.includes('audio')) {
                     el.style.display = 'none';
                   }
                 });
               }
             } catch(e) {}
-
-            fetch("assets/glodigs-reel.mp4")
-              .then(function(r) { return r.blob(); })
-              .then(function(b) {
-                vid.src = URL.createObjectURL(b);
-                vid.load();
-                
-                /* AGGRESSIVE AUTOPLAY ENGINE (BRUTE-FORCE) */
-                var forcePlayEngine = function() {
-                  vid.muted = true;
-                  var playPromise = vid.play();
-                  if (playPromise !== undefined) {
-                    playPromise.then(function() {
-                      // Sukses menembus OS seluler
-                    }).catch(function(e) {
-                      // OS menolak? Tembak lagi perintah play dalam 250 milidetik tanpa henti
-                      setTimeout(forcePlayEngine, 250);
-                    });
-                  }
-                };
-                
-                vid.addEventListener("canplay", forcePlayEngine, { once: true });
-              });
           });
         </script>
         <span class="sc-hint" id="scHint">Tap for sound</span>
