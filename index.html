@@ -685,7 +685,9 @@ footer ul a:hover{color:var(--gold-pale)}
       <p style="color:var(--muted);max-width:62ch">Concept designs showing layout, hierarchy and interface style across desktop and mobile. These are studio explorations rather than delivered client projects — figures shown inside them are illustrative.</p>
       <div class="sc-video glass bracket">
         <span class="sc-badge"><i></i> Concept Reel</span>
-        <video id="scVideo" autoplay muted loop playsinline poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
+        <video id="scVideo" autoplay loop muted playsinline disablePictureInPicture preload="auto" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel">
+          <source src="assets/glodigs-reel.mp4" type="video/mp4">
+        </video>
         <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
         <script>
           document.addEventListener("DOMContentLoaded", function() {
