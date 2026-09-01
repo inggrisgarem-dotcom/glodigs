@@ -225,44 +225,67 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
   </div>
 </footer>
 
-<!-- [ISOLATED SCROLL ANIMATION ENGINE] -->
+<!-- [ISOLATED SCROLL ANIMATION ENGINE V2] -->
 <style>
-  /* Base state untuk elemen kotak sebelum di-scroll */
+  /* Animasi Pop-up Kotak */
   .pop-hidden {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
-  /* State setelah masuk viewport */
   .pop-visible {
     opacity: 1;
     transform: translateY(0);
   }
-  /* Stagger delay untuk kotak-kotak kecil yang berjejer */
-  .tech-tags span.pop-visible, .regions span.pop-visible {
+  .tech-tags span.pop-hidden, .regions span.pop-hidden, .milestone.pop-hidden {
     transition-delay: var(--delay, 0ms);
+  }
+  /* Kursor Naratif Bio (Mirip Hero) */
+  .bio-cursor::after {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 1.1em;
+    background-color: var(--gold-pale, currentColor);
+    vertical-align: text-bottom;
+    margin-left: 4px;
+    animation: isoBlink 0.8s step-end infinite;
   }
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // 1. ENGINE TYPEWRITER BIO (Smart HTML Parser)
     const bioParas = document.querySelectorAll(".about-bio p, .about-cap");
     
-    function typeWriterHTML(el, speed, onComplete) {
-      if (el.dataset.typed === "true") return; 
+    // SETUP: Simpan HTML asli & Kunci Tinggi Elemen (Mencegah Layout Jump saat discroll)
+    bioParas.forEach(p => {
+      p.dataset.rawHtml = p.innerHTML;
+      p.style.minHeight = p.offsetHeight + "px"; // Kunci koordinat dimensi
+    });
+
+    // ENGINE MESIN TIK (Smart HTML Parser)
+    function typeWriterHTML(el, speed) {
+      if (el.dataset.isTyping === "true") return;
+      el.dataset.isTyping = "true";
       el.dataset.typed = "true";
       
-      const rawHTML = el.innerHTML;
+      const rawHTML = el.dataset.rawHtml;
       el.innerHTML = "";
-      el.style.opacity = 1; // Tampilkan elemen saat mulai diketik
+      el.style.opacity = 1;
+      el.classList.add("bio-cursor");
       
       let i = 0;
       let isTag = false;
       let textBuffer = "";
-      el.classList.add("isotype-cursor");
       
       function typing() {
+        // Hentikan pengetikan secara paksa jika elemen di-scroll keluar layar
+        if (el.dataset.cancelTyping === "true") {
+          el.dataset.isTyping = "false";
+          el.classList.remove("bio-cursor");
+          return;
+        }
+
         if (i < rawHTML.length) {
           if (rawHTML.charAt(i) === "<") isTag = true;
           
@@ -272,61 +295,70 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
           
           if (rawHTML.charAt(i-1) === ">") isTag = false;
           
-          // Jika sedang membaca tag HTML, lewati jeda waktu
           if (isTag) {
-            typing(); 
+            typing(); // Lewati jeda untuk tag HTML agar tidak rusak
           } else {
-            setTimeout(typing, speed);
+            setTimeout(typing, speed); // Tempo storytelling
           }
         } else {
-          el.classList.remove("isotype-cursor");
-          if (onComplete) onComplete();
+          el.dataset.isTyping = "false";
+          el.classList.remove("bio-cursor");
         }
       }
       setTimeout(typing, 100);
     }
 
-    // 2. INTERSECTION OBSERVER (Deteksi Scroll)
-    const observerOptions = { root: null, rootMargin: "0px", threshold: 0.15 };
+    // OBSERVER: Pemantau Scroll (Re-triggerable)
+    const observerOptions = { root: null, rootMargin: "0px", threshold: 0.1 };
     
-    const scrollObserver = new IntersectionObserver((entries, obs) => {
+    const scrollObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
+        const el = entry.target;
+        
         if (entry.isIntersecting) {
-          const el = entry.target;
-          
-          // Deteksi Paragraf Bio -> Eksekusi Ketikan
+          // KONDISI 1: Masuk Layar (Halaman menjadi "Hidup")
           if (el.classList.contains("type-ready")) {
-            typeWriterHTML(el, 8); // Kecepatan tinggi: 8ms untuk teks panjang
-            obs.unobserve(el);
+            el.dataset.cancelTyping = "false";
+            if (el.dataset.typed !== "true") {
+              typeWriterHTML(el, 25); // Tempo pelan nan pasti (25ms/karakter)
+            }
           }
-          
-          // Deteksi Kotak Layanan/Tags -> Eksekusi Pop-up
           if (el.classList.contains("pop-hidden")) {
             el.classList.add("pop-visible");
-            obs.unobserve(el);
+          }
+        } else {
+          // KONDISI 2: Keluar Layar (Mereset data agar bisa diulang)
+          if (el.classList.contains("type-ready")) {
+            el.dataset.cancelTyping = "true";
+            el.dataset.typed = "false";
+            el.dataset.isTyping = "false";
+            el.innerHTML = ""; // Kosongkan teks (tinggi tetap aman karena di-lock)
+            el.style.opacity = 0;
+          }
+          if (el.classList.contains("pop-hidden")) {
+            el.classList.remove("pop-visible"); // Sembunyikan kotak-kotak layanan
           }
         }
       });
     }, observerOptions);
 
-    // Registrasi Elemen Bio
-    bioParas.forEach((p) => {
+    // REGISTRASI ELEMEN
+    bioParas.forEach(p => {
       p.classList.add("type-ready");
-      p.style.opacity = 0; // Sembunyikan sebelum discroll
+      p.style.opacity = 0;
       scrollObserver.observe(p);
     });
 
-    // Registrasi Kotak-kotak Kecil (Tags, Regions, Milestones)
     const boxElements = document.querySelectorAll(".milestone, .tech-tags span, .regions span");
     boxElements.forEach((box, index) => {
       box.classList.add("pop-hidden");
-      // Berikan jeda bertingkat (stagger) agar muncul bergiliran
-      box.style.setProperty("--delay", (index % 5) * 80 + "ms");
+      box.style.setProperty("--delay", (index % 5) * 80 + "ms"); // Jeda kemunculan bergiliran
       scrollObserver.observe(box);
     });
   });
 </script>
-<!-- [/ISOLATED SCROLL ANIMATION ENGINE] -->
+<!-- [/ISOLATED SCROLL ANIMATION ENGINE V2] -->
+
 
 <script>
 (function(){
