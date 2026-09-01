@@ -225,6 +225,109 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
   </div>
 </footer>
 
+<!-- [ISOLATED SCROLL ANIMATION ENGINE] -->
+<style>
+  /* Base state untuk elemen kotak sebelum di-scroll */
+  .pop-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  /* State setelah masuk viewport */
+  .pop-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Stagger delay untuk kotak-kotak kecil yang berjejer */
+  .tech-tags span.pop-visible, .regions span.pop-visible {
+    transition-delay: var(--delay, 0ms);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // 1. ENGINE TYPEWRITER BIO (Smart HTML Parser)
+    const bioParas = document.querySelectorAll(".about-bio p, .about-cap");
+    
+    function typeWriterHTML(el, speed, onComplete) {
+      if (el.dataset.typed === "true") return; 
+      el.dataset.typed = "true";
+      
+      const rawHTML = el.innerHTML;
+      el.innerHTML = "";
+      el.style.opacity = 1; // Tampilkan elemen saat mulai diketik
+      
+      let i = 0;
+      let isTag = false;
+      let textBuffer = "";
+      el.classList.add("isotype-cursor");
+      
+      function typing() {
+        if (i < rawHTML.length) {
+          if (rawHTML.charAt(i) === "<") isTag = true;
+          
+          textBuffer += rawHTML.charAt(i);
+          el.innerHTML = textBuffer;
+          i++;
+          
+          if (rawHTML.charAt(i-1) === ">") isTag = false;
+          
+          // Jika sedang membaca tag HTML, lewati jeda waktu
+          if (isTag) {
+            typing(); 
+          } else {
+            setTimeout(typing, speed);
+          }
+        } else {
+          el.classList.remove("isotype-cursor");
+          if (onComplete) onComplete();
+        }
+      }
+      setTimeout(typing, 100);
+    }
+
+    // 2. INTERSECTION OBSERVER (Deteksi Scroll)
+    const observerOptions = { root: null, rootMargin: "0px", threshold: 0.15 };
+    
+    const scrollObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          
+          // Deteksi Paragraf Bio -> Eksekusi Ketikan
+          if (el.classList.contains("type-ready")) {
+            typeWriterHTML(el, 8); // Kecepatan tinggi: 8ms untuk teks panjang
+            obs.unobserve(el);
+          }
+          
+          // Deteksi Kotak Layanan/Tags -> Eksekusi Pop-up
+          if (el.classList.contains("pop-hidden")) {
+            el.classList.add("pop-visible");
+            obs.unobserve(el);
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Registrasi Elemen Bio
+    bioParas.forEach((p) => {
+      p.classList.add("type-ready");
+      p.style.opacity = 0; // Sembunyikan sebelum discroll
+      scrollObserver.observe(p);
+    });
+
+    // Registrasi Kotak-kotak Kecil (Tags, Regions, Milestones)
+    const boxElements = document.querySelectorAll(".milestone, .tech-tags span, .regions span");
+    boxElements.forEach((box, index) => {
+      box.classList.add("pop-hidden");
+      // Berikan jeda bertingkat (stagger) agar muncul bergiliran
+      box.style.setProperty("--delay", (index % 5) * 80 + "ms");
+      scrollObserver.observe(box);
+    });
+  });
+</script>
+<!-- [/ISOLATED SCROLL ANIMATION ENGINE] -->
+
 <script>
 (function(){
   var btn=document.getElementById('navToggle'),menu=document.getElementById('navMenu'),closeBtn=document.getElementById('navClose');
