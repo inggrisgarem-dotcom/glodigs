@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title translate="no">Glodigs — Global Digital Growth Studio | Bari Vijaya</title>
 <meta name="description" content="UI/UX design, web development, landing pages, website rebuilds, SEO and logo design for growing businesses worldwide. Serving clients across the US, Europe, and beyond. Pay only after final approval.">
+<link rel="preconnect" href="https://i.pravatar.cc">
+<link rel="preconnect" href="https://s.wordpress.com">
 <style>
 :root{
   --ink:#08070c;
@@ -17,12 +19,13 @@
   --gold-pale:#f6e7b8;
   --ivory:#efe9dd;
   --muted:#a8a08d;
-  --serif:Georgia,'Times New Roman',serif;
+  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
   --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
   --maxw:1200px;
   --glass:saturate(1.3) blur(16px);
 }
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap');
 *{box-sizing:border-box}
 html{-webkit-tap-highlight-color:transparent}
 a,button,[role=button],summary,label,input,select,textarea{-webkit-tap-highlight-color:transparent}
@@ -137,7 +140,8 @@ nav#navMenu a.nav-tapped::after{width:50%}
 .pf-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s ease}
 .pf-card:hover .pf-thumb img{transform:scale(1.05)}
 .pf-body{padding:22px 24px 26px}
-.pf-tag{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);opacity:.85}
+.pf-tag{display:flex;flex-wrap:wrap;gap:5px}
+.pf-tag span{font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);opacity:.9;border:1px solid var(--line);padding:3px 8px;border-radius:10px;background:rgba(232,198,106,.06)}
 .pf-card h3{font-size:1.02rem;margin:.55em 0 .85em;line-height:1.35}
 .pf-link{font-size:.84rem;color:var(--gold-pale);border-bottom:1px solid var(--gold-deep);transition:color .2s}
 .pf-link:hover{color:var(--gold)}
@@ -175,6 +179,16 @@ section .eyebrow{margin-bottom:.75em}
 .case-mini-thumb{display:block;aspect-ratio:16/8;border-radius:10px;overflow:hidden;margin:0 0 8px}
 .case-mini-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .case-hint{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:10px}
+.rotate-badge{position:absolute;top:0;right:clamp(20px,5vw,64px);width:78px;height:78px;animation:rbSpin 22s linear infinite;opacity:.85}
+.pf-filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.pf-filter{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;padding:7px 14px;border-radius:20px;border:1px solid var(--line-2);background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer;transition:all .2s ease}
+.pf-filter:hover{border-color:var(--line);color:var(--gold-pale)}
+.pf-filter.is-active{border-color:var(--gold);color:var(--gold);background:rgba(232,198,106,.08)}
+.case-mini.pf-hidden{display:none}
+@media(min-width:820px){.rotate-badge{width:96px;height:96px}}
+@keyframes rbSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.rotate-badge{animation:none}}
+@media(max-width:560px){.rotate-badge{width:56px;height:56px;top:2px}}
 .case-modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center}
 .case-modal.is-open{display:flex}
 @media(min-width:760px){.case-modal{align-items:center}}
@@ -190,11 +204,11 @@ section .eyebrow{margin-bottom:.75em}
 body.modal-open{overflow:hidden}
 .sc-video{margin-top:42px;overflow:hidden;position:relative;border-radius:16px;aspect-ratio:16/9;background:#0d0b12}
 .sc-video video{width:100%;height:100%;object-fit:cover;display:block}
-.sc-badge{position:absolute;top:10px;right:10px;z-index:3;font-family:var(--mono);font-size:.4rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);background:rgba(8,7,12,.6);backdrop-filter:blur(10px);border:1px solid var(--line);padding:3px 8px;border-radius:14px;display:flex;align-items:center;gap:4px}
+.sc-badge{position:absolute;top:14px;left:14px;z-index:3;font-family:var(--mono);font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);background:rgba(8,7,12,.6);backdrop-filter:blur(10px);border:1px solid var(--line);padding:5px 10px;border-radius:16px;display:flex;align-items:center;gap:6px}
 .sc-badge i{width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(232,198,106,.7);animation:pulse 2.4s ease-out infinite;font-style:normal}
-.sc-sound{position:absolute;bottom:10px;right:10px;z-index:4;width:24px;height:24px;border-radius:50%;border:1px solid var(--line);background:rgba(8,7,12,.62);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--gold-pale);font-size:.56rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s ease;padding:0}
+.sc-sound{position:absolute;bottom:14px;right:14px;z-index:4;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:rgba(8,7,12,.62);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--gold-pale);font-size:.72rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s ease;padding:0}
 .sc-sound:hover{border-color:var(--gold);color:var(--gold);transform:scale(1.08)}
-.sc-sound.on{background:rgba(8,7,12,.62);border-color:var(--gold);color:var(--gold)}
+.sc-sound.on{background:linear-gradient(180deg,var(--gold-pale),var(--gold));color:#231803;border-color:transparent}
 .sc-hint{position:absolute;bottom:26px;right:72px;z-index:4;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);background:rgba(8,7,12,.62);backdrop-filter:blur(10px);border:1px solid var(--line);padding:7px 12px;border-radius:18px;white-space:nowrap;transition:opacity .4s ease}
 .sc-hint.gone{opacity:0;pointer-events:none}
 @media(max-width:520px){.sc-hint{display:none}}
@@ -412,64 +426,79 @@ footer ul a:hover{color:var(--gold-pale)}
   </section>
 
   <section id="portfolio">
-    <div class="wrap">
+    <div class="wrap" style="position:relative">
+      <svg class="rotate-badge" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><path id="rbCirc" d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"/></defs>
+        <text font-family="var(--mono)" font-size="8.2" letter-spacing="2.5" fill="var(--gold)">
+          <textPath href="#rbCirc" startOffset="0%">SIX PROJECTS · REAL CODE · SIX PROJECTS · REAL CODE ·</textPath>
+        </text>
+        <circle cx="60" cy="60" r="3" fill="var(--gold)"/>
+      </svg>
       <span class="eyebrow">My Work</span>
       <h2>Built and shipped by me.</h2>
       <p style="color:var(--muted);max-width:60ch">One project, documented end to end. Every
       decision below is mine, every number is measured, and the whole build is open for
       inspection — source code included.</p>
 
+      <div class="pf-filters" role="tablist" aria-label="Filter portfolio by category">
+        <button class="pf-filter is-active" type="button" data-filter="all">All</button>
+        <button class="pf-filter" type="button" data-filter="uiux">UI/UX</button>
+        <button class="pf-filter" type="button" data-filter="webdev">Web Dev</button>
+        <button class="pf-filter" type="button" data-filter="landing">Landing Page</button>
+        <button class="pf-filter" type="button" data-filter="seo">SEO</button>
+        <button class="pf-filter" type="button" data-filter="brand">Branding</button>
+      </div>
       <div class="case-scroll" role="list">
 
-        <button class="case-mini glass tappable" type="button" data-modal="modal-palminsurance" role="listitem">
+        <button class="case-mini glass tappable" type="button" data-modal="modal-palminsurance" data-cat="uiux" role="listitem">
           <span class="case-mini-thumb"><img src="assets/case-palminsurance.jpg" alt="Palm Insurance commercial brokerage homepage" loading="lazy"></span>
           <span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <span class="pf-tag">Insurance Brokerage · UI/UX</span>
+          <span class="pf-tag"><span>Insurance Brokerage</span><span>UI/UX</span></span>
           <h3><span class="notranslate" translate="no">Palm Insurance</span> — Corporate Website</h3>
           <p>A B2B insurance brokerage front end built to project stability and trust — full-screen mobile nav, simulated contact flow, real business copy throughout.</p>
           <span class="case-mini-cta">View Case Study <span aria-hidden="true">+</span></span>
         </button>
 
-        <button class="case-mini glass tappable" type="button" data-modal="modal-sonnet7" role="listitem">
+        <button class="case-mini glass tappable" type="button" data-modal="modal-sonnet7" data-cat="brand" role="listitem">
           <span class="case-mini-thumb"><img src="assets/case-sonnet7.jpg" alt="sonnet.7 brand identity palette and typography" loading="lazy"></span>
           <span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <span class="pf-tag">Brand Identity · Logo Design</span>
+          <span class="pf-tag"><span>Brand Identity</span><span>Logo Design</span></span>
           <h3><span class="notranslate" translate="no">sonnet.7</span> — Logo &amp; Brand Identity</h3>
           <p>A logo system for a fictional music brand — primary mark, dark/light/mono lockups, and a one-page brand guide.</p>
           <span class="case-mini-cta">View Case Study <span aria-hidden="true">+</span></span>
         </button>
 
-        <button class="case-mini glass tappable" type="button" data-modal="modal-ledgr" role="listitem">
+        <button class="case-mini glass tappable" type="button" data-modal="modal-ledgr" data-cat="uiux" role="listitem">
           <span class="case-mini-thumb"><img src="assets/case-ledgr.jpg" alt="Ledgr personal finance app dashboard UI" loading="lazy"></span>
           <span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <span class="pf-tag">UI/UX Design · Prototyping · QA</span>
+          <span class="pf-tag"><span>UI/UX Design</span><span>Prototyping</span><span>QA</span></span>
           <h3><span class="notranslate" translate="no">Ledgr</span> — Personal Finance App UI/UX</h3>
           <p>A personal finance app UI/UX across three pricing tiers, with a working prototype — not static screens.</p>
           <span class="case-mini-cta">View Case Study <span aria-hidden="true">+</span></span>
         </button>
 
-        <button class="case-mini glass tappable" type="button" data-modal="modal-verdant" role="listitem">
+        <button class="case-mini glass tappable" type="button" data-modal="modal-verdant" data-cat="seo" role="listitem">
           <span class="case-mini-thumb"><img src="assets/case-verdant.jpg" alt="Verdant landscaping SEO landing page hero" loading="lazy"></span>
           <span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <span class="pf-tag">Technical SEO · Schema Markup</span>
+          <span class="pf-tag"><span>Technical SEO</span><span>Schema Markup</span></span>
           <h3><span class="notranslate" translate="no">Verdant</span> — Technical SEO Landing Page</h3>
           <p>A landscaping business landing page built to demonstrate full technical SEO implementation — schema, meta tags, and a downloadable audit.</p>
           <span class="case-mini-cta">View Case Study <span aria-hidden="true">+</span></span>
         </button>
 
-        <button class="case-mini glass tappable" type="button" data-modal="modal-northline" role="listitem">
+        <button class="case-mini glass tappable" type="button" data-modal="modal-northline" data-cat="webdev,landing" role="listitem">
           <span class="case-mini-thumb"><img src="assets/case-northline.jpg" alt="Northline physiotherapy landing page with range-of-motion gauge" loading="lazy"></span>
           <span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <span class="pf-tag">Landing Page · Web Development</span>
+          <span class="pf-tag"><span>Landing Page</span><span>Web Development</span></span>
           <h3><span class="notranslate" translate="no">Northline</span> — Physiotherapy Landing Page</h3>
           <p>A physiotherapy clinic landing page with an animated range-of-motion gauge, built to convert.</p>
           <span class="case-mini-cta">View Case Study <span aria-hidden="true">+</span></span>
         </button>
 
-        <button class="case-mini glass tappable" type="button" data-modal="modal-brework" role="listitem">
+        <button class="case-mini glass tappable" type="button" data-modal="modal-brework" data-cat="webdev,landing" role="listitem">
           <span class="case-mini-thumb"><img src="assets/case-brework.jpg" alt="Bre-work SaaS dashboard workflow analytics" loading="lazy"></span>
           <span class="edge-v edge-l"></span><span class="edge-v edge-r"></span>
-          <span class="pf-tag">SaaS Dashboard · Landing Page</span>
+          <span class="pf-tag"><span>SaaS Dashboard</span><span>Landing Page</span></span>
           <h3><span class="notranslate" translate="no">Bre-work</span> — SaaS Dashboard Landing Page</h3>
           <p>A workflow analytics dashboard landing page, including a fix for a common desktop layout-shift bug.</p>
           <span class="case-mini-cta">View Case Study <span aria-hidden="true">+</span></span>
@@ -497,7 +526,7 @@ footer ul a:hover{color:var(--gold-pale)}
     <button class="case-modal-backdrop" type="button" data-close aria-label="Close"></button>
     <div class="case-modal-panel glass">
       <button class="case-modal-close" type="button" data-close aria-label="Close case study">✕</button>
-      <span class="pf-tag">Insurance Brokerage · UI/UX</span>
+      <span class="pf-tag"><span>Insurance Brokerage</span><span>UI/UX</span></span>
       <h3 id="modal-palminsurance-title"><span class="notranslate" translate="no">Palm Insurance</span> — Corporate Website</h3>
       <img src="assets/case-palminsurance.jpg" alt="Palm Insurance commercial brokerage homepage" loading="lazy" class="case-preview">
       <p>A corporate site for a fictional B2B insurance brokerage, built to carry a different visual language than the rest of the portfolio — deep green and gold, dense information architecture, six coverage lines, and two written executive profiles instead of one founder story.</p>
@@ -524,7 +553,7 @@ footer ul a:hover{color:var(--gold-pale)}
     <button class="case-modal-backdrop" type="button" data-close aria-label="Close"></button>
     <div class="case-modal-panel glass">
       <button class="case-modal-close" type="button" data-close aria-label="Close case study">✕</button>
-      <span class="pf-tag">Brand Identity · Logo Design · Deployment</span>
+      <span class="pf-tag"><span>Brand Identity</span><span>Logo Design</span><span>Deployment</span></span>
       <h3 id="modal-sonnet7-title"><span class="notranslate" translate="no">sonnet.7</span> — Logo &amp; Brand Identity System</h3>
       <img src="assets/case-sonnet7.jpg" alt="sonnet.7 brand identity palette and typography" loading="lazy" class="case-preview">
       <p>A logo system for a fictional music brand, built to demonstrate full identity work: primary mark, dark/light/mono lockups, and a one-page brand guide — not a single flat logo file.</p>
@@ -551,7 +580,7 @@ footer ul a:hover{color:var(--gold-pale)}
     <button class="case-modal-backdrop" type="button" data-close aria-label="Close"></button>
     <div class="case-modal-panel glass">
       <button class="case-modal-close" type="button" data-close aria-label="Close case study">✕</button>
-      <span class="pf-tag">UI/UX Design · Prototyping · QA</span>
+      <span class="pf-tag"><span>UI/UX Design</span><span>Prototyping</span><span>QA</span></span>
       <h3 id="modal-ledgr-title"><span class="notranslate" translate="no">Ledgr</span> — Personal Finance App UI/UX</h3>
       <img src="assets/case-ledgr.jpg" alt="Ledgr personal finance app dashboard UI" loading="lazy" class="case-preview">
       <p>A personal finance app UI/UX, delivered across three pricing tiers with a working prototype, not static screens — every flow you can actually click through.</p>
@@ -578,7 +607,7 @@ footer ul a:hover{color:var(--gold-pale)}
     <button class="case-modal-backdrop" type="button" data-close aria-label="Close"></button>
     <div class="case-modal-panel glass">
       <button class="case-modal-close" type="button" data-close aria-label="Close case study">✕</button>
-      <span class="pf-tag">Technical SEO · Schema Markup · Content Audit</span>
+      <span class="pf-tag"><span>Technical SEO</span><span>Schema Markup</span><span>Content Audit</span></span>
       <h3 id="modal-verdant-title"><span class="notranslate" translate="no">Verdant</span> — Technical SEO Landing Page</h3>
       <img src="assets/case-verdant.jpg" alt="Verdant landscaping SEO landing page hero" loading="lazy" class="case-preview">
       <p>A landscaping business landing page built to demonstrate full technical SEO implementation, not just design — structured data, meta tags, sitemap, and a one-page audit report showing exactly what's implemented and why.</p>
@@ -605,7 +634,7 @@ footer ul a:hover{color:var(--gold-pale)}
     <button class="case-modal-backdrop" type="button" data-close aria-label="Close"></button>
     <div class="case-modal-panel glass">
       <button class="case-modal-close" type="button" data-close aria-label="Close case study">✕</button>
-      <span class="pf-tag">Landing Page · Web Development · Deployment</span>
+      <span class="pf-tag"><span>Landing Page</span><span>Web Development</span><span>Deployment</span></span>
       <h3 id="modal-northline-title"><span class="notranslate" translate="no">Northline</span> — Physiotherapy Landing Page</h3>
       <img src="assets/case-northline.jpg" alt="Northline physiotherapy landing page with range-of-motion gauge" loading="lazy" class="case-preview">
       <p>A physiotherapy clinic landing page built around a single clear offer — book an assessment — with an animated gauge that visualizes the clinical measurement the practice actually treats.</p>
@@ -632,7 +661,7 @@ footer ul a:hover{color:var(--gold-pale)}
     <button class="case-modal-backdrop" type="button" data-close aria-label="Close"></button>
     <div class="case-modal-panel glass">
       <button class="case-modal-close" type="button" data-close aria-label="Close case study">✕</button>
-      <span class="pf-tag">SaaS Dashboard · Landing Page · Deployment</span>
+      <span class="pf-tag"><span>SaaS Dashboard</span><span>Landing Page</span><span>Deployment</span></span>
       <h3 id="modal-brework-title"><span class="notranslate" translate="no">Bre-work</span> — SaaS Dashboard Landing Page</h3>
       <img src="assets/case-brework.jpg" alt="Bre-work SaaS dashboard workflow analytics" loading="lazy" class="case-preview">
       <p>A landing page for a workflow analytics product, refined through a dedicated fix pass — including a subtle desktop bug most sites ship with anyway.</p>
@@ -686,7 +715,8 @@ footer ul a:hover{color:var(--gold-pale)}
       <div class="sc-video glass bracket">
         <span class="sc-badge"><i></i> Concept Reel</span>
         <video id="scVideo" autoplay muted loop playsinline preload="metadata" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel">
-          <source src="assets/showcase.mp4" type="video/mp4">
+          <source src="assets/glodigs-reel.mp4" type="video/mp4">
+          <source src="assets/Glodigs%20concept%20reel.webm" type="video/webm">
         </video>
         <span class="sc-hint" id="scHint">Tap for sound</span>
         <button class="sc-sound" id="scSound" aria-label="Turn sound on" aria-pressed="false">🔇</button>
@@ -830,7 +860,7 @@ footer ul a:hover{color:var(--gold-pale)}
     function fastScrollTo(targetY,duration){
       var startY=window.scrollY,diff=targetY-startY,startTime=null;
       var htmlEl=document.documentElement,prevBehavior=htmlEl.style.scrollBehavior;
-      htmlEl.style.scrollBehavior='auto';
+      htmlEl.style.scrollBehavior='auto';   // cegah CSS smooth-scroll ikut meredam tiap frame
       function step(ts){
         if(!startTime)startTime=ts;
         var p=Math.min((ts-startTime)/duration,1);
@@ -862,15 +892,7 @@ footer ul a:hover{color:var(--gold-pale)}
   if(!('IntersectionObserver' in window)){
     t.forEach(function(e){e.classList.add('is-in');});
   }else{
-    var groupCounters={};
-    t.forEach(function(e){
-      var g=e.closest('section')||e;
-      var key=g.id||'g';
-      groupCounters[key]=(groupCounters[key]||0);
-      e.classList.add('reveal');
-      e.style.transitionDelay=((groupCounters[key]%6)*80)+'ms';
-      groupCounters[key]++;
-    });
+    t.forEach(function(e,i){e.classList.add('reveal');e.style.transitionDelay=((i%6)*80)+'ms';});
     var io=new IntersectionObserver(function(en){
       en.forEach(function(e){e.target.classList.toggle('is-in',e.isIntersecting);});
     },{rootMargin:'0px 0px -12% 0px',threshold:.1});
@@ -960,6 +982,12 @@ footer ul a:hover{color:var(--gold-pale)}
     new IntersectionObserver(function(en,ob){
       en.forEach(function(e){ if(e.isIntersecting){ vid.preload='auto'; ob.disconnect(); } });
     },{rootMargin:'600px 0px'}).observe(vid);
+    new IntersectionObserver(function(en){
+      en.forEach(function(e){
+        if(e.isIntersecting){var p=vid.play();if(p)p.catch(function(){});}
+        else{vid.pause();}
+      });
+    },{threshold:.2}).observe(vid);
   }
   if(vid&&snd){
     snd.addEventListener('click',function(){
@@ -974,6 +1002,22 @@ footer ul a:hover{color:var(--gold-pale)}
     // petunjuk hilang sendiri setelah 6 detik
     if(hint)setTimeout(function(){hint.classList.add('gone');},6000);
   }
+  /* PORTFOLIO FILTER */
+  var filterBtns=document.querySelectorAll('.pf-filter');
+  var filterCards=document.querySelectorAll('.case-mini[data-cat]');
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      filterBtns.forEach(function(b){b.classList.remove('is-active');});
+      btn.classList.add('is-active');
+      var f=btn.getAttribute('data-filter');
+      filterCards.forEach(function(card){
+        var cats=(card.getAttribute('data-cat')||'').split(',');
+        var show=(f==='all')||cats.indexOf(f)!==-1;
+        card.classList.toggle('pf-hidden',!show);
+      });
+    });
+  });
+
   var caseTriggers=document.querySelectorAll('.case-mini[data-modal]');
   var lastTrigger=null;
   function openCaseModal(id,trigger){
