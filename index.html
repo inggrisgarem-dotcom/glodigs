@@ -179,16 +179,16 @@ section .eyebrow{margin-bottom:.75em}
 .case-mini-thumb{display:block;aspect-ratio:16/8;border-radius:10px;overflow:hidden;margin:0 0 8px}
 .case-mini-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .case-hint{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:10px}
-.rotate-badge{position:absolute;top:0;right:clamp(20px,5vw,64px);width:78px;height:78px;animation:rbSpin 22s linear infinite;opacity:.85}
+.rotate-badge{position:absolute;top:0;right:clamp(20px,5vw,64px);width:110px;height:110px;animation:rbSpin 22s linear infinite;opacity:.9}
 .pf-filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
 .pf-filter{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;padding:7px 14px;border-radius:20px;border:1px solid var(--line-2);background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer;transition:all .2s ease}
 .pf-filter:hover{border-color:var(--line);color:var(--gold-pale)}
 .pf-filter.is-active{border-color:var(--gold);color:var(--gold);background:rgba(232,198,106,.08)}
 .case-mini.pf-hidden{display:none}
-@media(min-width:820px){.rotate-badge{width:96px;height:96px}}
+@media(min-width:820px){.rotate-badge{width:128px;height:128px}}
 @keyframes rbSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.rotate-badge{animation:none}}
-@media(max-width:560px){.rotate-badge{width:56px;height:56px;top:2px}}
+@media(max-width:560px){.rotate-badge{width:96px;height:96px;top:2px}}
 .case-modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center}
 .case-modal.is-open{display:flex}
 @media(min-width:760px){.case-modal{align-items:center}}
@@ -429,7 +429,7 @@ footer ul a:hover{color:var(--gold-pale)}
     <div class="wrap" style="position:relative">
       <svg class="rotate-badge" viewBox="0 0 120 120" aria-hidden="true">
         <defs><path id="rbCirc" d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"/></defs>
-        <text font-family="var(--mono)" font-size="8.2" letter-spacing="2.5" fill="var(--gold)">
+        <text font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="2.2" fill="var(--gold)">
           <textPath href="#rbCirc" startOffset="0%">SIX PROJECTS · REAL CODE · SIX PROJECTS · REAL CODE ·</textPath>
         </text>
         <circle cx="60" cy="60" r="3" fill="var(--gold)"/>
