@@ -89,6 +89,9 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
 .f-bottom span{color:var(--muted);font-size:.8rem}
 .social{display:flex;gap:12px}
 .social a{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold-pale);background:rgba(255,255,255,.03)}
+.reveal{opacity:0;transform:translateY(30px) scale(.96);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+.reveal.is-in{opacity:1;transform:translateY(0) scale(1)}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -128,88 +131,6 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
       <span class="eyebrow" id="isotype-eyebrow">About Me</span>
       <h1 id="isotype-heading" style="margin: 0; min-height: 2.5em;">Built on experience.<br>Delivered with transparency.</h1>
     </div>
-    <style>
-      .hero-cursor::after {
-        content: ''; display: inline-block; width: 4px; height: 1.1em;
-        background-color: var(--gold-pale, currentColor); vertical-align: text-bottom; margin-left: 4px;
-        animation: isoBlink 0.8s step-end infinite;
-      }
-    </style>
-    <script>
-      window.heroCompleted = false;
-      document.addEventListener("DOMContentLoaded", function() {
-        document.dispatchEvent(new Event("heroSequenceComplete"));
-        window.heroCompleted = true;
-        const heroSec = document.querySelector(".page-hero");
-        const eyebrowEl = document.getElementById("isotype-eyebrow");
-        const headingEl = document.getElementById("isotype-heading");
-
-        // FUNGSI DOM CLONING YANG AMAN TERHADAP LAYOUT
-        function setupSeoLayer(el) {
-          if(!el.dataset.rawHtml) {
-            el.dataset.rawHtml = el.innerHTML;
-            // seo-text disembunyikan dengan trik 1px (tidak mengganggu layout sama sekali)
-            // type-layer dibiarkan mengalir alami sebagai teks biasa
-            el.innerHTML = el.dataset.rawHtml;
-          }
-          return el.querySelector('.type-layer');
-        }
-
-        const eyebrowLayer = setupSeoLayer(eyebrowEl);
-        const headingLayer = setupSeoLayer(headingEl);
-        let isHeroRunning = false;
-
-        function typeWriterSmart(layer, rawHTML, speed, callback) {
-          let i = 0; let isTag = false; let textBuffer = "";
-          layer.classList.add("hero-cursor");
-          
-          function typing() {
-            if (layer.dataset.cancel === "true") { layer.classList.remove("hero-cursor"); return; }
-            if (i < rawHTML.length) {
-              if (rawHTML.charAt(i) === "<") isTag = true;
-              textBuffer += rawHTML.charAt(i);
-              layer.innerHTML = textBuffer;
-              i++;
-              if (rawHTML.charAt(i-1) === ">") isTag = false;
-              if (isTag) typing(); else setTimeout(typing, speed);
-            } else {
-              layer.classList.remove("hero-cursor");
-              if (callback) setTimeout(callback, 50);
-            }
-          }
-          typing();
-        }
-
-        const heroObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              if (!isHeroRunning) {
-                isHeroRunning = true;
-                eyebrowLayer.dataset.cancel = "false";
-                headingLayer.dataset.cancel = "false";
-                
-                setTimeout(() => {
-                  typeWriterSmart(eyebrowLayer, eyebrowEl.dataset.rawHtml, 40, function() {
-                    typeWriterSmart(headingLayer, headingEl.dataset.rawHtml, 30, function() {
-                      window.heroCompleted = true;
-                      document.dispatchEvent(new Event("heroSequenceComplete"));
-                    });
-                  });
-                }, 150);
-              }
-            } else {
-              isHeroRunning = false;
-              eyebrowLayer.dataset.cancel = "true";
-              headingLayer.dataset.cancel = "true";
-              eyebrowLayer.innerHTML = "";
-              headingLayer.innerHTML = "";
-            }
-          });
-        }, { root: null, rootMargin: "-5% 0px", threshold: 0.1 });
-
-        if(heroSec) heroObserver.observe(heroSec);
-      });
-    </script>
   </section>
 
   <section id="about">
@@ -260,179 +181,19 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
     </div>
   </div>
 </footer>
-<!-- [ISOLATED SCROLL ANIMATION ENGINE V6 - SEO SAFE] -->
-<style>
-  .pop-hidden { opacity: 0; transform: translateY(35px); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  .pop-visible { opacity: 1; transform: translateY(0); }
-  .tech-tags span, .regions span, .milestone { transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  .delay-0 { transition-delay: 0ms; }
-  .delay-1 { transition-delay: 200ms; }
-  .delay-2 { transition-delay: 400ms; }
-  .delay-3 { transition-delay: 600ms; }
-
-  .bio-cursor::after {
-    content: ''; display: inline-block; width: 4px; height: 1.1em;
-    background-color: var(--gold-pale, currentColor); vertical-align: text-bottom; margin-left: 4px;
-    animation: isoBlink 0.8s step-end infinite;
-  }
-</style>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const textElements = Array.from(document.querySelectorAll(".about-cap, .about-bio p"));
-    
-    // SETUP DOM CLONING UNTUK SEO
-    textElements.forEach(el => {
-      el.style.position = "relative";
-      el.dataset.rawHtml = el.innerHTML;
-      // Teks asli diamankan (opacity 0), animasi dimainkan di type-layer
-      el.innerHTML = `<span class="seo-text" style="opacity: 0;">${el.dataset.rawHtml}</span><span class="type-layer" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; pointer-events: none;"></span>`;
-    });
-
-    let isSequenceRunning = false;
-    let isHeroReady = window.heroCompleted || false; 
-
-    document.addEventListener("heroSequenceComplete", function() {
-      isHeroReady = true;
-      const aboutGrid = document.querySelector(".about-grid");
-      if (aboutGrid && aboutGrid.dataset.intersecting === "true") {
-         startBioSequence();
-      }
-    });
-
-    function typeWriterHTML(el, speed, onComplete) {
-      const rawHTML = el.dataset.rawHtml;
-      const typeLayer = el.querySelector('.type-layer');
-      typeLayer.innerHTML = "";
-      typeLayer.classList.add("bio-cursor");
-      let i = 0; let isTag = false; let textBuffer = "";
-
-      function typing() {
-        if (el.dataset.cancel === "true") { typeLayer.classList.remove("bio-cursor"); return; }
-        if (i < rawHTML.length) {
-          if (rawHTML.charAt(i) === "<") isTag = true;
-          textBuffer += rawHTML.charAt(i);
-          typeLayer.innerHTML = textBuffer;
-          i++;
-          if (rawHTML.charAt(i-1) === ">") isTag = false;
-          if (isTag) typing(); else setTimeout(typing, speed);
-        } else {
-          typeLayer.classList.remove("bio-cursor");
-          if (onComplete) setTimeout(onComplete, 150); 
-        }
-      }
-      typing();
+    var t = document.querySelectorAll(".page-hero .eyebrow, .page-hero h1, .about-cap, .about-bio p, .about-photo, .regions, .tech-tags, .milestone");
+    if (!('IntersectionObserver' in window)) {
+      t.forEach(function(e){ e.classList.add('reveal','is-in'); });
+    } else {
+      t.forEach(function(e,i){ e.classList.add('reveal'); e.style.transitionDelay = ((i%6)*80)+'ms'; });
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ en.target.classList.toggle('is-in', en.isIntersecting); });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+      t.forEach(function(e){ io.observe(e); });
     }
-
-    function playSequence(index) {
-      if (index >= textElements.length) return;
-      const el = textElements[index];
-      if (el.dataset.cancel === "true") return;
-      typeWriterHTML(el, 25, () => playSequence(index + 1));
-    }
-
-    function startBioSequence() {
-       if (!isSequenceRunning && isHeroReady) {
-         isSequenceRunning = true;
-         textElements.forEach(el => el.dataset.cancel = "false");
-         playSequence(0);
-       }
-    }
-
-    function resetSequence() {
-      isSequenceRunning = false;
-      textElements.forEach(el => {
-        el.dataset.cancel = "true";
-        const typeLayer = el.querySelector('.type-layer');
-        if(typeLayer) typeLayer.innerHTML = "";
-      });
-    }
-
-    const aboutGrid = document.querySelector(".about-grid");
-    const bioObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          aboutGrid.dataset.intersecting = "true";
-          if (isHeroReady) startBioSequence(); 
-        } else {
-          aboutGrid.dataset.intersecting = "false";
-          resetSequence(); 
-        }
-      });
-    }, { root: null, rootMargin: "-10% 0px", threshold: 0.1 });
-
-    if(aboutGrid) bioObserver.observe(aboutGrid);
-
-    const boxObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("pop-visible");
-          entry.target.classList.remove("pop-hidden");
-        } else {
-          entry.target.classList.remove("pop-visible");
-          entry.target.classList.add("pop-hidden");
-        }
-      });
-    }, { root: null, rootMargin: "0px", threshold: 0.1 });
-
-    const boxElements = document.querySelectorAll(".milestone, .tech-tags span, .regions span");
-    boxElements.forEach((box, index) => {
-      box.classList.add("pop-hidden", "delay-" + (index % 4));
-      boxObserver.observe(box);
-    });
   });
-</script>
-<!-- [/ISOLATED SCROLL ANIMATION ENGINE V6 - SEO SAFE] -->
-
-
-
-
-<script>
-(function(){
-  var btn=document.getElementById('navToggle'),menu=document.getElementById('navMenu'),closeBtn=document.getElementById('navClose');
-  function setMenu(open){
-    menu.classList.toggle('is-open',open);
-    if(closeBtn)closeBtn.classList.toggle('show',open);
-    document.body.style.overflow=open?'hidden':'';
-    btn.setAttribute('aria-expanded',open?'true':'false');
-  }
-  btn.addEventListener('click',function(){setMenu(!menu.classList.contains('is-open'));});
-  if(closeBtn)closeBtn.addEventListener('click',function(){setMenu(false);});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false);});
-  var wrap=document.querySelector('.particles');
-  if(wrap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    var COUNT=10, parts=[];
-    for(var i=0;i<COUNT;i++){
-      var el=document.createElement('span');
-      el.className='particle';
-      var size=(16+Math.random()*30).toFixed(1);
-      el.style.width=size+'px'; el.style.height=size+'px';
-      el.style.left=(Math.random()*100).toFixed(1)+'%';
-      el.style.opacity=(0.25+Math.random()*0.35).toFixed(2);
-      wrap.appendChild(el);
-      parts.push({el:el,y:Math.random()*window.innerHeight,
-        speed:3+Math.random()*5,amp:8+Math.random()*14,phase:Math.random()*Math.PI*2});
-    }
-    var boost=0,lastY=window.scrollY,lastT=0;
-    window.addEventListener('scroll',function(){
-      var dy=Math.abs(window.scrollY-lastY); lastY=window.scrollY;
-      boost=Math.min(boost+dy*0.6,140);
-    },{passive:true});
-    function tick(ts){
-      if(!lastT)lastT=ts;
-      var dt=Math.min((ts-lastT)/1000,.05); lastT=ts;
-      boost*=Math.pow(0.9,dt*60);
-      var mul=1+boost/45, h=window.innerHeight;
-      parts.forEach(function(p){
-        p.y-=p.speed*mul*dt;
-        if(p.y<-10)p.y=h+10;
-        var wob=Math.sin(ts/1000+p.phase)*p.amp;
-        p.el.style.transform='translate('+wob.toFixed(1)+'px,'+p.y.toFixed(1)+'px)';
-      });
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-})();
 </script>
 </body>
 </html>
