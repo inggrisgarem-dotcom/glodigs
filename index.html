@@ -960,12 +960,6 @@ footer ul a:hover{color:var(--gold-pale)}
     new IntersectionObserver(function(en,ob){
       en.forEach(function(e){ if(e.isIntersecting){ vid.preload='auto'; ob.disconnect(); } });
     },{rootMargin:'600px 0px'}).observe(vid);
-    new IntersectionObserver(function(en){
-      en.forEach(function(e){
-        if(e.isIntersecting){var p=vid.play();if(p)p.catch(function(){});}
-        else{vid.pause();}
-      });
-    },{threshold:.2}).observe(vid);
   }
   if(vid&&snd){
     snd.addEventListener('click',function(){
