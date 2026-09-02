@@ -148,7 +148,7 @@ footer{background:rgba(13,11,18,.6);backdrop-filter:var(--glass);border-top:1px 
             el.dataset.rawHtml = el.innerHTML;
             // seo-text disembunyikan dengan trik 1px (tidak mengganggu layout sama sekali)
             // type-layer dibiarkan mengalir alami sebagai teks biasa
-            el.innerHTML = `<span class="seo-text" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">${el.dataset.rawHtml}</span><span class="type-layer" aria-hidden="true"></span>`;
+            el.innerHTML = el.dataset.rawHtml;
           }
           return el.querySelector('.type-layer');
         }
