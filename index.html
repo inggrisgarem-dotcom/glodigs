@@ -685,37 +685,11 @@ footer ul a:hover{color:var(--gold-pale)}
       <p style="color:var(--muted);max-width:62ch">Concept designs showing layout, hierarchy and interface style across desktop and mobile. These are studio explorations rather than delivered client projects — figures shown inside them are illustrative.</p>
       <div class="sc-video glass bracket">
         <span class="sc-badge"><i></i> Concept Reel</span>
-        <!-- Arsitektur Mutasi WebP (Bypass Absolut Keamanan OS) -->
-        <style>
-          /* Alpha Masking: Memudarkan tepi gambar agar melebur dengan background web */
-          #scVideo-container { position: relative; width: 100%; height: 100%; pointer-events: none; background: transparent; }
-          #scVideo-container img { 
-            width: 100%; height: 100%; object-fit: cover;
-            -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, rgba(0,0,0,0) 100%);
-            mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 18%, rgba(0,0,0,1) 82%, rgba(0,0,0,0) 100%);
-          }
-        </style>
-        <div id="scVideo-container">
-          <!-- Dibaca oleh mesin OS murni sebagai gambar biasa yang tidak berbahaya -->
-          <img src="assets/glodigs-reel.webp" alt="Glodigs Concept Reel" decoding="async" fetchpriority="high">
-        </div>
-        <script>
-          /* Algoritma pemusnah ikon speaker tamplat yang membingungkan */
-          document.addEventListener("DOMContentLoaded", function() {
-            try {
-              var container = document.getElementById("scVideo-container");
-              var parentSec = container.closest('section') || container.parentElement.parentElement;
-              if (parentSec) {
-                var uiElements = parentSec.querySelectorAll('button, a, .icon, [class*="speaker"], [class*="audio"], [class*="mute"]');
-                uiElements.forEach(function(el) {
-                  if(el.innerHTML.includes('svg') || el.tagName === 'BUTTON' || el.className.includes('audio')) {
-                    el.style.display = 'none';
-                  }
-                });
-              }
-            } catch(e) {}
-          });
-        </script>
+        <video id="scVideo" autoplay muted loop playsinline preload="metadata" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel">
+          <source src="assets/showcase.mp4" type="video/mp4">
+        </video>
+        <span class="sc-hint" id="scHint">Tap for sound</span>
+        <button class="sc-sound" id="scSound" aria-label="Turn sound on" aria-pressed="false">🔇</button>
       </div>
       <div class="showcase-grid">
         <figure class="sc-cell glass tappable" style="margin:0"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span><img loading="lazy" alt="Website designs that deliver results" src="assets/showcase-designs.jpg"><figcaption>Concept · Business Site</figcaption></figure>
@@ -888,7 +862,15 @@ footer ul a:hover{color:var(--gold-pale)}
   if(!('IntersectionObserver' in window)){
     t.forEach(function(e){e.classList.add('is-in');});
   }else{
-    t.forEach(function(e,i){e.classList.add('reveal');e.style.transitionDelay=((i%6)*80)+'ms';});
+    var groupCounters={};
+    t.forEach(function(e){
+      var g=e.closest('section')||e;
+      var key=g.id||'g';
+      groupCounters[key]=(groupCounters[key]||0);
+      e.classList.add('reveal');
+      e.style.transitionDelay=((groupCounters[key]%6)*80)+'ms';
+      groupCounters[key]++;
+    });
     var io=new IntersectionObserver(function(en){
       en.forEach(function(e){e.target.classList.toggle('is-in',e.isIntersecting);});
     },{rootMargin:'0px 0px -12% 0px',threshold:.1});
