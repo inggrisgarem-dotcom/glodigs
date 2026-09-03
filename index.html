@@ -209,7 +209,7 @@ section .eyebrow{margin-bottom:.75em}
 body.modal-open{overflow:hidden}
 .sc-video{margin-top:42px;overflow:hidden;position:relative;border-radius:16px;aspect-ratio:16/9;background:#0d0b12}
 .sc-video video{width:100%;height:100%;object-fit:cover;display:block}
-.sc-badge{position:absolute;top:8px;left:8px;z-index:3;font-family:var(--mono);font-size:.36rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-pale);background:rgba(8,7,12,.32);backdrop-filter:blur(6px);border:1px solid var(--line);padding:3px 6px;border-radius:10px;display:flex;align-items:center;gap:3px}
+.sc-badge{position:absolute;top:12px;left:12px;z-index:3;display:flex;align-items:center}
 .sc-badge i{width:3px;height:3px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(232,198,106,.7);animation:pulse 2.4s ease-out infinite;font-style:normal}
 .sc-sound{position:absolute;bottom:14px;right:14px;z-index:4;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:rgba(8,7,12,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--gold-pale);font-size:.6rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s ease;padding:0}
 .sc-sound:hover{border-color:var(--gold);color:var(--gold);transform:scale(1.08)}
@@ -722,7 +722,7 @@ footer ul a:hover{color:var(--gold-pale)}
       <h2>The visual direction I work in.</h2>
       <p style="color:var(--muted);max-width:62ch">Concept designs showing layout, hierarchy and interface style across desktop and mobile. These are studio explorations rather than delivered client projects — figures shown inside them are illustrative.</p>
       <div class="sc-video glass bracket">
-        <span class="sc-badge"><i></i> Concept Reel</span>
+        <span class="sc-badge"><i></i></span>
         <video id="scVideo" autoplay muted loop playsinline preload="auto" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel">
           <source src="assets/showcase.mp4" type="video/mp4">
         </video>
@@ -988,7 +988,18 @@ footer ul a:hover{color:var(--gold-pale)}
       hint=document.getElementById('scHint');
   if(vid&&'IntersectionObserver' in window){
     new IntersectionObserver(function(en,ob){
-      en.forEach(function(e){ if(e.isIntersecting){ vid.preload='auto'; var p=vid.play();if(p)p.catch(function(){}); ob.disconnect(); } });
+      en.forEach(function(e){
+        if(e.isIntersecting){
+          ob.disconnect();
+          fetch('assets/showcase.mp4').then(function(r){return r.blob();}).then(function(blob){
+            vid.src=URL.createObjectURL(blob);
+            vid.load();
+            var p=vid.play(); if(p)p.catch(function(){});
+          }).catch(function(){
+            var p=vid.play(); if(p)p.catch(function(){});
+          });
+        }
+      });
     },{rootMargin:'600px 0px'}).observe(vid);
   }
   if(vid&&snd){
