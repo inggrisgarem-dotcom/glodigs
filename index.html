@@ -179,7 +179,7 @@ section .eyebrow{margin-bottom:.75em}
 .case-mini-thumb{display:block;aspect-ratio:16/8;border-radius:10px;overflow:hidden;margin:0 0 8px}
 .case-mini-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .case-hint{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:10px}
-.rotate-badge{position:absolute;top:200px;right:clamp(20px,5vw,64px);width:110px;height:110px;animation:rbSpin 22s linear infinite;opacity:.9;z-index:2}
+.rotate-badge{position:absolute;top:100%;margin-top:-40px;right:clamp(20px,5vw,64px);width:110px;height:110px;animation:rbSpin 22s linear infinite;opacity:.9;z-index:2}
 .pf-filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
 .pf-filter{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;padding:7px 14px;border-radius:20px;border:1px solid var(--line-2);background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer;transition:all .2s ease}
 .pf-filter:hover{border-color:var(--line);color:var(--gold-pale)}
@@ -188,7 +188,7 @@ section .eyebrow{margin-bottom:.75em}
 @media(min-width:820px){.rotate-badge{width:128px;height:128px}}
 @keyframes rbSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.rotate-badge{animation:none}}
-@media(max-width:560px){.rotate-badge{width:112px;height:112px;top:200px}}
+@media(max-width:560px){.rotate-badge{width:112px;height:112px}}
 .case-modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center}
 .case-modal.is-open{display:flex}
 @media(min-width:760px){.case-modal{align-items:center}}
@@ -204,8 +204,8 @@ section .eyebrow{margin-bottom:.75em}
 body.modal-open{overflow:hidden}
 .sc-video{margin-top:42px;overflow:hidden;position:relative;border-radius:16px;aspect-ratio:16/9;background:#0d0b12}
 .sc-video video{width:100%;height:100%;object-fit:cover;display:block}
-.sc-badge{position:absolute;top:10px;left:10px;z-index:3;font-family:var(--mono);font-size:.44rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);background:rgba(8,7,12,.38);backdrop-filter:blur(8px);border:1px solid var(--line);padding:4px 8px;border-radius:14px;display:flex;align-items:center;gap:5px}
-.sc-badge i{width:4px;height:4px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(232,198,106,.7);animation:pulse 2.4s ease-out infinite;font-style:normal}
+.sc-badge{position:absolute;top:8px;left:8px;z-index:3;font-family:var(--mono);font-size:.36rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gold-pale);background:rgba(8,7,12,.32);backdrop-filter:blur(6px);border:1px solid var(--line);padding:3px 6px;border-radius:10px;display:flex;align-items:center;gap:3px}
+.sc-badge i{width:3px;height:3px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(232,198,106,.7);animation:pulse 2.4s ease-out infinite;font-style:normal}
 .sc-sound{position:absolute;bottom:14px;right:14px;z-index:4;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:rgba(8,7,12,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--gold-pale);font-size:.6rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s ease;padding:0}
 .sc-sound:hover{border-color:var(--gold);color:var(--gold);transform:scale(1.08)}
 .sc-sound.on{background:rgba(232,198,106,.22);color:var(--gold);border-color:var(--gold)}
@@ -427,18 +427,20 @@ footer ul a:hover{color:var(--gold-pale)}
 
   <section id="portfolio">
     <div class="wrap" style="position:relative">
-      <svg class="rotate-badge" viewBox="0 0 120 120" aria-hidden="true">
-        <defs><path id="rbCirc" d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"/></defs>
-        <text font-family="var(--mono)" font-size="12.5" font-weight="700" letter-spacing="1.8" fill="var(--gold)">
-          <textPath href="#rbCirc" startOffset="0%" textLength="289" lengthAdjust="spacingAndGlyphs">SIX PROJECTS · REAL CODE · SIX PROJECTS · REAL CODE ·</textPath>
-        </text>
-        <circle cx="60" cy="60" r="3" fill="var(--gold)"/>
-      </svg>
-      <span class="eyebrow">My Work</span>
-      <h2>Built and shipped by me.</h2>
-      <p style="color:var(--muted);max-width:60ch">One project, documented end to end. Every
-      decision below is mine, every number is measured, and the whole build is open for
-      inspection — source code included.</p>
+      <div class="pf-head" style="position:relative">
+        <svg class="rotate-badge" viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="rbCirc" d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"/></defs>
+          <text font-family="var(--mono)" font-size="12.5" font-weight="700" fill="var(--gold)">
+            <textPath href="#rbCirc" startOffset="0%" textLength="289" lengthAdjust="spacingAndGlyphs">SIX PROJECTS · REAL CODE · SIX PROJECTS · REAL CODE ·</textPath>
+          </text>
+          <circle cx="60" cy="60" r="3" fill="var(--gold)"/>
+        </svg>
+        <span class="eyebrow">My Work</span>
+        <h2>Built and shipped by me.</h2>
+        <p style="color:var(--muted);max-width:60ch">One project, documented end to end. Every
+        decision below is mine, every number is measured, and the whole build is open for
+        inspection — source code included.</p>
+      </div>
 
       <div class="pf-filters" role="tablist" aria-label="Filter portfolio by category">
         <button class="pf-filter is-active" type="button" data-filter="all">All</button>
@@ -979,8 +981,14 @@ footer ul a:hover{color:var(--gold-pale)}
       hint=document.getElementById('scHint');
   if(vid&&'IntersectionObserver' in window){
     new IntersectionObserver(function(en,ob){
-      en.forEach(function(e){ if(e.isIntersecting){ vid.preload='auto'; var p=vid.play();if(p)p.catch(function(){}); ob.disconnect(); } });
+      en.forEach(function(e){ if(e.isIntersecting){ vid.preload='auto'; ob.disconnect(); } });
     },{rootMargin:'600px 0px'}).observe(vid);
+    new IntersectionObserver(function(en){
+      en.forEach(function(e){
+        if(e.isIntersecting){var p=vid.play();if(p)p.catch(function(){});}
+        else{vid.pause();}
+      });
+    },{threshold:.15}).observe(vid);
   }
   if(vid&&snd){
     snd.addEventListener('click',function(){
