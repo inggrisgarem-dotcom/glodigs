@@ -885,6 +885,7 @@ footer ul a:hover{color:var(--gold-pale)}
           e.preventDefault();
           var hh=hdr?hdr.offsetHeight:73;
           var y=target.getBoundingClientRect().top+window.scrollY-hh-4;
+          if(id==='#portfolio'&&window.innerWidth<820){ y+=130; }
           setMenu(false);
           fastScrollTo(Math.max(0,y),380);
         } else {
