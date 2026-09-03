@@ -4,6 +4,8 @@
     <style>* { -webkit-tap-highlight-color: transparent !important; -webkit-touch-callout: none !important; -webkit-user-select: none !important; user-select: none !important; outline: none !important; }</style>
     <style>* { -webkit-tap-highlight-color: transparent !important; -webkit-touch-callout: none !important; } ::selection { background: transparent !important; } ::-moz-selection { background: transparent !important; }</style>
     <style>* { -webkit-tap-highlight-color: transparent !important; }</style>
+    <style>a,a *{ -webkit-touch-callout: default !important; -webkit-user-select: auto !important; user-select: auto !important; }</style>
+    <style>html,body{touch-action:manipulation}</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About — Glodigs | Global Digital Growth Studio</title>
@@ -242,5 +244,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 </script>
+<script>document.addEventListener("contextmenu",function(e){e.preventDefault();},false);</script>
 </body>
 </html>
