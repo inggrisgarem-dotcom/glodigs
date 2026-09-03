@@ -83,6 +83,14 @@ nav#navMenu.is-open{display:flex}
 #navClose{position:fixed;top:22px;right:24px;z-index:71;background:none;border:0;color:var(--gold-pale);cursor:pointer;width:52px;height:52px;padding:0;display:none;align-items:center;justify-content:center}
 #navClose.show{display:flex}
 nav#navMenu a{padding:15px 0;font-size:1.5rem;font-family:var(--serif);text-transform:none;letter-spacing:.02em;font-weight:600;color:var(--gold-pale);position:relative;transition:color .15s}
+.nav-item-expand{width:100%;display:flex;flex-direction:column;align-items:center}
+.nav-row-toggle{display:flex;align-items:center;justify-content:center;gap:6px}
+.nav-row-toggle a{padding:15px 0}
+.nav-expand-btn{background:none;border:0;color:var(--gold-pale);cursor:pointer;padding:10px;display:flex;align-items:center;justify-content:center;transition:transform .25s ease}
+.nav-expand-btn[aria-expanded="true"]{transform:rotate(180deg)}
+.nav-sub{display:flex;flex-direction:column;align-items:center;overflow:hidden;max-height:0;transition:max-height .3s ease}
+.nav-sub.is-open{max-height:140px}
+nav#navMenu .nav-sub a{font-size:1.02rem;padding:9px 0;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.07em}
 nav#navMenu a::after{content:"";position:absolute;left:50%;bottom:4px;width:0;height:1px;background:var(--gold);transition:width .2s ease;transform:translateX(-50%)}
 nav#navMenu a:active{color:var(--gold)}
 nav#navMenu a:active::after{width:50%}
@@ -345,7 +353,18 @@ footer ul a:hover{color:var(--gold-pale)}
       <a href="#top">Home</a>
       <a href="about.html">About</a>
       <a href="#services">Service</a>
-      <a href="#portfolio">Portfolio</a>
+      <div class="nav-item-expand">
+        <div class="nav-row-toggle">
+          <a href="#portfolio">Portfolio</a>
+          <button type="button" class="nav-expand-btn" id="navPortfolioToggle" aria-expanded="false" aria-controls="navPortfolioSub" aria-label="More portfolio options">
+            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3,5 8,11 13,5"/></svg>
+          </button>
+        </div>
+        <div class="nav-sub" id="navPortfolioSub">
+          <a href="#portfolio">Portfolio</a>
+          <a href="about.html#milestones">My Journey</a>
+        </div>
+      </div>
       <a href="#why">Why Me</a>
       <a href="#blog">Article</a>
       <a href="#contact">Contact</a>
@@ -1080,6 +1099,15 @@ footer ul a:hover{color:var(--gold-pale)}
     faqBtn.addEventListener('click',function(){
       answerBox.hidden=false;
       answerBox.textContent='4 steps, no surprises: define the scope → design & development → review & revisions → you pay after you’re satisfied.';
+    });
+  }
+  var pfToggle=document.getElementById('navPortfolioToggle'),
+      pfSub=document.getElementById('navPortfolioSub');
+  if(pfToggle&&pfSub){
+    pfToggle.addEventListener('click',function(){
+      var open=pfToggle.getAttribute('aria-expanded')==='true';
+      pfToggle.setAttribute('aria-expanded',open?'false':'true');
+      pfSub.classList.toggle('is-open',!open);
     });
   }
   var jktEl=document.getElementById('jktClock');
