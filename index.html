@@ -986,14 +986,8 @@ footer ul a:hover{color:var(--gold-pale)}
       hint=document.getElementById('scHint');
   if(vid&&'IntersectionObserver' in window){
     new IntersectionObserver(function(en,ob){
-      en.forEach(function(e){ if(e.isIntersecting){ vid.preload='auto'; ob.disconnect(); } });
+      en.forEach(function(e){ if(e.isIntersecting){ vid.preload='auto'; var p=vid.play();if(p)p.catch(function(){}); ob.disconnect(); } });
     },{rootMargin:'600px 0px'}).observe(vid);
-    new IntersectionObserver(function(en){
-      en.forEach(function(e){
-        if(e.isIntersecting){var p=vid.play();if(p)p.catch(function(){});}
-        else{vid.pause();}
-      });
-    },{threshold:.15}).observe(vid);
   }
   if(vid&&snd){
     snd.addEventListener('click',function(){
