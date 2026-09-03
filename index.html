@@ -204,12 +204,12 @@ section .eyebrow{margin-bottom:.75em}
 body.modal-open{overflow:hidden}
 .sc-video{margin-top:42px;overflow:hidden;position:relative;border-radius:16px;aspect-ratio:16/9;background:#0d0b12}
 .sc-video video{width:100%;height:100%;object-fit:cover;display:block}
-.sc-badge{position:absolute;top:14px;left:14px;z-index:3;font-family:var(--mono);font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);background:rgba(8,7,12,.6);backdrop-filter:blur(10px);border:1px solid var(--line);padding:5px 10px;border-radius:16px;display:flex;align-items:center;gap:6px}
-.sc-badge i{width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(232,198,106,.7);animation:pulse 2.4s ease-out infinite;font-style:normal}
-.sc-sound{position:absolute;bottom:14px;right:14px;z-index:4;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:rgba(8,7,12,.62);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--gold-pale);font-size:.72rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s ease;padding:0}
+.sc-badge{position:absolute;top:10px;left:10px;z-index:3;font-family:var(--mono);font-size:.44rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);background:rgba(8,7,12,.38);backdrop-filter:blur(8px);border:1px solid var(--line);padding:4px 8px;border-radius:14px;display:flex;align-items:center;gap:5px}
+.sc-badge i{width:4px;height:4px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(232,198,106,.7);animation:pulse 2.4s ease-out infinite;font-style:normal}
+.sc-sound{position:absolute;bottom:14px;right:14px;z-index:4;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:rgba(8,7,12,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--gold-pale);font-size:.6rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s ease;padding:0}
 .sc-sound:hover{border-color:var(--gold);color:var(--gold);transform:scale(1.08)}
-.sc-sound.on{background:linear-gradient(180deg,var(--gold-pale),var(--gold));color:#231803;border-color:transparent}
-.sc-hint{position:absolute;bottom:26px;right:72px;z-index:4;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-pale);background:rgba(8,7,12,.62);backdrop-filter:blur(10px);border:1px solid var(--line);padding:7px 12px;border-radius:18px;white-space:nowrap;transition:opacity .4s ease}
+.sc-sound.on{background:rgba(232,198,106,.22);color:var(--gold);border-color:var(--gold)}
+.sc-hint{position:absolute;bottom:22px;right:60px;z-index:4;font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-pale);background:rgba(8,7,12,.5);backdrop-filter:blur(10px);border:1px solid var(--line);padding:6px 10px;border-radius:16px;white-space:nowrap;transition:opacity .4s ease}
 .sc-hint.gone{opacity:0;pointer-events:none}
 @media(max-width:520px){.sc-hint{display:none}}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,198,106,.6)}70%{box-shadow:0 0 0 11px rgba(232,198,106,0)}100%{box-shadow:0 0 0 0 rgba(232,198,106,0)}}
@@ -430,7 +430,7 @@ footer ul a:hover{color:var(--gold-pale)}
       <svg class="rotate-badge" viewBox="0 0 120 120" aria-hidden="true">
         <defs><path id="rbCirc" d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"/></defs>
         <text font-family="var(--mono)" font-size="12.5" font-weight="700" letter-spacing="1.8" fill="var(--gold)">
-          <textPath href="#rbCirc" startOffset="0%">SIX PROJECTS · REAL CODE · SIX PROJECTS · REAL CODE ·</textPath>
+          <textPath href="#rbCirc" startOffset="0%" textLength="289" lengthAdjust="spacingAndGlyphs">SIX PROJECTS · REAL CODE · SIX PROJECTS · REAL CODE ·</textPath>
         </text>
         <circle cx="60" cy="60" r="3" fill="var(--gold)"/>
       </svg>
@@ -714,7 +714,7 @@ footer ul a:hover{color:var(--gold-pale)}
       <p style="color:var(--muted);max-width:62ch">Concept designs showing layout, hierarchy and interface style across desktop and mobile. These are studio explorations rather than delivered client projects — figures shown inside them are illustrative.</p>
       <div class="sc-video glass bracket">
         <span class="sc-badge"><i></i> Concept Reel</span>
-        <video id="scVideo" autoplay muted loop playsinline preload="metadata" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel">
+        <video id="scVideo" autoplay muted loop playsinline preload="auto" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel">
           <source src="assets/showcase.mp4" type="video/mp4">
         </video>
         <span class="sc-hint" id="scHint">Tap for sound</span>
@@ -979,14 +979,8 @@ footer ul a:hover{color:var(--gold-pale)}
       hint=document.getElementById('scHint');
   if(vid&&'IntersectionObserver' in window){
     new IntersectionObserver(function(en,ob){
-      en.forEach(function(e){ if(e.isIntersecting){ vid.preload='auto'; ob.disconnect(); } });
+      en.forEach(function(e){ if(e.isIntersecting){ vid.preload='auto'; var p=vid.play();if(p)p.catch(function(){}); ob.disconnect(); } });
     },{rootMargin:'600px 0px'}).observe(vid);
-    new IntersectionObserver(function(en){
-      en.forEach(function(e){
-        if(e.isIntersecting){var p=vid.play();if(p)p.catch(function(){});}
-        else{vid.pause();}
-      });
-    },{threshold:.2}).observe(vid);
   }
   if(vid&&snd){
     snd.addEventListener('click',function(){
