@@ -188,7 +188,7 @@ section .eyebrow{margin-bottom:.75em}
 @media(min-width:820px){.rotate-badge{width:128px;height:128px}}
 @keyframes rbSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.rotate-badge{animation:none}}
-@media(max-width:560px){.rotate-badge{width:96px;height:96px;top:2px}}
+@media(max-width:560px){.rotate-badge{width:112px;height:112px;top:200px}}
 .case-modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center}
 .case-modal.is-open{display:flex}
 @media(min-width:760px){.case-modal{align-items:center}}
@@ -429,7 +429,7 @@ footer ul a:hover{color:var(--gold-pale)}
     <div class="wrap" style="position:relative">
       <svg class="rotate-badge" viewBox="0 0 120 120" aria-hidden="true">
         <defs><path id="rbCirc" d="M 60,60 m -46,0 a 46,46 0 1,1 92,0 a 46,46 0 1,1 -92,0"/></defs>
-        <text font-family="var(--mono)" font-size="10.5" font-weight="700" letter-spacing="2.2" fill="var(--gold)">
+        <text font-family="var(--mono)" font-size="12.5" font-weight="700" letter-spacing="1.8" fill="var(--gold)">
           <textPath href="#rbCirc" startOffset="0%">SIX PROJECTS · REAL CODE · SIX PROJECTS · REAL CODE ·</textPath>
         </text>
         <circle cx="60" cy="60" r="3" fill="var(--gold)"/>
@@ -715,8 +715,7 @@ footer ul a:hover{color:var(--gold-pale)}
       <div class="sc-video glass bracket">
         <span class="sc-badge"><i></i> Concept Reel</span>
         <video id="scVideo" autoplay muted loop playsinline preload="metadata" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel">
-          <source src="assets/glodigs-reel.mp4" type="video/mp4">
-          <source src="assets/Glodigs%20concept%20reel.webm" type="video/webm">
+          <source src="assets/showcase.mp4" type="video/mp4">
         </video>
         <span class="sc-hint" id="scHint">Tap for sound</span>
         <button class="sc-sound" id="scSound" aria-label="Turn sound on" aria-pressed="false">🔇</button>
