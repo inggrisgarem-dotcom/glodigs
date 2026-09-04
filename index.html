@@ -235,6 +235,10 @@ body.modal-open{overflow:hidden}
 .hero-music{position:absolute;top:0;right:0;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:rgba(8,7,12,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--gold-pale);font-size:.9rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s ease;z-index:5}
 .hero-music:hover{border-color:var(--gold);color:var(--gold);transform:scale(1.08)}
 .hero-music.on{background:rgba(232,198,106,.22);color:var(--gold);border-color:var(--gold)}
+.hero-music-icon{display:inline-block}
+.hero-music.on .hero-music-icon{animation:heroMusicSpin 2.8s linear infinite}
+@keyframes heroMusicSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.hero-music.on .hero-music-icon{animation:none}}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,198,106,.6)}70%{box-shadow:0 0 0 11px rgba(232,198,106,0)}100%{box-shadow:0 0 0 0 rgba(232,198,106,0)}}
 @keyframes pulse-green{0%{box-shadow:0 0 0 0 rgba(45,212,140,.65)}70%{box-shadow:0 0 0 9px rgba(45,212,140,0)}100%{box-shadow:0 0 0 0 rgba(45,212,140,0)}}
 @keyframes blink-green{0%,100%{opacity:1}50%{opacity:.3}}
@@ -386,7 +390,7 @@ footer ul a:hover{color:var(--gold-pale)}
 
   <section class="hero">
     <div class="wrap hero-stack">
-      <button type="button" class="hero-music" id="heroMusicBtn" aria-label="Play background music" aria-pressed="false">🔇</button>
+      <button type="button" class="hero-music" id="heroMusicBtn" aria-label="Play background music" aria-pressed="false"><span class="hero-music-icon">🔇</span></button>
       <div class="hero-copy">
         <span class="jkt-clock" id="jktClock"></span>
         <span class="eyebrow hero-status">Available For Project</span>
@@ -1016,30 +1020,30 @@ footer ul a:hover{color:var(--gold-pale)}
       cards.forEach(function(o){o.classList.remove('lit');o.classList.remove('dimmed');});
     }
   });
-  var musicBtn=document.getElementById('heroMusicBtn'),musicAudio=null,musicBlobUrl=null,musicLoading=false;
+  var musicBtn=document.getElementById('heroMusicBtn'),musicIcon=musicBtn?musicBtn.querySelector('.hero-music-icon'):null,musicAudio=null,musicBlobUrl=null,musicLoading=false;
   if(musicBtn){
     musicBtn.addEventListener('click',function(){
       if(musicAudio){
         if(musicAudio.paused){
           var p=musicAudio.play();if(p)p.catch(function(){});
-          musicBtn.classList.add('on');musicBtn.textContent='🎵';musicBtn.setAttribute('aria-pressed','true');musicBtn.setAttribute('aria-label','Pause background music');
+          musicBtn.classList.add('on');musicIcon.textContent='🎵';musicBtn.setAttribute('aria-pressed','true');musicBtn.setAttribute('aria-label','Pause background music');
         }else{
           musicAudio.pause();
-          musicBtn.classList.remove('on');musicBtn.textContent='🔇';musicBtn.setAttribute('aria-pressed','false');musicBtn.setAttribute('aria-label','Play background music');
+          musicBtn.classList.remove('on');musicIcon.textContent='🔇';musicBtn.setAttribute('aria-pressed','false');musicBtn.setAttribute('aria-label','Play background music');
         }
         return;
       }
       if(musicLoading)return;
       musicLoading=true;
-      musicBtn.textContent='…';
+      musicIcon.textContent='…';
       fetch('assets/glodigs-music.mp3').then(function(r){return r.blob();}).then(function(blob){
         musicBlobUrl=URL.createObjectURL(blob);
         musicAudio=new Audio(musicBlobUrl);
         musicAudio.loop=true;
         musicLoading=false;
         var p=musicAudio.play();if(p)p.catch(function(){});
-        musicBtn.classList.add('on');musicBtn.textContent='🎵';musicBtn.setAttribute('aria-pressed','true');musicBtn.setAttribute('aria-label','Pause background music');
-      }).catch(function(){musicLoading=false;musicBtn.textContent='🔇';});
+        musicBtn.classList.add('on');musicIcon.textContent='🎵';musicBtn.setAttribute('aria-pressed','true');musicBtn.setAttribute('aria-label','Pause background music');
+      }).catch(function(){musicLoading=false;musicIcon.textContent='🔇';});
     });
   }
   /* PORTFOLIO FILTER */
