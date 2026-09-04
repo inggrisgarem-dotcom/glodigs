@@ -225,7 +225,9 @@ section .eyebrow{margin-bottom:.75em}
 .contact-answer{margin-top:16px;padding:16px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid var(--line);color:var(--muted);font-size:.9rem;line-height:1.6}
 body.modal-open{overflow:hidden}
 .sc-video{margin-top:42px;overflow:hidden;position:relative;border-radius:16px;aspect-ratio:16/9;background:#0d0b12;max-width:480px;margin-left:auto;margin-right:auto;transform:translateZ(0);will-change:transform;contain:paint}
-.sc-video video{width:100%;height:100%;object-fit:cover;display:block}
+#scVideoA,#scVideoB{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+#scVideoA{z-index:2;opacity:1}
+#scVideoB{z-index:1;opacity:0}
 .sc-badge{position:absolute;top:12px;left:12px;z-index:3;display:flex;align-items:center}
 .sc-badge i{width:3px;height:3px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(232,198,106,.7);animation:pulse 2.4s ease-out infinite;font-style:normal}
 .sc-sound{position:absolute;bottom:14px;right:14px;z-index:4;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:rgba(8,7,12,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--gold-pale);font-size:.6rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .22s ease;padding:0}
@@ -751,7 +753,8 @@ footer ul a:hover{color:var(--gold-pale)}
       <p style="color:var(--muted);max-width:62ch">Concept designs showing layout, hierarchy and interface style across desktop and mobile. These are studio explorations rather than delivered client projects — figures shown inside them are illustrative.</p>
       <div class="sc-video glass bracket">
         <span class="sc-badge"><i></i></span>
-        <video id="scVideo" muted playsinline preload="none" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
+        <video id="scVideoA" muted playsinline preload="none" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
+        <video id="scVideoB" muted playsinline preload="none" aria-hidden="true"></video>
         <span class="sc-hint" id="scHint">Tap for sound</span>
         <button class="sc-sound" id="scSound" aria-label="Turn sound on" aria-pressed="false">🔇</button>
       </div>
@@ -1014,53 +1017,60 @@ footer ul a:hover{color:var(--gold-pale)}
       cards.forEach(function(o){o.classList.remove('lit');o.classList.remove('dimmed');});
     }
   });
-  var vid=document.getElementById('scVideo'),
+  var vidA=document.getElementById('scVideoA'),
+      vidB=document.getElementById('scVideoB'),
       snd=document.getElementById('scSound'),
-      hint=document.getElementById('scHint');
-  if(vid&&'IntersectionObserver' in window){
+      hint=document.getElementById('scHint'),
+      activeVid=vidA;
+  function startDualLoop(){
+    [vidA,vidB].forEach(function(v){
+      v.addEventListener('ended',function(){v.currentTime=0;var p=v.play();if(p)p.catch(function(){});});
+    });
+    function tick(){
+      var v=activeVid,other=(v===vidA)?vidB:vidA;
+      if(v.duration&&v.duration-v.currentTime<0.15){
+        other.currentTime=0;
+        var p=other.play();if(p)p.catch(function(){});
+        other.muted=v.muted; v.muted=true;
+        other.style.opacity='1';other.style.zIndex='2';
+        v.style.opacity='0';v.style.zIndex='1';
+        v.pause();
+        activeVid=other;
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  if(vidA&&vidB&&'IntersectionObserver' in window){
     new IntersectionObserver(function(en,ob){
       en.forEach(function(e){
         if(e.isIntersecting){
           ob.disconnect();
           fetch('assets/showcase.mp4').then(function(r){return r.blob();}).then(function(blob){
-            vid.src=URL.createObjectURL(blob);
-            vid.load();
-            vid.addEventListener('timeupdate',function(){
-              if(vid.duration&&vid.duration-vid.currentTime<0.2){vid.currentTime=0;}
-            });
-            vid.addEventListener('ended',function(){
-              vid.currentTime=0;var rp=vid.play();if(rp)rp.catch(function(){});
-            });
-            vid.addEventListener('pause',function(){
-              if(!document.hidden){
-                if(vid.ended||(vid.duration&&vid.duration-vid.currentTime<0.3)){vid.currentTime=0;}
-                var rp=vid.play();if(rp)rp.catch(function(){});
-              }
-            });
-            var p=vid.play(); if(p)p.catch(function(){});
+            vidA.src=URL.createObjectURL(blob);
+            vidB.src=URL.createObjectURL(blob);
+            vidA.load();vidB.load();
+            startDualLoop();
+            var p=vidA.play(); if(p)p.catch(function(){});
           }).catch(function(){
-            vid.src='assets/showcase.mp4';
-            vid.load();
-            vid.addEventListener('timeupdate',function(){
-              if(vid.duration&&vid.duration-vid.currentTime<0.2){vid.currentTime=0;}
-            });
-            vid.addEventListener('ended',function(){
-              vid.currentTime=0;var rp=vid.play();if(rp)rp.catch(function(){});
-            });
-            var p=vid.play(); if(p)p.catch(function(){});
+            vidA.loop=true;
+            vidA.src='assets/showcase.mp4';
+            vidA.load();
+            var p=vidA.play(); if(p)p.catch(function(){});
           });
         }
       });
-    },{rootMargin:'600px 0px'}).observe(vid);
+    },{rootMargin:'600px 0px'}).observe(vidA);
   }
-  if(vid&&snd){
+  if(vidA&&snd){
     snd.addEventListener('click',function(){
-      vid.muted=!vid.muted;
-      snd.textContent=vid.muted?'🔇':'🔊';
-      snd.classList.toggle('on',!vid.muted);
-      snd.setAttribute('aria-pressed',vid.muted?'false':'true');
-      snd.setAttribute('aria-label',vid.muted?'Turn sound on':'Turn sound off');
-      if(!vid.muted){var p=vid.play();if(p)p.catch(function(){});}
+      activeVid.muted=!activeVid.muted;
+      var m=activeVid.muted;
+      snd.textContent=m?'🔇':'🔊';
+      snd.classList.toggle('on',!m);
+      snd.setAttribute('aria-pressed',m?'false':'true');
+      snd.setAttribute('aria-label',m?'Turn sound on':'Turn sound off');
+      if(!m){var p=activeVid.play();if(p)p.catch(function(){});}
       if(hint)hint.classList.add('gone');
     });
     // petunjuk hilang sendiri setelah 6 detik
