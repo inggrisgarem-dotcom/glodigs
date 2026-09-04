@@ -214,6 +214,11 @@ section .eyebrow{margin-bottom:.75em}
 .case-hint{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:10px}
 .rotate-badge{position:absolute;top:0;right:0;width:104px;height:104px;animation:rbSpin 22s linear infinite;opacity:.9;z-index:2}
 .why-badge{position:absolute;top:-10px;right:0;width:104px;height:130px;opacity:.9;z-index:2;transform-origin:50% 18%;animation:whyBadgeSwing 3.2s ease-in-out infinite}
+.svc-badge{position:absolute;top:0;right:0;width:104px;height:104px;opacity:.9;z-index:2;animation:svcGearSpin 14s linear infinite}
+@keyframes svcGearSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@media(min-width:820px){.svc-badge{width:164px;height:164px}}
+@media(max-width:560px){.svc-badge{width:92px;height:92px}}
+@media(prefers-reduced-motion:reduce){.svc-badge{animation:none}}
 @keyframes whyBadgeSwing{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
 @media(prefers-reduced-motion:reduce){.why-badge{animation:none}}
 @media(min-width:820px){.why-badge{width:164px;height:205px;top:-14px}}
@@ -470,9 +475,15 @@ footer ul a:hover{color:var(--gold-pale)}
 
   <section id="services">
     <div class="wrap">
-      <span class="eyebrow">My Service</span>
-      <h2>What I build.</h2>
-      <p style="color:var(--muted);max-width:56ch">Six services that cover a business from first sketch to first page of Google. Take one, or take the whole path.</p>
+      <div class="pf-head" style="position:relative">
+        <svg class="svc-badge" viewBox="0 0 120 120" aria-hidden="true">
+          <path d="M 48.52,32.28 L 55.86,26.25 L 64.14,26.25 L 71.48,32.28 L 71.48,32.28 L 80.93,33.21 L 86.79,39.07 L 87.72,48.52 L 87.72,48.52 L 93.75,55.86 L 93.75,64.14 L 87.72,71.48 L 87.72,71.48 L 86.79,80.93 L 80.93,86.79 L 71.48,87.72 L 71.48,87.72 L 64.14,93.75 L 55.86,93.75 L 48.52,87.72 L 48.52,87.72 L 39.07,86.79 L 33.21,80.93 L 32.28,71.48 L 32.28,71.48 L 26.25,64.14 L 26.25,55.86 L 32.28,48.52 L 32.28,48.52 L 33.21,39.07 L 39.07,33.21 L 48.52,32.28 Z" fill="none" stroke="#c9cdd2" stroke-width="2.2" stroke-linejoin="miter"/>
+          <circle cx="60" cy="60" r="13" fill="none" stroke="#c9cdd2" stroke-width="2.2"/>
+        </svg>
+        <span class="eyebrow">My Service</span>
+        <h2>What I build.</h2>
+        <p style="color:var(--muted);max-width:56ch">Six services that cover a business from first sketch to first page of Google. Take one, or take the whole path.</p>
+      </div>
       <div class="svc-stack" id="svcStack" role="group" aria-label="Services, tap to browse">
         <button type="button" class="svc-card" style="--h:0" data-i="0"><span class="ic-bg">✎</span><div class="ic">✎</div><h3>UI/UX Design</h3><p>Interface and journey design grounded in how people actually read a page — so visitors find what they need and act on it.</p></button>
         <button type="button" class="svc-card" style="--h:60" data-i="1"><span class="ic-bg">&lt;/&gt;</span><div class="ic">&lt;/&gt;</div><h3>Web Development</h3><p>Custom-built websites, coded for speed and stability. Every layout decision traced back to a business reason.</p></button>
