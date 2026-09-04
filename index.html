@@ -213,6 +213,9 @@ section .eyebrow{margin-bottom:.75em}
 .case-mini-thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .case-hint{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:10px}
 .rotate-badge{position:absolute;top:0;right:0;width:104px;height:104px;animation:rbSpin 22s linear infinite;opacity:.9;z-index:2}
+.why-badge{position:absolute;top:0;right:0;width:88px;height:110px;opacity:.9;z-index:2}
+@media(min-width:820px){.why-badge{width:112px;height:140px}}
+@media(max-width:560px){.why-badge{width:76px;height:95px}}
 .pf-filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
 .pf-filter{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;padding:7px 14px;border-radius:20px;border:1px solid var(--line-2);background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer;transition:all .2s ease}
 .pf-filter:hover{border-color:var(--line);color:var(--gold-pale)}
@@ -743,10 +746,18 @@ footer ul a:hover{color:var(--gold-pale)}
 
   <section id="why">
     <div class="wrap">
-      <span class="eyebrow">Why Work With Me</span>
-      <h2>I carry the risk, not you.</h2>
-      <p style="color:var(--muted);max-width:60ch">I'm building this studio independently, and I'd
-      rather earn trust with terms than with claims. Here's what that means in practice.</p>
+      <div class="pf-head" style="position:relative">
+        <svg class="why-badge" viewBox="0 0 120 150" aria-hidden="true">
+          <path d="M 60.0,26.0 L 67.76,31.02 L 77.0,30.56 L 81.21,38.79 L 89.44,43.0 L 88.98,52.24 L 94.0,60.0 L 88.98,67.76 L 89.44,77.0 L 81.21,81.21 L 77.0,89.44 L 67.76,88.98 L 60.0,94.0 L 52.24,88.98 L 43.0,89.44 L 38.79,81.21 L 30.56,77.0 L 31.02,67.76 L 26.0,60.0 L 31.02,52.24 L 30.56,43.0 L 38.79,38.79 L 43.0,30.56 L 52.24,31.02 Z" fill="none" stroke="#c9cdd2" stroke-width="2.2" stroke-linejoin="round"/>
+          <circle cx="60" cy="60" r="21" fill="none" stroke="#c9cdd2" stroke-width="2.2"/>
+          <path d="M44,86 L44,138 L58,122 L58,86 Z" fill="none" stroke="#c9cdd2" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M62,86 L62,122 L76,138 L76,86 Z" fill="none" stroke="#c9cdd2" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+        <span class="eyebrow">Why Work With Me</span>
+        <h2>I carry the risk,<br>not you.</h2>
+        <p style="color:var(--muted);max-width:60ch">I'm building this studio independently, and I'd
+        rather earn trust with terms than with claims. Here's what that means in practice.</p>
+      </div>
       <div class="acc-list">
         <div class="t-card glass tappable acc-item"><span class="edge-v edge-l"></span><span class="edge-v edge-r"></span><button type="button" class="acc-head" aria-expanded="true" aria-controls="acc-panel-1"><div class="ic">◈</div><h3>You pay after approval</h3><span class="acc-chevron" aria-hidden="true">&#8964;</span></button><div class="acc-panel" id="acc-panel-1"><p class="t-quote">No deposit, no upfront fee. You see the finished website first. If it
           doesn't meet what we agreed, you don't pay — the risk sits with me, which is where a new
