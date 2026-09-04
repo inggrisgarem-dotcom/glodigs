@@ -1028,6 +1028,9 @@ footer ul a:hover{color:var(--gold-pale)}
             vid.addEventListener('timeupdate',function(){
               if(vid.duration&&vid.duration-vid.currentTime<0.12){vid.currentTime=0;}
             });
+            vid.addEventListener('pause',function(){
+              if(!document.hidden){var rp=vid.play();if(rp)rp.catch(function(){});}
+            });
             var p=vid.play(); if(p)p.catch(function(){});
           }).catch(function(){
             vid.src='assets/showcase.mp4';
