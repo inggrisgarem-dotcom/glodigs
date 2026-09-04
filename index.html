@@ -751,7 +751,7 @@ footer ul a:hover{color:var(--gold-pale)}
       <p style="color:var(--muted);max-width:62ch">Concept designs showing layout, hierarchy and interface style across desktop and mobile. These are studio explorations rather than delivered client projects — figures shown inside them are illustrative.</p>
       <div class="sc-video glass bracket">
         <span class="sc-badge"><i></i></span>
-        <video id="scVideo" muted loop playsinline preload="none" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
+        <video id="scVideo" muted playsinline preload="none" poster="assets/showcase-poster.jpg" aria-label="Glodigs studio showreel"></video>
         <span class="sc-hint" id="scHint">Tap for sound</span>
         <button class="sc-sound" id="scSound" aria-label="Turn sound on" aria-pressed="false">🔇</button>
       </div>
@@ -1025,6 +1025,9 @@ footer ul a:hover{color:var(--gold-pale)}
           fetch('assets/showcase.mp4').then(function(r){return r.blob();}).then(function(blob){
             vid.src=URL.createObjectURL(blob);
             vid.load();
+            vid.addEventListener('timeupdate',function(){
+              if(vid.duration&&vid.duration-vid.currentTime<0.12){vid.currentTime=0;}
+            });
             var p=vid.play(); if(p)p.catch(function(){});
           }).catch(function(){
             vid.src='assets/showcase.mp4';
