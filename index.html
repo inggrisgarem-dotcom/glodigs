@@ -88,9 +88,9 @@ nav#navMenu a{padding:15px 0;font-size:1.5rem;font-family:var(--serif);text-tran
 .nav-row-toggle a{padding:15px 0}
 .nav-expand-btn{background:none;border:0;color:var(--gold-pale);cursor:pointer;padding:10px;display:flex;align-items:center;justify-content:center;transition:transform .25s ease}
 .nav-expand-btn[aria-expanded="true"]{transform:rotate(180deg)}
-.nav-sub{display:flex;flex-direction:column;align-items:center;overflow:hidden;max-height:0;transition:max-height .3s ease}
+.nav-sub{display:flex;flex-direction:column;align-items:center;width:100%;overflow:hidden;max-height:0;transition:max-height .3s ease}
 .nav-sub.is-open{max-height:140px}
-nav#navMenu .nav-sub a{font-size:1.02rem;padding:9px 0;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.07em}
+nav#navMenu .nav-sub a{width:100%;text-align:center;font-size:1.02rem;padding:9px 0;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.07em}
 nav#navMenu a::after{content:"";position:absolute;left:50%;bottom:4px;width:0;height:1px;background:var(--gold);transition:width .2s ease;transform:translateX(-50%)}
 nav#navMenu a:active{color:var(--gold)}
 nav#navMenu a:active::after{width:50%}
