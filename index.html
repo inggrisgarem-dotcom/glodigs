@@ -85,6 +85,8 @@ nav#navMenu.is-open{display:flex}
 nav#navMenu a{padding:15px 0;font-size:1.5rem;font-family:var(--serif);text-transform:none;letter-spacing:.02em;font-weight:600;color:var(--gold-pale);position:relative;transition:color .15s}
 .nav-item-expand{width:100%;position:relative;display:flex;flex-direction:column;align-items:center}
 .nav-row-toggle{position:relative;display:inline-flex}
+.nav-portfolio-label{background:none;border:0;padding:15px 0;font-size:1.5rem;font-family:var(--serif);text-transform:none;letter-spacing:.02em;font-weight:600;color:var(--gold-pale);cursor:pointer}
+@media(min-width:960px){.nav-portfolio-label{font-size:2rem;padding:18px 0}}
 .nav-row-toggle a{padding:15px 0}
 .nav-expand-btn{position:absolute;left:100%;top:50%;transform:translateY(-50%);margin-left:4px;background:none;border:0;color:var(--gold-pale);cursor:pointer;padding:8px;display:flex;align-items:center;justify-content:center}
 .nav-expand-btn svg{transition:transform .25s ease}
@@ -357,7 +359,7 @@ footer ul a:hover{color:var(--gold-pale)}
       <a href="#services">Service</a>
       <div class="nav-item-expand">
         <div class="nav-row-toggle">
-          <a href="#portfolio">Portfolio</a>
+          <button type="button" class="nav-portfolio-label" id="navPortfolioLabel" aria-expanded="false" aria-controls="navPortfolioSub">Portfolio</button>
           <button type="button" class="nav-expand-btn" id="navPortfolioToggle" aria-expanded="false" aria-controls="navPortfolioSub" aria-label="More portfolio options">
             <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3,5 8,11 13,5"/></svg>
           </button>
@@ -887,8 +889,9 @@ footer ul a:hover{color:var(--gold-pale)}
       document.body.classList.toggle('modal-open',open);
       btn.setAttribute('aria-expanded',open?'true':'false');
       if(!open){
-        var pfT=document.getElementById('navPortfolioToggle'),pfS=document.getElementById('navPortfolioSub');
+        var pfT=document.getElementById('navPortfolioToggle'),pfL=document.getElementById('navPortfolioLabel'),pfS=document.getElementById('navPortfolioSub');
         if(pfT&&pfS){pfT.setAttribute('aria-expanded','false');pfS.classList.remove('is-open');}
+        if(pfL)pfL.setAttribute('aria-expanded','false');
       }
     }
     btn.addEventListener('click',function(){setMenu(!menu.classList.contains('is-open'));});
@@ -1108,13 +1111,17 @@ footer ul a:hover{color:var(--gold-pale)}
     });
   }
   var pfToggle=document.getElementById('navPortfolioToggle'),
+      pfLabel=document.getElementById('navPortfolioLabel'),
       pfSub=document.getElementById('navPortfolioSub');
+  function togglePfSub(){
+    var open=pfToggle.getAttribute('aria-expanded')==='true';
+    pfToggle.setAttribute('aria-expanded',open?'false':'true');
+    if(pfLabel)pfLabel.setAttribute('aria-expanded',open?'false':'true');
+    pfSub.classList.toggle('is-open',!open);
+  }
   if(pfToggle&&pfSub){
-    pfToggle.addEventListener('click',function(){
-      var open=pfToggle.getAttribute('aria-expanded')==='true';
-      pfToggle.setAttribute('aria-expanded',open?'false':'true');
-      pfSub.classList.toggle('is-open',!open);
-    });
+    pfToggle.addEventListener('click',togglePfSub);
+    if(pfLabel)pfLabel.addEventListener('click',togglePfSub);
   }
   var jktEl=document.getElementById('jktClock');
   if(jktEl){
