@@ -886,6 +886,10 @@ footer ul a:hover{color:var(--gold-pale)}
       if(closeBtn)closeBtn.classList.toggle('show',open);
       document.body.classList.toggle('modal-open',open);
       btn.setAttribute('aria-expanded',open?'true':'false');
+      if(!open){
+        var pfT=document.getElementById('navPortfolioToggle'),pfS=document.getElementById('navPortfolioSub');
+        if(pfT&&pfS){pfT.setAttribute('aria-expanded','false');pfS.classList.remove('is-open');}
+      }
     }
     btn.addEventListener('click',function(){setMenu(!menu.classList.contains('is-open'));});
     if(closeBtn)closeBtn.addEventListener('click',function(){setMenu(false);});
