@@ -1186,10 +1186,9 @@ footer ul a:hover{color:var(--gold-pale)}
       var listRect=list.getBoundingClientRect();
       var first=icons[0].getBoundingClientRect();
       var last=icons[icons.length-1].getBoundingClientRect();
-      var centerX=(first.left+first.right)/2 - listRect.left;
       var topY=(first.top+first.bottom)/2 - listRect.top;
       var bottomY=(last.top+last.bottom)/2 - listRect.top;
-      connector.style.left=(centerX-1.5)+'px';
+      connector.style.left='0px';
       connector.style.top=topY+'px';
       connector.style.height=Math.max(0,bottomY-topY)+'px';
     }
