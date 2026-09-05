@@ -214,10 +214,15 @@ section .eyebrow{margin-bottom:.75em}
 .case-hint{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:10px}
 .rotate-badge{position:absolute;top:0;right:0;width:104px;height:104px;animation:rbSpin 22s linear infinite;opacity:.9;z-index:2}
 .why-badge{position:absolute;top:-10px;right:0;width:104px;height:130px;opacity:.9;z-index:2;transform-origin:50% 18%;animation:whyBadgeSwing 3.2s ease-in-out infinite}
-.svc-badge{position:absolute;top:0;right:0;width:104px;height:104px;opacity:.9;z-index:2;animation:svcGearSpin 14s linear infinite}
+.svc-badge{position:absolute;top:-4px;right:0;width:90px;height:81px;opacity:.9;z-index:2}
+.svc-badge .g-big{transform-origin:46px 62px;animation:gearSpinCW 10s linear infinite}
+.svc-badge .g-med{transform-origin:92px 40px;animation:gearSpinCCW 6s linear infinite}
+.svc-badge .g-small{transform-origin:94px 82px;animation:gearSpinCW 4s linear infinite}
+@keyframes gearSpinCW{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes gearSpinCCW{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
 @keyframes svcGearSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@media(min-width:820px){.svc-badge{width:164px;height:164px}}
-@media(max-width:560px){.svc-badge{width:92px;height:92px}}
+@media(min-width:820px){.svc-badge{width:145px;height:131px}}
+@media(max-width:560px){.svc-badge{width:80px;height:72px}}
 @media(prefers-reduced-motion:reduce){.svc-badge{animation:none}}
 @keyframes whyBadgeSwing{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}
 @media(prefers-reduced-motion:reduce){.why-badge{animation:none}}
@@ -476,9 +481,10 @@ footer ul a:hover{color:var(--gold-pale)}
   <section id="services">
     <div class="wrap">
       <div class="pf-head" style="position:relative">
-        <svg class="svc-badge" viewBox="0 0 120 120" aria-hidden="true">
-          <path d="M 48.52,32.28 L 55.86,26.25 L 64.14,26.25 L 71.48,32.28 L 71.48,32.28 L 80.93,33.21 L 86.79,39.07 L 87.72,48.52 L 87.72,48.52 L 93.75,55.86 L 93.75,64.14 L 87.72,71.48 L 87.72,71.48 L 86.79,80.93 L 80.93,86.79 L 71.48,87.72 L 71.48,87.72 L 64.14,93.75 L 55.86,93.75 L 48.52,87.72 L 48.52,87.72 L 39.07,86.79 L 33.21,80.93 L 32.28,71.48 L 32.28,71.48 L 26.25,64.14 L 26.25,55.86 L 32.28,48.52 L 32.28,48.52 L 33.21,39.07 L 39.07,33.21 L 48.52,32.28 Z" fill="none" stroke="#c9cdd2" stroke-width="2.2" stroke-linejoin="miter"/>
-          <circle cx="60" cy="60" r="13" fill="none" stroke="#c9cdd2" stroke-width="2.2"/>
+        <svg class="svc-badge" viewBox="0 0 122 110" aria-hidden="true">
+          <g class="g-big"><path d="M 36.24,38.44 L 41.31,32.37 L 50.69,32.37 L 55.76,38.44 L 55.76,38.44 L 63.63,37.73 L 70.27,44.37 L 69.56,52.24 L 69.56,52.24 L 75.63,57.31 L 75.63,66.69 L 69.56,71.76 L 69.56,71.76 L 70.27,79.63 L 63.63,86.27 L 55.76,85.56 L 55.76,85.56 L 50.69,91.63 L 41.31,91.63 L 36.24,85.56 L 36.24,85.56 L 28.37,86.27 L 21.73,79.63 L 22.44,71.76 L 22.44,71.76 L 16.37,66.69 L 16.37,57.31 L 22.44,52.24 L 22.44,52.24 L 21.73,44.37 L 28.37,37.73 L 36.24,38.44 Z" fill="none" stroke="#c9cdd2" stroke-width="2.4" stroke-linejoin="round"/><circle cx="46" cy="62" r="10" fill="none" stroke="#c9cdd2" stroke-width="2.4"/></g>
+          <g class="g-med"><path d="M 84.41,24.23 L 88.35,19.32 L 95.65,19.32 L 99.59,24.23 L 99.59,24.23 L 105.9,24.25 L 110.44,29.96 L 109.06,36.11 L 109.06,36.11 L 112.97,41.05 L 111.35,48.16 L 105.68,50.91 L 105.68,50.91 L 104.26,57.05 L 97.69,60.22 L 92.0,57.5 L 92.0,57.5 L 86.31,60.22 L 79.74,57.05 L 78.32,50.91 L 78.32,50.91 L 72.65,48.16 L 71.03,41.05 L 74.94,36.11 L 74.94,36.11 L 73.56,29.96 L 78.1,24.25 L 84.41,24.23 Z" fill="none" stroke="#c9cdd2" stroke-width="2.4" stroke-linejoin="round"/><circle cx="92" cy="40" r="7" fill="none" stroke="#c9cdd2" stroke-width="2.4"/></g>
+          <g class="g-small"><path d="M 88.25,72.04 L 91.09,68.31 L 96.91,68.31 L 99.75,72.04 L 99.75,72.04 L 104.4,72.63 L 107.31,77.67 L 105.5,82.0 L 105.5,82.0 L 107.31,86.33 L 104.4,91.37 L 99.75,91.96 L 99.75,91.96 L 96.91,95.69 L 91.09,95.69 L 88.25,91.96 L 88.25,91.96 L 83.6,91.37 L 80.69,86.33 L 82.5,82.0 L 82.5,82.0 L 80.69,77.67 L 83.6,72.63 L 88.25,72.04 Z" fill="none" stroke="#c9cdd2" stroke-width="2.4" stroke-linejoin="round"/><circle cx="94" cy="82" r="4.5" fill="none" stroke="#c9cdd2" stroke-width="2.4"/></g>
         </svg>
         <span class="eyebrow">My Service</span>
         <h2>What I build.</h2>
