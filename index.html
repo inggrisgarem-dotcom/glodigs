@@ -137,7 +137,8 @@ nav#navMenu .nav-sub a:active::after,nav#navMenu .nav-sub a.nav-tapped::after{wi
 .process-list{position:relative;margin-top:46px;padding-left:28px;border-left:1px solid var(--line)}
 .step{position:relative;padding-bottom:38px}
 .step:last-child{padding-bottom:0}
-.step::before{content:attr(data-n);position:absolute;left:-44px;top:-2px;width:34px;height:34px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.8rem;color:var(--gold-pale);background:var(--ink);box-shadow:0 0 0 5px var(--ink)}
+.step-ic{position:absolute;left:-44px;top:-2px;width:34px;height:34px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold-pale);background:var(--ink);box-shadow:0 0 0 5px var(--ink)}
+.step-ic svg{width:16px;height:16px}
 .step h3{font-size:1.18rem;margin-bottom:.3em}
 .step p{color:var(--muted);max-width:56ch}
 .band{background:rgba(13,11,18,.55);backdrop-filter:var(--glass);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
@@ -463,10 +464,10 @@ footer ul a:hover{color:var(--gold-pale)}
       <h2>A risk-free way to build your website.</h2>
       <p style="color:var(--muted);max-width:56ch">I believe clients should pay for results, not promises. That's why I offer a transparent, four-step workflow — in this order, every time.</p>
       <div class="process-list">
-        <div class="step" data-n="1"><h3>Define the Scope</h3><p>We align on goals, features, structure, and timeline before development starts.</p></div>
-        <div class="step" data-n="2"><h3>Design &amp; Development</h3><p>Your website is built from scratch — clean code, deliberate structure, and design decisions made for your business, not a template.</p></div>
-        <div class="step" data-n="3"><h3>Review &amp; Revisions</h3><p>You review the full website. Revisions are handled clearly and efficiently.</p></div>
-        <div class="step" data-n="4"><h3>Pay When You're Satisfied</h3><p>No upfront risk. You only pay when the website is finished and meets your expectations.</p></div>
+        <div class="step" data-n="1"><span class="step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="13" y2="15"/></svg></span><h3>Define the Scope</h3><p>We align on goals, features, structure, and timeline before development starts.</p></div>
+        <div class="step" data-n="2"><span class="step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/><polyline points="8,8 6,10 8,12"/><polyline points="16,8 18,10 16,12"/></svg></span><h3>Design &amp; Development</h3><p>Your website is built from scratch — clean code, deliberate structure, and design decisions made for your business, not a template.</p></div>
+        <div class="step" data-n="3"><span class="step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span><h3>Review &amp; Revisions</h3><p>You review the full website. Revisions are handled clearly and efficiently.</p></div>
+        <div class="step" data-n="4"><span class="step-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="8,12.5 11,15.5 16,9"/></svg></span><h3>Pay When You're Satisfied</h3><p>No upfront risk. You only pay when the website is finished and meets your expectations.</p></div>
       </div>
     </div>
   </section>
