@@ -134,7 +134,10 @@ nav#navMenu .nav-sub a:active::after,nav#navMenu .nav-sub a.nav-tapped::after{wi
 .marquee-track{display:flex;align-items:center;padding:15px 0;white-space:nowrap;width:max-content;will-change:transform}
 .marquee-track span{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-pale);padding:0 15px}
 .marquee-track .dot{color:var(--gold-deep);padding:0 4px}
-.process-list{position:relative;margin-top:46px;padding-left:16px;border-left:1px solid rgba(212,175,55,.4)}
+.process-list{position:relative;margin-top:46px;padding-left:16px}
+.process-connector{position:absolute;width:3px;border-radius:2px;background:var(--gold);z-index:0;animation:connectorPulse 3.2s ease-in-out infinite}
+@keyframes connectorPulse{0%,100%{opacity:.35}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.process-connector{animation:none;opacity:.7}}
 .step{position:relative;display:flex;align-items:flex-start;gap:20px;padding:26px 0;border-bottom:1px solid var(--line-2)}
 .step:last-child{border-bottom:none}
 .step-body{flex:1;min-width:0}
@@ -1171,6 +1174,30 @@ footer ul a:hover{color:var(--gold-pale)}
     pfToggle.addEventListener('click',togglePfSub);
     if(pfLabel)pfLabel.addEventListener('click',togglePfSub);
   }
+  (function(){
+    var list=document.querySelector('.process-list');
+    if(!list) return;
+    var icons=[].slice.call(list.querySelectorAll('.step-ic'));
+    if(icons.length<2) return;
+    var connector=document.createElement('div');
+    connector.className='process-connector';
+    list.appendChild(connector);
+    function layoutConnector(){
+      var listRect=list.getBoundingClientRect();
+      var first=icons[0].getBoundingClientRect();
+      var last=icons[icons.length-1].getBoundingClientRect();
+      var centerX=(first.left+first.right)/2 - listRect.left;
+      var topY=(first.top+first.bottom)/2 - listRect.top;
+      var bottomY=(last.top+last.bottom)/2 - listRect.top;
+      connector.style.left=(centerX-1.5)+'px';
+      connector.style.top=topY+'px';
+      connector.style.height=Math.max(0,bottomY-topY)+'px';
+    }
+    layoutConnector();
+    window.addEventListener('resize',layoutConnector);
+    window.addEventListener('load',layoutConnector);
+    if('ResizeObserver' in window){ new ResizeObserver(layoutConnector).observe(list); }
+  })();
   var jktEl=document.getElementById('jktClock');
   if(jktEl){
     var jktFmt=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Jakarta',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
