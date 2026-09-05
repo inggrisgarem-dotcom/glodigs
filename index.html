@@ -143,8 +143,7 @@ nav#navMenu .nav-sub a:active::after,nav#navMenu .nav-sub a.nav-tapped::after{wi
 @keyframes coinSpin{0%{transform:rotateY(0deg)}100%{transform:rotateY(360deg)}}
 @media(prefers-reduced-motion:reduce){.step-ic{animation:none}}
 .step-ic svg{width:42px;height:42px;color:var(--gold)}
-@keyframes coinSpinRev{0%{transform:rotateY(0deg)}100%{transform:rotateY(-360deg)}}
-.process-list .step:nth-of-type(even) .step-ic{animation:coinSpinRev 4s linear infinite}
+.process-list .step:nth-of-type(even) .step-ic{animation:coinSpin 6.5s linear infinite}
 @media(max-width:400px){.step-ic{width:72px;height:72px}.step-ic svg{width:34px;height:34px}}
 .step h3{font-size:1.18rem;margin-bottom:.3em}
 .step p{color:var(--muted);max-width:56ch}
