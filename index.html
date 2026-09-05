@@ -1177,20 +1177,9 @@ footer ul a:hover{color:var(--gold-pale)}
         if(e.isIntersecting){
           ob.disconnect();
           fetch('assets/showcase.mp4').then(function(r){return r.blob();}).then(function(blob){
+            vid.loop=true;
             vid.src=URL.createObjectURL(blob);
             vid.load();
-            vid.addEventListener('timeupdate',function(){
-              if(vid.duration&&vid.duration-vid.currentTime<0.2){vid.currentTime=0;}
-            });
-            vid.addEventListener('ended',function(){
-              vid.currentTime=0;var rp=vid.play();if(rp)rp.catch(function(){});
-            });
-            vid.addEventListener('pause',function(){
-              if(!document.hidden){
-                if(vid.ended||(vid.duration&&vid.duration-vid.currentTime<0.3)){vid.currentTime=0;}
-                var rp=vid.play();if(rp)rp.catch(function(){});
-              }
-            });
             var p=vid.play(); if(p)p.catch(function(){});
           }).catch(function(){
             vid.loop=true;
